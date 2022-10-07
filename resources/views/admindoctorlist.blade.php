@@ -14,7 +14,6 @@
             filter: brightness(100%);
             filter: contrast(100%);
             filter: drop-shadow(1px 1px 1px gray);
-            align-items: center;
         }
         h1{
             text-align:center;
