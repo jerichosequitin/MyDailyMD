@@ -54,10 +54,7 @@
             filter: drop-shadow(1px 1px 1px gray);
             position:relative;
         }
-        .topnav {
-            background-image: linear-gradient(to right, white, rgb(180, 230, 255));
-            text-align: left;
-        }
+
     </style>
 </head>
 <body>
