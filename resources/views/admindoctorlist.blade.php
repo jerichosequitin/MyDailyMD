@@ -55,9 +55,7 @@
             position:relative;
         }
         .topnav {
-            position: relative;
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
-            overflow: hidden;
             text-align: left;
         }
     </style>
