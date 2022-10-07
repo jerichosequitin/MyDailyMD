@@ -27,6 +27,7 @@
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
             margin:0;
             padding:0;
+            text-align:center;
         }
         p{
             text-align: center;
