@@ -29,7 +29,6 @@
             text-align:center;
         }
         p{
-            text-align: center;
             font-size: medium;
         }
         table{
