@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>MyDailyMD - Subscription Plan</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="navbar.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Internal CSS -->
+    <style>
+        a.back{
+            text-align: left;
+            display: block;
+            text-decoration: none;
+        }
+        .container-fluid{
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            background-image: url("./img/bg.png");
+            image-rendering:crisp-edges;
+        }
+        img{
+            filter: brightness(100%);
+            filter: contrast(100%);
+            filter: drop-shadow(1px 1px 1px gray);
+            align-items: center;
+        }
+        h1{
+            text-align:center;
+            font-size:x-large;
+        }
+        h2{
+            font-size:medium;
+            text-align:center;
+        }
+
+        body{
+            background-image: linear-gradient(to right, white, rgb(180, 230, 255));
+            margin:0;
+            padding:0;
+            background-size:contain;
+            background-position-y: top;
+            background-position-x: right;
+            background-repeat:round;
+        }
+        p{
+            text-align: center;
+            font-size: medium;
+        }
+        table{
+            width: 100%;
+            text-align: center;
+            table-layout:auto;
+        }
+        td{
+            border-collapse: collapse;
+            color:black;
+        }
+        th{
+            color:white;
+        }
+        .logo{
+            float:center;
+            text-align: center;
+            display:block;
+            margin: 0 auto;
+            float: center;
+            filter: brightness(100%);
+            filter: contrast(100%);
+            filter: drop-shadow(1px 1px 1px gray);
+            position:relative;
+        }
+    </style>
+</head>
+<body>
+<div class="topnav" id="myTopnav">
+    <a href="/">Home</a>
+    <a href="aboutus">About Us</a>
+    <a href="subscriptionplan" class="active">Subscription</a>
+    <a href="contactus">Contact Us</a>
+</div>
+
+<img src="./img/logo.png" width="180" height="180" class="logo">
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr style="background-color:#18A0FB;">
+            <th>Features</th>
+            <th>Patient</th>
+            <th>Medical Professional</th>
+            <th colspan='2'></th>
+        </tr>
+        <tr style="background-color:#DEF1FD">
+            <td>Manage Health Records</td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <th colspan='2'></th>
+        </tr>
+        <tr style="background-color:#FFFFFF">
+            <td>E-Prescription</td>
+            <td><img src="./img/redcross.png" width="20" padding="10px" height="20" float:left></td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <th colspan='2'></th>
+        </tr>
+        <tr style="background-color:#DEF1FD">
+            <td>Appointments</td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <th colspan='2'></th>
+        </tr>
+        <tr style="background-color:#FFFFFF">
+            <td>Demographics</td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <th colspan='2'></th>
+        </tr>
+        <tr style="background-color:#DEF1FD">
+            <td>Medical History</td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <th colspan='2'></th>
+        </tr>
+        <tr style="background-color:#FFFFFF">
+            <td>Medications</td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <th colspan='2'></th>
+        </tr>
+        <tr style="background-color:#DEF1FD">
+            <td>Allergies</td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <th colspan='2'></th>
+        </tr>
+        <tr style="background-color:#FFFFFF">
+            <td>Progress Notes</td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <th colspan='2'></th>
+        </tr>
+        <tr style="background-color:#DEF1FD">
+            <td>Immunizations</td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
+            <th colspan='2'></th>
+        </tr>
+        <tr style="background-color:#FFFFFF">
+            <td><b>PRICE</b></td>
+            <td><b>Php 750.00/One-time Payment</b></td>
+            <td><b>Php 1,500.00/Monthly</b></td>
+            <th colspan='2'></th>
+        </tr>
+        </thead>
+</body>
+</html>
