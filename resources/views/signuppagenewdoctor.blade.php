@@ -157,6 +157,7 @@
         <i class="fa fa-bars"></i>
     </a>
 </div>
+
 <img src="./img/logo.png" width="180" height="180" class="logo">
 
 <br><br>

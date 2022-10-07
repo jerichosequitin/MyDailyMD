@@ -83,8 +83,6 @@
     <a href="contactus">Contact Us</a>
 </div>
 
-<img src="./img/logo.png" width="180" height="180" class="logo">
-
 <div class="container">
     <br>
 
