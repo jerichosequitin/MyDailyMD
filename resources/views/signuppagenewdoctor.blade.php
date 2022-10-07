@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="navbar.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Internal CSS -->
@@ -21,10 +21,9 @@
             margin-bottom: 15px;
             width: calc(100% / 2 - 50px);
         }
-        form .input-box span.details{
-            display: block;
-            font-weight: 500;
-            margin-bottom: 5px;
+        select[name="specialization"]{
+            margin-bottom: 15px;
+            width:85%
         }
         .user-details .input-box input{
             height: 40px;
@@ -43,12 +42,6 @@
         .column {
             float: left;
             width: 50%;
-        }
-        .row{
-            content: "";
-            display: table;
-            clear: both;
-            text-align: center;
         }
         img{
             filter: brightness(100%);
@@ -78,24 +71,6 @@
             text-align: center;
             font-size: medium;
 
-        }
-        .button1{
-            background-color: none;
-            border: none;
-            color: black;
-            padding: 10px 10px;
-            text-align: center;
-            display: inline-block;
-            font-size: 16px;
-        }
-        .signUpBtn{
-            background-color: none;
-            border: none;
-            color: black;
-            padding: 10px 10px;
-            text-align: center;
-            display: inline-block;
-            font-size: 16px;
         }
         /* Style inputs with type="text", select elements and textareas */
         input[type=text], select, textarea {
@@ -136,7 +111,6 @@
             text-align: center;
         }
         .logo{
-            float:center;
             text-align: center;
             filter: brightness(100%);
             filter: contrast(100%);
@@ -152,10 +126,7 @@
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <a href="mainsignuppage"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
-    </a>
+    <a href="mainsignuppage"><i class="fa fa-arrow-left"></i> Return</a>
 </div>
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
@@ -167,37 +138,46 @@
             <h3><b><u>Personal Information</u></b></h3>
             <div class="user-details">
                 <div class="input-box">
-                    <input type="text" class="form-control" placeholder="Last Name" name="Last Name" required>
+                    <input type="text" class="form-control" placeholder="First Name" name="doctorFirstName" required>
                 </div>
                 <div class="input-box">
-                    <input type="text" class="form-control" placeholder="First Name" name="First Name" required>
+                    <input type="text" class="form-control" placeholder="Last Name" name="doctorLastName" required>
                 </div>
                 <div class="input-box">
-                    <input type="text" class="form-control" placeholder="M.I." name="M.I." required>
+                    <input type="text" class="form-control" placeholder="Middle Initial" name="middleInitial" required>
                 </div>
                 <div class="input-box">
-                    <input type="text" class="form-control" placeholder="Email Address" name="Email Address" required>
+                    <select name="specialization" class="form-control" required>
+                        <option selected disabled hidden>Specialization</option>
+                        <option value="Immunology">Immunology</option>
+                        <option value="Anesthesiology">Anesthesiology</option>
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="Ophthalmology">Ophthalmology</option>
+                        <option value="Pathology">Pathology</option>
+                        <option value="Diagnostic radiology">Pediatrics</option>
+                    </select>
                 </div>
                 <div class="input-box">
-                    <input type="text" class="form-control" placeholder="Phone Number" name="Phone Number" required>
+                    <input type="text" class="form-control" placeholder="Phone Number" name="phoneNumber" required>
                 </div>
                 <div class="input-box">
-                    <input type="text" class="form-control" placeholder="Specialization" name="Specialization" required>
+                    <input type="text" class="form-control" placeholder="Email Address" name="emailAddress" required>
                 </div>
                 <div class="input-box">
-                    <input type="text" class="form-control" placeholder="Phone Number" name="Phone Number" required>
+                    <input type="text" class="form-control" placeholder="Password" name="password" required>
                 </div>
                 <div class="input-box">
-                    <input type="text" class="form-control" placeholder="License Type" name="License Type" required>
+                    <input type="text" class="form-control" placeholder="Confirm Password" name="confirmPassword" required>
                 </div>
                 <div class="input-box">
-                    <input type="text" class="form-control" placeholder="Expiry Date" name="Expiry Date" required>
+                    <input type="text" class="form-control" placeholder="License Type" name="licenseType" required>
                 </div>
                 <div class="input-box">
-                    <input type="text" class="form-control" placeholder="Password" name="Password" required>
+                    <input type="date" class="form-control" placeholder="License Expiry Date" name="licenseExpiryDate" required>
                 </div>
                 <div class="input-box">
-                    <input type="text" class="form-control" placeholder="Confirm Password" name="Confirm Password" required>
+                    <input type="text" class="form-control" placeholder="PRC Number" name="prcNumber" required>
                 </div>
             </div>
         </div>
@@ -205,20 +185,25 @@
         <br>
         <br>
         <br>
+
         <div class="column">
             <h4> Upload PRC ID Image</h4>
             <br>
             <div class="container">
-                <input type="file" id="myFile" name="filename">
+                <input type="file" name="prcImage" accept="image/*">
             </div>
             <br>
-            <p><i>We use this information to confirm the identities of our registered
-                    doctors.<br> We do not share this information with anyone.</i></p>
+            <p>
+                <i>We use this information to confirm the identities of our registered
+                        doctors.
+                    <br>
+                    We do not share this information with anyone.
+                </i>
+            </p>
             <br>
-            <button class="btn btn-primary">Sign Up</button>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
         </div>
-</div>
-</div>
+    </form>
 </div>
 </body>
 </html>
