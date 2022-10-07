@@ -47,7 +47,6 @@
             text-align: center;
             display:block;
             margin: 0 auto;
-            float: center;
             filter: brightness(100%);
             filter: contrast(100%);
             filter: drop-shadow(1px 1px 1px gray);
