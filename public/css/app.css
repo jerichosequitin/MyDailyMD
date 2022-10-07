@@ -1,0 +1,60 @@
+.logo{
+    text-align: center;
+    display:block;
+    margin: 0 auto;
+    filter: brightness(100%);
+    filter: contrast(100%);
+    filter: drop-shadow(1px 1px 1px gray);
+    position:relative;
+}
+.avatar{
+    text-align: center;
+    display:block;
+    margin: 0 auto;
+    filter: brightness(100%);
+    filter: contrast(100%);
+    filter: drop-shadow(1px 1px 1px gray);
+    position:relative;
+}
+.signInBtn{
+    text-align: center;
+    display:block;
+    margin: 0 auto;
+    filter: brightness(100%);
+    filter: contrast(100%);
+    filter: drop-shadow(1px 1px 1px gray);
+    position:relative;
+}
+.p{
+    text-align: center;
+    display:block;
+    margin: 0 auto;
+    filter: brightness(100%);
+    filter: contrast(100%);
+    filter: drop-shadow(1px 1px 1px gray);
+    position:relative;
+}
+.body{
+    margin:0;
+    padding:0;
+    color: #3480eb;
+}
+.topnav{
+    text-align: center;
+    display:block;
+    margin: 0 auto;
+    filter: brightness(100%);
+    filter: contrast(100%);
+    position:relative;
+}
+.b{
+    text-align: center;
+}
+.container1{
+    text-align: center;
+    display:block;
+    margin: 0 auto;
+    filter: brightness(100%);
+    filter: contrast(100%);
+    position:relative;
+}

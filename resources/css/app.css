@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#app{
+    @apply font-bold bg-blue-400;
+}
+
