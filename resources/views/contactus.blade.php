@@ -20,11 +20,6 @@
             text-align: left;
             display: block;
         }
-        .container-fluid{
-            background-size: 100% 100%;
-            background-attachment: fixed;
-            background-image: url("./img/bg01.png");
-        }
         img{
             filter: brightness(100%);
             filter: contrast(100%);
@@ -110,11 +105,9 @@
             width: 40%;
         }
         .logo{
-            float:center;
             text-align: center;
             display:block;
             margin: 0 auto;
-            float: center;
             filter: brightness(100%);
             filter: contrast(100%);
             filter: drop-shadow(1px 1px 1px gray);
