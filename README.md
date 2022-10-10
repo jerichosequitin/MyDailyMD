@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
@@ -62,3 +63,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+=======
+# MyDailyMD
+MyDailyMD is a web-based application made by three students from De La Salle-College of Saint Benilde (DLS-CSB) that focuses on catering the needs of Medical Professionals when it comes to organizing their Health Records.         As we are slowly embracing the world of technology, the need to protect and provide the needs of Medical Professionals must be prioritized.         And from that, MyDailyMD was made with love. MyDailyMD offers different features such as: Create, Retrieve, Update and Delete of Health Records, SMS Appointment Reminders, Doctor Dashboard, and Patient Dashboard.
+>>>>>>> origin
