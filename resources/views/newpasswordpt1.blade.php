@@ -38,7 +38,7 @@
         }
         h2{
             font-size:medium;
-            text-align:center;
+            text-align:justify;
         }
         h3{
             font-size:20px;
@@ -105,7 +105,7 @@
         .container{
             border-radius: 5px;
             padding: 20px;
-            width: 40%;
+            width: 25%;
             height: 15%;
             background-color:#DEF1FD;
             border:1px solid black;
@@ -133,12 +133,10 @@
 </div>
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
-
-<br><br>
-
 <div class="container">
     <h1>New Password</h1>
-    <h2>Please create a new password that you don’t <br> use on any other site</h2>
+    <h2>Please create a new password that you do not use on any other site.</h2>
+    <br>
     <input type="password" id="newPass" name="newPass" placeholder="New Password">
     <input type="password" id="confirmNewPass" name="confirmNewPass" placeholder="Confirm New Password">
     <a href="newpasswordpt2">

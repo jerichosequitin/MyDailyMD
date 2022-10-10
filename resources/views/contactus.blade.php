@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="navbar.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
 
     <!-- Internal CSS -->
     <style>
@@ -122,27 +123,32 @@
     </style>
 </head>
 <body>
+<img src="./img/logo.png" width="180" height="180" class="logo">
 <div class="topnav" id="myTopnav">
     <a href="/">Home</a>
     <a href="aboutus">About Us</a>
     <a href="subscriptionplan">Subscription</a>
     <a href="contactus" class="active">Contact Us</a>
-</div>
-
-<img src="./img/logo.png" width="180" height="180" class="logo">
+</div><br>
 <h1>How can we help you?</h1>
 <h2>Our team is happy to answer your questions. <br>Fill out the form and we’ll be in touch as soon as possible!</h2>
 <div class="container">
     <div class="form-group">
-        <input type="text" id="fullName" name="fullname" placeholder="Full Name">
+        <form action="index" method ="post" id="contactForm">
+        <input type="text" id="fullName" name="fullname" placeholder="Last Name, First Name" required>
     </div>
-    <input type="text" id="emailAdd" name="emailAdd" placeholder="Email Address">
+    <input type="text" id="emailAdd" name="emailAdd" placeholder="Email Address" required>
 
-    <textarea id="message" name="message" placeholder="Message" style="height:150px"></textarea>
+    <textarea id="message" name="message" placeholder="Message" style="height:150px" required maxlength="150"></textarea>
     <center>
-        <button class="btn btn-primary" name="sendBtn" class="sendBtn">Send</button>
+        <button class="btn btn-primary" name="sendBtn" class="sendBtn" href="index">Send</button>
     </center>
+    </form>
 </div>
 </div>
 </body>
 </html>
+
+
+
+

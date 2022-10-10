@@ -38,7 +38,7 @@
         }
         h2{
             font-size:medium;
-            text-align:center;
+            text-align:justify;
         }
         h3{
             font-size:20px;
@@ -104,7 +104,7 @@
         .container{
             border-radius: 5px;
             padding: 20px;
-            width: 40%;
+            width: 25%;
             height: 15%;
             background-color:#DEF1FD;
             border:1px solid black;
@@ -130,28 +130,25 @@
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <a href="MainLoginPage.php"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
+    <a href="forgotpassword"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
     </a>
 </div>
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
 
-<br><br>
-
 <div class="container">
     <h1>Code Verification</h1>
-    <h2>To verify if it’s really you, kindly enter the code we’ve sent to your email to successfully reset your password.</h2>
+    <h2>To verify if it is really you, kindly enter the code that we have sent to your email to successfully reset your password.</h2>
 
     <br>
 
     <label for="code">Enter Code</label>
-    <input type="text" id="code" name="code" placeholder="XXXX-XXXX">
+    <input type="text" id="code" name="code">
 
-    <br><br>
+    <br>
 
-    <a href="NewPasswordPt1.php">
+    <a href="newpasswordpt1">
         <button class="btn btn-primary" name="sendBtn" class="sendBtn">Send</button>
     </a>
 </div>

@@ -31,7 +31,7 @@
             align-items: center;
         }
         h1{
-            text-align:center;
+            text-align:justify;
             font-size:large;
         }
         h2{
@@ -104,8 +104,8 @@
         .container{
             border-radius: 15px;
             padding: 20px;
-            width: 20%;
-            height: 20%;
+            width: 25%;
+            height: 15%;
             background-color:#DEF1FD;
             border:1px solid black;
         }
@@ -132,7 +132,6 @@
 <div class="topnav" id="myTopnav">
     <a href="newpasswordpt1"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
     </a>
 </div>
 <img src="./img/logo.png" width="180" height="180" class="logo">
@@ -140,10 +139,8 @@
 <br><br>
 
 <div class="container">
-    <h1>Password was changed successfully. Kindly sign in with your new password.</h1>
-
+    <h1>Your password has been changed. Kindly sign in with your new password.</h1>
     <br>
-
     <a href="/">
         <button class="btn btn-primary" name="signInBtn" class="signInBtn">Sign In</button>
     </a>

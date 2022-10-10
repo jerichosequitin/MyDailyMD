@@ -103,11 +103,11 @@
         }
 
         /* Add a background color and some padding around the form */
-        .container {
-            border-radius: 15px;
+        .container{
+            border-radius: 5px;
             padding: 20px;
-            width: 30%;
-            height: 20%;
+            width: 25%;
+            height: 15%;
             background-color:#DEF1FD;
             border:1px solid black;
         }
@@ -121,9 +121,6 @@
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <a href="signuppagenewdoctor"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
     </a>
 </div>
 <img src="./img/logo.png" width="180" height="180" class="logo">
@@ -131,20 +128,16 @@
 <br><br>
 
 <div class="container">
-    <form action="doctorclinicinformationyes" require>
+    <form action="doctorclinicinformationyes" method ="post" required>
         <h1><u>Clinic Information</u></h1>
-
-        <br>
-
         <h2> Is your clinic in a hospital? </h2>
-        <input type="radio" id="yes" name="answer" value="yes"> Yes</input>
-
         <br>
+        <input type="radio" name="answer"
+        <?php if (isset($answer) && $answer=="yes") echo "checked";?> value="yes">Yes</input><br>
 
-        <input type="radio" id= "no" name="answer" value="no"> No</input>
-
-        <br><br>
-
+        <input type="radio" name="answer"
+               <?php if (isset($answer) && $answer=="no") echo "checked";?> value="no">No</input>
+<br><br>
         <input type="button" class="btn btn-primary" value="Next">
 
     </form>

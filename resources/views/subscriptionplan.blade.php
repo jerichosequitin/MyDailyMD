@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="navbar.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Internal CSS -->
@@ -73,18 +74,25 @@
             filter: drop-shadow(1px 1px 1px gray);
             position:relative;
         }
+        .table{
+            max-width: 800px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        td{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+<img src="./img/logo.png" width="180" height="180" class="logo">
 <div class="topnav" id="myTopnav">
     <a href="/">Home</a>
     <a href="aboutus">About Us</a>
     <a href="subscriptionplan" class="active">Subscription</a>
-    <a href="contactus">Contact Us</a>
+    <a href="email">Contact Us</a>
 </div>
-
-<img src="./img/logo.png" width="180" height="180" class="logo">
-
+<br>
 <div class="container">
     <table class="table">
         <thead>
@@ -95,63 +103,57 @@
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#DEF1FD">
-            <td>Manage Health Records</td>
+            <td style= text-align:justify>Create, retrieve, update health records</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#FFFFFF">
-            <td>E-Prescription</td>
+            <td style= text-align:justify>Create an e-prescription</td>
             <td><img src="./img/redcross.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#DEF1FD">
-            <td>Appointments</td>
-            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
-            <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
-            <th colspan='2'></th>
-        </tr>
-        <tr style="background-color:#FFFFFF">
-            <td>Demographics</td>
+            <td style= text-align:justify>Schedule an appointment</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#DEF1FD">
-            <td>Medical History</td>
+            <td style= text-align:justify>Access to medical history record</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#FFFFFF">
-            <td>Medications</td>
+            <td style= text-align:justify>Access to medications record</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#DEF1FD">
-            <td>Allergies</td>
+            <td style= text-align:justify>Access to allergies record</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#FFFFFF">
-            <td>Progress Notes</td>
+            <td style= text-align:justify>Take track of progress notes</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#DEF1FD">
-            <td>Immunizations</td>
+            <td style= text-align:justify>Access to immunization record</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#FFFFFF">
-            <td><b>PRICE</b></td>
-            <td><b>Php 750.00/One-time Payment</b></td>
-            <td><b>Php 1,500.00/Monthly</b></td>
+            <td style= text-align:justify><b>Subscription price</b></td>
+            <td><b>Php 750.00 (one time payment)</b></td>
+            <td><b>Php 1,500.00 (monthly)</b></td>
             <th colspan='2'></th>
         </tr>
         </thead>

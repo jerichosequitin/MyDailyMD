@@ -38,7 +38,7 @@
         }
         h2{
             font-size:medium;
-            text-align:center;
+            text-align:justify;
         }
         h3{
             font-size:20px;
@@ -107,7 +107,7 @@
         .container{
             border-radius: 5px;
             padding: 20px;
-            width: 40%;
+            width: 25%;
             height: 15%;
             background-color:#DEF1FD;
             border:1px solid black;
@@ -135,23 +135,16 @@
 <div class="topnav" id="myTopnav">
     <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
     </a>
 </div>
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
-
-<br><br>
-
 <div class="container">
     <h1>Forgot Password?</h1>
-
-    <br>
-
     <h2>Enter the email address you used when you joined us and we will send you instructions to reset your password.</h2>
-    <input type="text" id="emailAdd" name="emailAdd" placeholder="Email Address">
-
     <br>
+    <label for="emailAdd">Enter Email Address</label>
+    <input type="text" id="emailAdd" name="emailAdd" required>
 
     <a href="codeverification">
         <button class="btn btn-primary" name="sendBtn" class="sendBtn">Send</button>
