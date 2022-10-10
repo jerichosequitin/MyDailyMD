@@ -41,6 +41,10 @@ Route::get('subscriptionbillingdoctor', function (){
     return view('subscriptionbillingdoctor');
 });
 
+Route::get('userregistration', function (){
+    return view('userregistration');
+});
+
 Route::get('signuppagepatient', function (){
     return view('signuppagepatient');
 });
@@ -177,9 +181,12 @@ Route::get('adminclientlist', function (){
     return view('adminclientlist');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+//Auth route for Register & Login
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name
+    ('dashboard');
+});
+
 
 require __DIR__.'/auth.php';
 
