@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a74dbde183c3baa349763280cc3d0b6e",
-    "content-hash": "c711816733fd8fd32dea1e8c2c736cbc",
+    "content-hash": "72a7d5a7e80efe7db1340ff76bc67daf",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -967,8 +966,6 @@
             "time": "2022-08-28T14:45:39+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "kkszymanowski/traitor",
             "version": "1.0.0",
             "source": {
@@ -1019,7 +1016,6 @@
             "time": "2022-03-02T17:32:19+00:00"
         },
         {
->>>>>>> user_login_registration
             "name": "laravel/framework",
             "version": "v8.83.25",
             "source": {
@@ -2196,7 +2192,6 @@
             "time": "2022-01-27T09:35:39+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "phpmailer/phpmailer",
             "version": "v6.6.5",
             "source": {
@@ -2275,8 +2270,6 @@
             "time": "2022-10-07T12:23:10+00:00"
         },
         {
-=======
->>>>>>> user_login_registration
             "name": "phpoption/phpoption",
             "version": "1.9.0",
             "source": {
@@ -3008,8 +3001,6 @@
             "time": "2021-09-25T23:10:38+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "santigarcor/laratrust",
             "version": "7.1.0",
             "source": {
@@ -3085,7 +3076,6 @@
             "time": "2022-03-04T15:28:43+00:00"
         },
         {
->>>>>>> user_login_registration
             "name": "swiftmailer/swiftmailer",
             "version": "v6.3.0",
             "source": {
