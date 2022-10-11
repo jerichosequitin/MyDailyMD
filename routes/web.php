@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PHPMailerController;
 use Illuminate\Support\Facades\Route;
 
 /*
