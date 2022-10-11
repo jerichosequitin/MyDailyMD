@@ -32,7 +32,6 @@
         }
         body{
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
-            overflow: hidden;
         }
         p{
             font-size: medium;
