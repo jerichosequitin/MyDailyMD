@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get("email", [PHPMailerController::class, "email"])->name("email");
+Route::post("send-email", [PHPMailerController::class, "composeEmail"])->name("send-email");
 
 Route::get('/', function () {
     return view('welcome');
@@ -179,6 +181,9 @@ Route::get('admindoctorlist', function (){
 
 Route::get('adminclientlist', function (){
     return view('adminclientlist');
+});
+Route::get('email', function (){
+    return view('email');
 });
 
 //Auth route for Register & Login
