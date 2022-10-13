@@ -17,11 +17,6 @@
             text-align: left;
             display: block;
         }
-        .container-fluid{
-            background-size: 100% 100%;
-            background-attachment: fixed;
-            background-image: url("./img/bg03.png");
-        }
         .content form .user-details{
             display: flex;
             flex-wrap: wrap;
@@ -48,11 +43,17 @@
             border-bottom-width: 2px;
             transition: all 0.3s ease;
         }
-        .user-details .input-box input:focus,
-        .user-details .input-box input:valid{
-            border-color: #9b59b6;
+        select[name="maritalStatus"]{
+            width:100%;
+            display: block;
+            margin-bottom: 5px;
+            height: 45px;
         }
-
+        .user-details .input-box input:focus,
+        .user-details .input-box input:valid,
+        .user-details .input-box select:valid{
+            border-color: forestgreen;
+        }
         img{
             filter: brightness(100%);
             filter: contrast(100%);
@@ -72,7 +73,6 @@
             text-align:center;
             color:#EFFCFF;
         }
-
         body{
             background-color:#EAFAFF;
             background-size:contain;
@@ -85,24 +85,6 @@
             text-align: center;
             font-size: medium;
 
-        }
-        .button1{
-            background-color: none;
-            border: none;
-            color: black;
-            padding: 10px 10px;
-            text-align: center;
-            display: inline-block;
-            font-size: 16px;
-        }
-        .signUpBtn{
-            background-color: none;
-            border: none;
-            color: black;
-            padding: 10px 10px;
-            text-align: center;
-            display: inline-block;
-            font-size: 16px;
         }
         .sidenav{
             height: 150%;
@@ -137,7 +119,6 @@
             .sidenav {padding-top: 15px;}
             .sidenav a {font-size: 18px;}
         }
-
 
 
         /* Style inputs with type="text", select elements and textareas */
@@ -176,23 +157,36 @@
             background-color:#DEF1FD;
             border:1px solid black;
         }
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 <body>
-<div class="container-fluid p-5 bg-primary text-black text-center">
+<div class="container-fluid p-5 text-black text-center">
     <br>
     <div class="sidenav">
         <div class="left-half">
             <h3>
-                <b>Katrina Belardo</b>
+                <b>{{$user->name}}</b>
             </h3>
+
             <br>
-            <input type="image" src="./img/patient2.png" height="120" width="150"/>
+
+            <img src="./img/patient2.png" height="120" width="150"/>
         </div>
 
         <br>
 
-        <a href="patientprofile">Profile</a>
+        <a href="/patientprofile/{{$user->id}}">Profile</a>
         <br>
         <a href="patientmedicalhistory">Medical History</a>
         <br>
@@ -204,48 +198,40 @@
         <br>
         <a href="patientimmunization">Immunization</a>
         <br><br>
-        <a href="mainpatientdashboard"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
+        <a href="dashboard"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
     </div>
 
     <div class="main">
-        <h1><b>Patient Profile</b></h1>
+        <h1>
+            <b>Edit Patient Profile</b>
+        </h1>
         <div class="row">
             <div class="content">
-                <form action="patientprofile">
+                <form action="/patientprofile/{{ $user->id }}" method="post">
+                    @csrf
+                    @method('PATCH')
                     <div class="column">
                         <div class="container">
                             <div class="user-details">
                                 <div class="input-box">
-                                    <span class="details">Last Name</span>
-                                    <input type="text" class="form-control" placeholder="Last Name" name="lastName" disabled>
+                                    <span class="details">Full Name</span>
+                                    <input type="text" class="form-control" value="{{$user->name}}" placeholder="Full Name" name="name" disabled>
                                 </div>
                                 <div class="input-box">
-                                    <span class="details">First Name</span>
-                                    <input type="text" class="form-control" placeholder="First Name" name="firstName" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Middle Initial</span>
-                                    <input type="text" class="form-control" placeholder="M.I." name="middleInitial" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Honorific</span>
-                                    <input type="text" class="form-control" placeholder="Honorific" name="honorific" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Marital Status</span>
-                                    <input type="text" class="form-control" placeholder="Marital Status" name="maritalStatus" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Suffix</span>
-                                    <input type="text" class="form-control" placeholder="Suffix" name="suffix" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Gender</span>
-                                    <input type="text" class="form-control" placeholder="Gender" name="gender" disabled>
+                                    <span class="details">Email Address</span>
+                                    <input type="text" value="{{$user->email}}" class="form-control" placeholder="Email Address" name="emailAddress" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Date of Birth</span>
-                                    <input type="text" class="form-control" placeholder="Date of Birth" name="birthdate" disabled>
+                                    <input type="date" value="{{$user->profile->birthdate}}" class="form-control" name="birthdate" disabled>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Sex</span>
+                                    <select name="sex" value="{{$user->profile->sex}}" class="form-control"}}>
+                                        <option selected disabled hidden>{{$user->profile->sex }}</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -257,46 +243,54 @@
                     <div class="column">
                         <div class="container">
                             <div class="user-details">
-                                <div class="user-details">
-                                    <div class="input-box">
-                                        <span class="details">Address</span>
-                                        <input type="text" class="form-control" placeholder="Address (Street Name, Barangay)" name="address" required>
-                                    </div>
-                                    <div class="input-box">
-                                        <span class="details">City</span>
-                                        <input type="text" class="form-control" placeholder="City" name="city" required>
-                                    </div>
-                                    <div class="input-box">
-                                        <span class="details">Postal Code</span>
-                                        <input type="text" class="form-control" placeholder="Postal Code" name="postalCode" required>
-                                    </div>
-                                    <div class="input-box">
-                                        <span class="details">Email Address</span>
-                                        <input type="text" class="form-control" placeholder="Email Address" name="emailAddress" required>
-                                    </div>
-                                    <div class="input-box">
-                                        <span class="details">Phone Number</span>
-                                        <input type="text" class="form-control" placeholder="Phone Number" name="phoneNumber" required>
-                                    </div>
-                                    <div class="input-box">
-                                        <span class="details">Emergency Contact</span>
-                                        <input type="text" class="form-control" placeholder="Emergency Contact" name="emergencyContact" required>
-                                    </div>
-                                    <div class="input-box">
-                                        <span class="details">Emergency Contact No.</span>
-                                        <input type="text" class="form-control" placeholder="Emergency Contact No." name="emergencyContactNumber" required>
-                                    </div>
+                                <div class="input-box">
+                                    <span class="details">Address</span>
+                                    <input type="text" value="{{$user->profile->address }}" class="form-control" placeholder="Address (Street Name, Barangay)" name="address">
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">City</span>
+                                    <input type="text" value="{{$user->profile->city }}" class="form-control" placeholder="City" name="city">
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Postal Code</span>
+                                    <input type="text" value="{{$user->profile->postalCode }}" class="form-control" placeholder="Postal Code" name="postalCode">
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Marital Status</span>
+                                    <select name="maritalStatus" value="{{$user->profile->maritalStatus }}" class="form-control">
+                                        <option selected disabled hidden>{{$user->profile->maritalStatus }}</option>
+                                        <option value="Single">Single</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Divorced">Divorced</option>
+                                        <option value="Separated">Separated</option>
+                                        <option value="Widowed">Widowed</option>
+                                    </select>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Mobile Number</span>
+                                    <input type="number" value="{{$user->profile->mobileNumber }}" title="Format: 09XXXXXXXXX" class="form-control" placeholder="Mobile Number" name="mobileNumber">
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Landline Number</span>
+                                    <input type="number" value="{{$user->profile->landlineNumber }}" title="Format: XXXX-XXXX" class="form-control" placeholder="Landline Number" name="landlineNumber">
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Emergency Contact</span>
+                                    <input type="text" value="{{$user->profile->emergencyContact }}" class="form-control" placeholder="Emergency Contact" name="emergencyContact">
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Emergency Contact No.</span>
+                                    <input type="number" value="{{$user->profile->emergencyContactNumber }}" title="Format: 09XXXXXXXXX" class="form-control" placeholder="Emergency Contact No." name="emergencyContactNumber">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <br>
+                    <button class="btn btn-primary">Save Profile</button>
                 </form>
             </div>
         </div>
         <br>
-        <a href="patientprofile">
-            <button class="btn btn-primary">Save</button>
-        </a>
     </div>
 </div>
 </body>

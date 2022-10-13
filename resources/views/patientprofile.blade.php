@@ -84,24 +84,6 @@
             font-size: medium;
 
         }
-        .button1{
-            background-color: none;
-            border: none;
-            color: black;
-            padding: 10px 10px;
-            text-align: center;
-            display: inline-block;
-            font-size: 16px;
-        }
-        .signUpBtn{
-            background-color: none;
-            border: none;
-            color: black;
-            padding: 10px 10px;
-            text-align: center;
-            display: inline-block;
-            font-size: 16px;
-        }
         .sidenav{
             height: 150%;
             width: 250px;
@@ -181,29 +163,29 @@
     <div class="sidenav">
         <div class="left-half">
             <h3>
-                <b>Katrina Belardo</b>
+                <b>{{$user->name}}</b>
             </h3>
 
             <br>
 
-            <input type="image" src="./img/patient2.png" height="120" width="150"/>
+            <image src="./img/patient2.png" height="120" width="150"/>
         </div>
 
         <br>
 
-        <a href="patientprofile">Profile</a>
+        <a href="/patientprofile/{{$user->id}}">Profile</a>
         <br>
-        <a href="patientmedicalhistory">Medical History</a>
+        <a href="{{ url('patientmedicalhistory') }}">Medical History</a>
         <br>
-        <a href="patientmedications">Medications</a>
+        <a href="{{ url('patientmedications') }}">Medications</a>
         <br>
-        <a href="patientallergies">Allergies</a>
+        <a href="{{ url('patientallergies') }}">Allergies</a>
         <br>
-        <a href="patientprogressnotes">Progress Notes</a>
+        <a href="{{ url('patientprogressnotes') }}">Progress Notes</a>
         <br>
-        <a href="patientimmunization">Immunization</a>
+        <a href="{{ url('patientimmunization') }}">Immunization</a>
         <br><br>
-        <a href="mainpatientdashboard"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
+        <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
     </div>
 
     <div class="main">
@@ -212,41 +194,25 @@
         </h1>
         <div class="row">
             <div class="content">
-                <form action="patientprofile">
+                <form action="">
                     <div class="column">
                         <div class="container">
                             <div class="user-details">
                                 <div class="input-box">
-                                    <span class="details">Last Name</span>
-                                    <input type="text" class="form-control" placeholder="Last Name" name="lastName" disabled>
+                                    <span class="details">Full Name</span>
+                                    <input type="text" class="form-control" value="{{$user->name}}" placeholder="Full Name" name="name" disabled>
                                 </div>
                                 <div class="input-box">
-                                    <span class="details">First Name</span>
-                                    <input type="text" class="form-control" placeholder="First Name" name="firstName" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Middle Initial</span>
-                                    <input type="text" class="form-control" placeholder="M.I." name="middleInitial" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Honorific</span>
-                                    <input type="text" class="form-control" placeholder="Honorific" name="honorific" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Marital Status</span>
-                                    <input type="text" class="form-control" placeholder="Marital Status" name="maritalStatus" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Suffix</span>
-                                    <input type="text" class="form-control" placeholder="Suffix" name="suffix" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Gender</span>
-                                    <input type="text" class="form-control" placeholder="Gender" name="gender" disabled>
+                                    <span class="details">Email Address</span>
+                                    <input type="text" value="{{$user->email}}" class="form-control" placeholder="Email Address" name="emailAddress" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Date of Birth</span>
-                                    <input type="text" class="form-control" placeholder="Date of Birth" name="birthdate" disabled>
+                                    <input type="date" value="{{$user->profile->birthdate }}" class="form-control" placeholder="Date of Birth" name="birthdate" disabled>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Sex</span>
+                                    <input type="text" value="{{$user->profile->sex }} "class="form-control" placeholder="Sex" name="sex" disabled>
                                 </div>
                             </div>
                         </div>
@@ -260,31 +226,35 @@
                             <div class="user-details">
                                 <div class="input-box">
                                     <span class="details">Address</span>
-                                    <input type="text" class="form-control" placeholder="Address (Street Name, Barangay)" name="address" disabled>
+                                    <input type="text" value="{{$user->profile->address }}" class="form-control" placeholder="Address (Street Name, Barangay)" name="address" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">City</span>
-                                    <input type="text" class="form-control" placeholder="City" name="city" disabled>
+                                    <input type="text" value="{{$user->profile->city }}" class="form-control" placeholder="City" name="city" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Postal Code</span>
-                                    <input type="text" class="form-control" placeholder="Postal Code" name="postalCode" disabled>
+                                    <input type="text" value="{{$user->profile->postalCode }}" class="form-control" placeholder="Postal Code" name="postalCode" disabled>
                                 </div>
                                 <div class="input-box">
-                                    <span class="details">Email Address</span>
-                                    <input type="text" class="form-control" placeholder="Email Address" name="emailAddress" disabled>
+                                    <span class="details">Marital Status</span>
+                                    <input type="text" value="{{$user->profile->maritalStatus }}" class="form-control" placeholder="Marital Status" name="maritalStatus" disabled>
                                 </div>
                                 <div class="input-box">
-                                    <span class="details">Phone Number</span>
-                                    <input type="text" class="form-control" placeholder="Phone Number" name="phoneNumber" disabled>
+                                    <span class="details">Mobile Number</span>
+                                    <input type="text" value="{{$user->profile->mobileNumber }}" class="form-control" placeholder="Mobile Number" name="mobileNumber" disabled>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Landline Number</span>
+                                    <input type="text" value="{{$user->profile->landlineNumber }}" class="form-control" placeholder="Landline Number" name="landlineNumber" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Emergency Contact</span>
-                                    <input type="text" class="form-control" placeholder="Emergency Contact" name="emergencyContact" disabled>
+                                    <input type="text" value="{{$user->profile->emergencyContact }}" class="form-control" placeholder="Emergency Contact" name="emergencyContact" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Emergency Contact No.</span>
-                                    <input type="text" class="form-control" placeholder="Emergency Contact No." name="emergencyContactNumber" disabled>
+                                    <input type="text" value="{{$user->profile->emergencyContactNumber }}" class="form-control" placeholder="Emergency Contact No." name="emergencyContactNumber" disabled>
                                 </div>
                             </div>
                         </div>
@@ -293,9 +263,9 @@
             </div>
         </div>
         <br>
-        <a href="editpatientprofile">
-            <button class="btn btn-primary">Edit</button>
-        </a>
+            <a href="/patientprofile/{{$user->id}}/edit">
+                <button class="btn btn-primary">Edit</button>
+            </a>
     </div>
 </div>
 </body>

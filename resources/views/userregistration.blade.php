@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Sign Up (Patient)</title>
+    <title>MyDailyMD - User Registration</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
@@ -138,7 +138,7 @@
             </div>
 
             <div class="input-box">
-                <input id="name" type="text" name="name" :value="old('name')" placeholder="Full Name" required autofocus />
+                    <input id="name" type="text" name="name" :value="old('name')" placeholder="Full Name" title="Please Enter Full Name including Middle Initial" required autofocus />
             </div>
             <div class="input-box">
                 <input id="email" type="email" name="email" :value="old('email')" placeholder="Email Address" required />

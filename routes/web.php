@@ -48,12 +48,12 @@ Route::get('userregistration', function (){
     return view('userregistration');
 });
 
-Route::get('signuppagepatient', function (){
-    return view('signuppagepatient');
+Route::get('patientcreateprofile', function (){
+    return view('patientcreateprofile');
 });
 
-Route::get('signuppagenewdoctor', function (){
-    return view('signuppagenewdoctor');
+Route::get('doctorcreateprofile', function (){
+    return view('doctorcreateprofile');
 });
 
 Route::get('privacypolicy', function (){
@@ -193,6 +193,9 @@ Route::group(['middleware' => ['auth']], function () {
     ('dashboard');
 });
 
+Route::get('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@index')->name('patientprofile.show');
+Route::get('/patientprofile/{user}/edit', 'App\Http\Controllers\PatientProfileController@edit')->name('patientprofile.edit');
+Route::patch('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@update')->name('patientprofile.update');
 
 require __DIR__.'/auth.php';
 

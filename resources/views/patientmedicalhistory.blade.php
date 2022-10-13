@@ -205,7 +205,7 @@
 
         <br>
 
-        <a href="patientprofile">Profile</a>
+        <a href="patientprofile/{{Auth::user()->id}}">Profile</a>
         <br>
         <a href="patientmedicalhistory">Medical History</a>
         <br>

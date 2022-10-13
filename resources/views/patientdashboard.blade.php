@@ -156,7 +156,7 @@
 
     <section class="container">
         <div class="left-half">
-            <a href="patientprofile">
+            <a href="patientprofile/{{Auth::user()->id}}">
                 <input type="image" src="./img/myprofile_img.png" height="180" width="180"/>
             </a>
             <p><b>My Profile</b></p>
