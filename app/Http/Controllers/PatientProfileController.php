@@ -9,19 +9,25 @@ class PatientProfileController extends Controller
 {
     public function index(User $user)
     {
-        $this->authorize('view', $user->profile);
+        $this->authorize('view', $user->patient_profile);
         return view('patientprofile', compact('user'));
+    }
+
+    public function create(User $user)
+    {
+        $this->authorize('update', $user->patient_profile);
+        return view('createpatientprofile', compact('user'));
     }
 
     public function edit(User $user)
     {
-        $this->authorize('update', $user->profile);
+        $this->authorize('update', $user->patient_profile);
         return view('editpatientprofile', compact('user'));
     }
 
     public function update(User $user)
     {
-        $this->authorize('update', $user->profile);
+        $this->authorize('update', $user->patient_profile);
 
         $data = request()->validate([
             'name'=>'',
@@ -38,7 +44,7 @@ class PatientProfileController extends Controller
             'emergencyContactNumber'=>'',
         ]);
 
-        $user->profile->update($data);
+        $user->patient_profile->update($data);
         return redirect("/patientprofile/{$user->id}");
     }
 }

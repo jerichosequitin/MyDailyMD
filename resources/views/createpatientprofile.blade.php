@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Edit Patient Profile</title>
+    <title>MyDailyMD - Create Patient Profile</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
@@ -223,11 +223,11 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Date of Birth</span>
-                                    <input type="date" value="{{$user->patient_profile->birthdate}}" class="form-control" name="birthdate" disabled>
+                                    <input type="date" value="{{$user->patient_profile->birthdate}}" class="form-control" name="birthdate">
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Sex</span>
-                                    <select name="sex" value="{{$user->patient_profile->sex}}" class="form-control" disabled>
+                                    <select name="sex" value="{{$user->patient_profile->sex}}" class="form-control"}}>
                                         <option selected disabled hidden>{{$user->patient_profile->sex }}</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -257,7 +257,7 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Marital Status</span>
-                                    <select name="maritalStatus" value="{{$user->patient_profile->maritalStatus }}" class="form-control" disabled>
+                                    <select name="maritalStatus" value="{{$user->patient_profile->maritalStatus }}" class="form-control">
                                         <option selected disabled hidden>{{$user->patient_profile->maritalStatus }}</option>
                                         <option value="Single">Single</option>
                                         <option value="Married">Married</option>
@@ -286,7 +286,7 @@
                         </div>
                     </div>
                     <br>
-                    <button class="btn btn-primary">Save Profile</button>
+                    <button class="btn btn-primary">Create Profile</button>
                 </form>
             </div>
         </div>

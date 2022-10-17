@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\PatientProfile;
+use App\Models\DoctorProfile;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PatientProfilePolicy
+class DoctorProfilePolicy
 {
     use HandlesAuthorization;
 
@@ -25,12 +25,12 @@ class PatientProfilePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\PatientProfile  $patientProfile
+     * @param  \App\Models\DoctorProfile  $doctorProfile
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, PatientProfile $patientProfile)
+    public function view(User $user, DoctorProfile $doctorProfile)
     {
-        return $user->id == $patientProfile->user_id;
+        return $user->id == $doctorProfile->user_id;
     }
 
     /**
@@ -48,22 +48,22 @@ class PatientProfilePolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\PatientProfile  $patientProfile
+     * @param  \App\Models\DoctorProfile  $doctorProfile
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, PatientProfile $patientProfile)
+    public function update(User $user, DoctorProfile $doctorProfile)
     {
-        return $user->id == $patientProfile->user_id;
+        return $user->id == $doctorProfile->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\PatientProfile  $patientProfile
+     * @param  \App\Models\DoctorProfile  $doctorProfile
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, PatientProfile $patientProfile)
+    public function delete(User $user, DoctorProfile $doctorProfile)
     {
         //
     }
@@ -72,10 +72,10 @@ class PatientProfilePolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\PatientProfile  $patientProfile
+     * @param  \App\Models\DoctorProfile  $doctorProfile
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, PatientProfile $patientProfile)
+    public function restore(User $user, DoctorProfile $doctorProfile)
     {
         //
     }
@@ -84,10 +84,10 @@ class PatientProfilePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\PatientProfile  $patientProfile
+     * @param  \App\Models\DoctorProfile  $doctorProfile
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, PatientProfile $patientProfile)
+    public function forceDelete(User $user, DoctorProfile $doctorProfile)
     {
         //
     }
