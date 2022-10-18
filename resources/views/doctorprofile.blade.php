@@ -132,6 +132,7 @@
 <div class="topnav" id="myTopnav">
     <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
 </div>
+<img src="/img/logo.png" width="180" height="180" class="logo">
     <div style="width: 100%">
         <form action="">
         <div style="width: 50%; float: left;">
@@ -172,7 +173,7 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Digital Signature</span>
-                            <img src="./img/logo.png" width="100" height="50">
+                            <img src="{{$user->doctor_profile->digitalSignature }}" width="100" height="50">
                         </div>
                     </div>
                 </div>
@@ -197,7 +198,7 @@
                     </div>
                     <div class="input-box">
                         <span class="details">PRC ID Image</span>
-                        <img src="./img/logo.png" width="100" height="50">
+                        <img src="{{$user->doctor_profile->prcImage }}" width="100" height="50">
                     </div>
                     <div class="input-box">
                         <span class="details">Clinic Name</span>

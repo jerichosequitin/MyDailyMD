@@ -181,7 +181,7 @@
 
             <br>
 
-            <img src="./img/patient2.png" height="120" width="150"/>
+            <img src="/img/patient2.png" height="120" width="150"/>
         </div>
 
         <br>
@@ -223,11 +223,11 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Date of Birth</span>
-                                    <input type="date" value="{{$user->patient_profile->birthdate}}" class="form-control" name="birthdate">
+                                    <input type="date" value="{{$user->patient_profile->birthdate}}" class="form-control" name="birthdate" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Sex</span>
-                                    <select name="sex" value="{{$user->patient_profile->sex}}" class="form-control"}}>
+                                    <select name="sex" value="{{$user->patient_profile->sex}}" class="form-control"}} required>
                                         <option selected disabled hidden>{{$user->patient_profile->sex }}</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -245,11 +245,11 @@
                             <div class="user-details">
                                 <div class="input-box">
                                     <span class="details">Address</span>
-                                    <input type="text" value="{{$user->patient_profile->address }}" class="form-control" placeholder="Address (Street Name, Barangay)" name="address">
+                                    <input type="text" value="{{$user->patient_profile->address }}" class="form-control" placeholder="Address (Street Name, Barangay)" name="address" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">City</span>
-                                    <input type="text" value="{{$user->patient_profile->city }}" class="form-control" placeholder="City" name="city">
+                                    <input type="text" value="{{$user->patient_profile->city }}" class="form-control" placeholder="City" name="city" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Postal Code</span>
@@ -257,7 +257,7 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Marital Status</span>
-                                    <select name="maritalStatus" value="{{$user->patient_profile->maritalStatus }}" class="form-control">
+                                    <select name="maritalStatus" value="{{$user->patient_profile->maritalStatus }}" class="form-control" required>
                                         <option selected disabled hidden>{{$user->patient_profile->maritalStatus }}</option>
                                         <option value="Single">Single</option>
                                         <option value="Married">Married</option>
@@ -268,19 +268,19 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Mobile Number</span>
-                                    <input type="number" value="{{$user->patient_profile->mobileNumber }}" title="Format: 09XXXXXXXXX" class="form-control" placeholder="Mobile Number" name="mobileNumber">
+                                    <input type="number" value="{{$user->patient_profile->mobileNumber }}" min="0" title="Format: 09XXXXXXXXX" maxlength="11" class="form-control" placeholder="Mobile Number" name="mobileNumber" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Landline Number</span>
-                                    <input type="number" value="{{$user->patient_profile->landlineNumber }}" title="Format: XXXX-XXXX" class="form-control" placeholder="Landline Number" name="landlineNumber">
+                                    <input type="number" value="{{$user->patient_profile->landlineNumber }}" min="0" title="Format: XXXX-XXXX" class="form-control" placeholder="Landline Number" name="landlineNumber">
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Emergency Contact</span>
-                                    <input type="text" value="{{$user->patient_profile->emergencyContact }}" class="form-control" placeholder="Emergency Contact" name="emergencyContact">
+                                    <input type="text" value="{{$user->patient_profile->emergencyContact }}" class="form-control" placeholder="Emergency Contact" name="emergencyContact" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Emergency Contact No.</span>
-                                    <input type="number" value="{{$user->patient_profile->emergencyContactNumber }}" title="Format: 09XXXXXXXXX" class="form-control" placeholder="Emergency Contact No." name="emergencyContactNumber">
+                                    <input type="number" value="{{$user->patient_profile->emergencyContactNumber }}" min="0" title="Format: 09XXXXXXXXX" class="form-control" placeholder="Emergency Contact No." name="emergencyContactNumber" required>
                                 </div>
                             </div>
                         </div>

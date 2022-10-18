@@ -181,7 +181,7 @@
 
             <br>
 
-            <img src="./img/patient2.png" height="120" width="150"/>
+            <img src="/img/patient2.png" height="120" width="150"/>
         </div>
 
         <br>
@@ -268,11 +268,11 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Mobile Number</span>
-                                    <input type="number" value="{{$user->patient_profile->mobileNumber }}" title="Format: 09XXXXXXXXX" class="form-control" placeholder="Mobile Number" name="mobileNumber">
+                                    <input type="number" value="{{$user->patient_profile->mobileNumber }}" min="0" title="Format: 09XXXXXXXXX" class="form-control" placeholder="Mobile Number" name="mobileNumber">
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Landline Number</span>
-                                    <input type="number" value="{{$user->patient_profile->landlineNumber }}" title="Format: XXXX-XXXX" class="form-control" placeholder="Landline Number" name="landlineNumber">
+                                    <input type="number" value="{{$user->patient_profile->landlineNumber }}" min="0" title="Format: XXXX-XXXX" class="form-control" placeholder="Landline Number" name="landlineNumber">
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Emergency Contact</span>
@@ -280,7 +280,7 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Emergency Contact No.</span>
-                                    <input type="number" value="{{$user->patient_profile->emergencyContactNumber }}" title="Format: 09XXXXXXXXX" class="form-control" placeholder="Emergency Contact No." name="emergencyContactNumber">
+                                    <input type="number" value="{{$user->patient_profile->emergencyContactNumber }}" min="0" title="Format: 09XXXXXXXXX" class="form-control" placeholder="Emergency Contact No." name="emergencyContactNumber">
                                 </div>
                             </div>
                         </div>

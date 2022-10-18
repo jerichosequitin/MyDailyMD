@@ -169,7 +169,7 @@
 
             <br>
 
-            <image src="./img/patient2.png" height="120" width="150"/>
+            <image src="/img/patient2.png" height="120" width="150"/>
         </div>
 
         <br>

@@ -29,26 +29,74 @@ class DoctorProfileController extends Controller
     {
         $this->authorize('update', $user->doctor_profile);
 
-        $data = request()->validate([
-            'name'=>'',
-            'email'=>'',
-            'birthdate'=>'',
-            'sex'=>'',
-            'contactNumber'=>'',
-            'specialization'=>'',
-            'workingHours'=>'',
-            'digitalSignature'=>'',
-            'prcNumber'=>'',
-            'licenseType'=>'',
-            'licenseExpiryDate'=>'',
-            'prcImage' =>'',
-            'clinicName'=>'',
-            'clinicAddress'=>'',
-            'clinicMobileNumber'=>'',
-            'clinicTelephoneNumber'=>'',
-        ]);
+        if($user->doctor_profile->digitalSignature == '' || $user->doctor_profile->prcImage == '')
+        {
+            request()->validate([
+                'name'=>'',
+                'email'=>'',
+                'birthdate'=>'',
+                'sex'=>'',
+                'contactNumber'=>'',
+                'specialization'=>'',
+                'workingHours'=>'',
+                'digitalSignature'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'prcNumber'=>'',
+                'licenseType'=>'',
+                'licenseExpiryDate'=>'',
+                'prcImage' =>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'clinicName'=>'',
+                'clinicAddress'=>'',
+                'clinicMobileNumber'=>'',
+                'clinicTelephoneNumber'=>'',
+            ]);
 
-        $user->doctor_profile()->update($data);
+            $digitalSignature_name = time().'.'.request()->digitalSignature->extension();
+            request()->digitalSignature->move(public_path('digital_signature_image'), $digitalSignature_name);
+            $digitalSignature_path = "/digital_signature_image/".$digitalSignature_name;
+
+            $prcImage_name = time().'.'. request()->prcImage->extension();
+            request()->prcImage->move(public_path('prc_image'), $prcImage_name);
+            $prcImage_path = "/prc_image/".$prcImage_name;
+
+            $user->doctor_profile->birthdate = request()->birthdate;
+            $user->doctor_profile->sex = request()->sex;
+            $user->doctor_profile->contactNumber = request()->contactNumber;
+            $user->doctor_profile->specialization = request()->specialization;
+            $user->doctor_profile->workingHours = request()->workingHours;
+            $user->doctor_profile->digitalSignature = $digitalSignature_path;
+            $user->doctor_profile->prcNumber = request()->prcNumber;
+            $user->doctor_profile->licenseType = request()->licenseType;
+            $user->doctor_profile->licenseExpiryDate = request()->licenseExpiryDate;
+            $user->doctor_profile->prcImage = $prcImage_path;
+            $user->doctor_profile->clinicName = request()->clinicName;
+            $user->doctor_profile->clinicAddress = request()->clinicAddress;
+            $user->doctor_profile->clinicMobileNumber = request()->clinicMobileNumber;
+            $user->doctor_profile->clinicTelephoneNumber = request()->clinicTelephoneNumber;
+
+            $user->doctor_profile->save();
+        }
+        else
+        {
+            $data = request()->validate([
+                'name'=>'',
+                'email'=>'',
+                'birthdate'=>'',
+                'sex'=>'',
+                'contactNumber'=>'',
+                'specialization'=>'',
+                'workingHours'=>'',
+                'digitalSignature'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'prcNumber'=>'',
+                'licenseType'=>'',
+                'licenseExpiryDate'=>'',
+                'prcImage' =>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'clinicName'=>'',
+                'clinicAddress'=>'',
+                'clinicMobileNumber'=>'',
+                'clinicTelephoneNumber'=>'',
+            ]);
+            $user->doctor_profile()->update($data);
+        }
 
         return redirect("/doctorprofile/{$user->id}");
     }
