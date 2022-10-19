@@ -32,16 +32,16 @@ class PatientProfileController extends Controller
         $data = request()->validate([
             'name'=>'',
             'email'=>'',
-            'birthdate'=>'',
+            'birthdate'=>'date|before:-18 years',
             'sex'=>'',
             'address'=>'',
             'city'=>'',
-            'postalCode'=>'',
+            'postalCode'=>'nullable|min:4|max:4',
             'maritalStatus' =>'',
-            'mobileNumber'=>'',
-            'landlineNumber'=>'',
+            'mobileNumber'=>'min:11|max:11',
+            'landlineNumber'=>'nullable|min:9|max:9',
             'emergencyContact'=>'',
-            'emergencyContactNumber'=>'',
+            'emergencyContactNumber'=>'min:11|max:11',
         ]);
 
         $user->patient_profile->update($data);

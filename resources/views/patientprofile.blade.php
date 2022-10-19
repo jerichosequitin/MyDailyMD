@@ -201,19 +201,19 @@
                             <div class="user-details">
                                 <div class="input-box">
                                     <span class="details">Full Name</span>
-                                    <input type="text" class="form-control" value="{{$user->name}}" placeholder="Full Name" name="name" disabled>
+                                    <input type="text" class="form-control" value="{{$user->name}}" name="name" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Email Address</span>
-                                    <input type="text" value="{{$user->email}}" class="form-control" placeholder="Email Address" name="emailAddress" disabled>
+                                    <input type="text" value="{{$user->email}}" class="form-control" name="emailAddress" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Date of Birth</span>
-                                    <input type="date" value="{{$user->patient_profile->birthdate }}" class="form-control" placeholder="Date of Birth" name="birthdate" disabled>
+                                    <input type="date" value="{{$user->patient_profile->birthdate }}" class="form-control" name="birthdate" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Sex</span>
-                                    <input type="text" value="{{$user->patient_profile->sex }} "class="form-control" placeholder="Sex" name="sex" disabled>
+                                    <input type="text" value="{{$user->patient_profile->sex }} "class="form-control" name="sex" disabled>
                                 </div>
                             </div>
                         </div>
@@ -227,35 +227,35 @@
                             <div class="user-details">
                                 <div class="input-box">
                                     <span class="details">Address</span>
-                                    <input type="text" value="{{$user->patient_profile->address }}" class="form-control" placeholder="Address (Street Name, Barangay)" name="address" disabled>
+                                    <input type="text" value="{{$user->patient_profile->address }}" class="form-control" name="address" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">City</span>
-                                    <input type="text" value="{{$user->patient_profile->city }}" class="form-control" placeholder="City" name="city" disabled>
+                                    <input type="text" value="{{$user->patient_profile->city }}" class="form-control" name="city" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Postal Code</span>
-                                    <input type="text" value="{{$user->patient_profile->postalCode }}" class="form-control" placeholder="Postal Code" name="postalCode" disabled>
+                                    <input type="text" value="{{$user->patient_profile->postalCode }}" class="form-control" name="postalCode" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Marital Status</span>
-                                    <input type="text" value="{{$user->patient_profile->maritalStatus }}" class="form-control" placeholder="Marital Status" name="maritalStatus" disabled>
+                                    <input type="text" value="{{$user->patient_profile->maritalStatus }}" class="form-control" name="maritalStatus" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Mobile Number</span>
-                                    <input type="text" value="{{$user->patient_profile->mobileNumber }}" class="form-control" placeholder="Mobile Number" name="mobileNumber" disabled>
+                                    <input type="text" value="{{$user->patient_profile->mobileNumber }}" class="form-control" name="mobileNumber" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Landline Number</span>
-                                    <input type="text" value="{{$user->patient_profile->landlineNumber }}" class="form-control" placeholder="Landline Number" name="landlineNumber" disabled>
+                                    <input type="text" value="{{$user->patient_profile->landlineNumber }}" class="form-control" name="landlineNumber" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Emergency Contact</span>
-                                    <input type="text" value="{{$user->patient_profile->emergencyContact }}" class="form-control" placeholder="Emergency Contact" name="emergencyContact" disabled>
+                                    <input type="text" value="{{$user->patient_profile->emergencyContact }}" class="form-control" name="emergencyContact" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Emergency Contact No.</span>
-                                    <input type="text" value="{{$user->patient_profile->emergencyContactNumber }}" class="form-control" placeholder="Emergency Contact No." name="emergencyContactNumber" disabled>
+                                    <input type="text" value="{{$user->patient_profile->emergencyContactNumber }}" class="form-control" name="emergencyContactNumber" disabled>
                                 </div>
                             </div>
                         </div>

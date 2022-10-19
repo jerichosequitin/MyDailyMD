@@ -141,15 +141,15 @@
                     <div class="user-details">
                         <div class="input-box">
                             <span class="details">Full Name</span>
-                            <input type="text" class="form-control" value="{{$user->name}}" placeholder="Full Name" name="name" disabled>
+                            <input type="text" class="form-control" value="{{$user->name}}" name="name" disabled>
                         </div>
                         <div class="input-box">
                             <span class="details">Email Address</span>
-                            <input type="text" value="{{$user->email}}" class="form-control" placeholder="Email Address" name="emailAddress" disabled>
+                            <input type="text" value="{{$user->email}}" class="form-control" name="emailAddress" disabled>
                         </div>
                         <div class="input-box">
                             <span class="details">Date of Birth</span>
-                            <input type="date" value="{{$user->doctor_profile->birthdate }}" class="form-control" placeholder="Date of Birth" name="birthdate" disabled>
+                            <input type="date" value="{{$user->doctor_profile->birthdate }}" class="form-control" name="birthdate" disabled>
                         </div>
                         <div class="input-box">
                             <span class="details">Sex</span>
@@ -159,7 +159,7 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Contact Number</span>
-                            <input type="text" value="{{$user->doctor_profile->contactNumber }} "class="form-control" placeholder="Contact Number" name="contactNumber" disabled>
+                            <input type="text" value="{{$user->doctor_profile->contactNumber }} "class="form-control" name="contactNumber" disabled>
                         </div>
                         <div class="input-box">
                             <span class="details">Specialization</span>
@@ -169,7 +169,7 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Working Hours</span>
-                            <input type="time" value="{{$user->doctor_profile->workingHours }} "class="form-control" name="workingHours" disabled>
+                            <input type="text" value="{{$user->doctor_profile->workingHours }} "class="form-control" name="workingHours" disabled>
                         </div>
                         <div class="input-box">
                             <span class="details">Digital Signature</span>
@@ -185,12 +185,28 @@
             <div class="container">
                 <div class="user-details">
                     <div class="input-box">
-                        <span class="details">PRC Number</span>
-                        <input type="text" value="{{$user->doctor_profile->prcNumber }}" class="form-control" placeholder="PRC Number" name="prcNumber" disabled>
+                        <span class="details">Clinic Name</span>
+                        <input type="text" value="{{$user->doctor_profile->clinicName }}" class="form-control" name="clinicName" disabled>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Clinic Address</span>
+                        <input type="text" value="{{$user->doctor_profile->clinicAddress }}" class="form-control" name="clinicAddress" disabled>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Clinic Mobile Number</span>
+                        <input type="text" value="{{$user->doctor_profile->clinicMobileNumber }}" class="form-control" name="clinicMobileNumber" disabled>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Clinic Telephone Number</span>
+                        <input type="text" value="{{$user->doctor_profile->clinicTelephoneNumber }}" class="form-control" name="clinicTelephoneNumber" disabled>
                     </div>
                     <div class="input-box">
                         <span class="details">License Type</span>
-                        <input type="text" value="{{$user->doctor_profile->licenseType }}" class="form-control" placeholder="License Type" name="licenseType" disabled>
+                        <input type="text" value="{{$user->doctor_profile->licenseType }}" class="form-control" name="licenseType" disabled>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">PRC Number</span>
+                        <input type="text" value="{{$user->doctor_profile->prcNumber }}" class="form-control" name="prcNumber" disabled>
                     </div>
                     <div class="input-box">
                         <span class="details">License Expiry Date</span>
@@ -199,22 +215,6 @@
                     <div class="input-box">
                         <span class="details">PRC ID Image</span>
                         <img src="{{$user->doctor_profile->prcImage }}" width="100" height="50">
-                    </div>
-                    <div class="input-box">
-                        <span class="details">Clinic Name</span>
-                        <input type="text" value="{{$user->doctor_profile->clinicName }}" class="form-control" placeholder="Clinic Name" name="clinicName" disabled>
-                    </div>
-                    <div class="input-box">
-                        <span class="details">Clinic Address</span>
-                        <input type="text" value="{{$user->doctor_profile->clinicAddress }}" class="form-control" placeholder="Clinic Address" name="clinicAddress" disabled>
-                    </div>
-                    <div class="input-box">
-                        <span class="details">Clinic Mobile Number</span>
-                        <input type="text" value="{{$user->doctor_profile->clinicMobileNumber }}" class="form-control" placeholder="Clinic Mobile Number" name="clinicMobileNumber" disabled>
-                    </div>
-                    <div class="input-box">
-                        <span class="details">Clinic Telephone Number</span>
-                        <input type="text" value="{{$user->doctor_profile->clinicTelephoneNumber }}" class="form-control" placeholder="Clinic Telephone Number" name="clinicTelephoneNumber" disabled>
                     </div>
                 </div>
             </div>

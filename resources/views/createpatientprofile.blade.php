@@ -207,6 +207,15 @@
         </h1>
         <div class="row">
             <div class="content">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form action="/patientprofile/{{ $user->id }}" method="post">
                     @csrf
                     @method('PATCH')
@@ -215,11 +224,11 @@
                             <div class="user-details">
                                 <div class="input-box">
                                     <span class="details">Full Name</span>
-                                    <input type="text" class="form-control" value="{{$user->name}}" placeholder="Full Name" name="name" disabled>
+                                    <input type="text" class="form-control" value="{{$user->name}}" name="name" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Email Address</span>
-                                    <input type="text" value="{{$user->email}}" class="form-control" placeholder="Email Address" name="emailAddress" disabled>
+                                    <input type="text" value="{{$user->email}}" class="form-control" name="emailAddress" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Date of Birth</span>
@@ -245,15 +254,19 @@
                             <div class="user-details">
                                 <div class="input-box">
                                     <span class="details">Address</span>
-                                    <input type="text" value="{{$user->patient_profile->address }}" class="form-control" placeholder="Address (Street Name, Barangay)" name="address" required>
+                                    <input type="text" value="{{$user->patient_profile->address }}" class="form-control" placeholder="Unit #, Street Name, Barangay" name="address" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">City</span>
-                                    <input type="text" value="{{$user->patient_profile->city }}" class="form-control" placeholder="City" name="city" required>
+                                    <input type="text" value="{{$user->patient_profile->city }}" class="form-control" name="city" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Postal Code</span>
-                                    <input type="text" value="{{$user->patient_profile->postalCode }}" class="form-control" placeholder="Postal Code" name="postalCode">
+                                    <input type="number" value="{{$user->patient_profile->postalCode }}"
+                                           min="0"
+                                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                           maxlength = "4"
+                                           title="Format: XXXX" class="form-control" placeholder="XXXX" name="postalCode">
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Marital Status</span>
@@ -268,19 +281,31 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Mobile Number</span>
-                                    <input type="number" value="{{$user->patient_profile->mobileNumber }}" min="0" title="Format: 09XXXXXXXXX" maxlength="11" class="form-control" placeholder="Mobile Number" name="mobileNumber" required>
+                                    <input type="number" value="{{$user->patient_profile->mobileNumber }}"
+                                           min="0"
+                                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                           maxlength = "11"
+                                           title="Format: 09XXXXXXXXX" maxlength="11" class="form-control" placeholder="09XXXXXXXXX" name="mobileNumber" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Landline Number</span>
-                                    <input type="number" value="{{$user->patient_profile->landlineNumber }}" min="0" title="Format: XXXX-XXXX" class="form-control" placeholder="Landline Number" name="landlineNumber">
+                                    <input type="number" value="{{$user->patient_profile->landlineNumber }}"
+                                           min="0"
+                                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                           maxlength = "9"
+                                           title="Format: XXXX-XXXX" class="form-control" placeholder="XXXX-XXXX" name="landlineNumber">
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Emergency Contact</span>
-                                    <input type="text" value="{{$user->patient_profile->emergencyContact }}" class="form-control" placeholder="Emergency Contact" name="emergencyContact" required>
+                                    <input type="text" value="{{$user->patient_profile->emergencyContact }}" class="form-control" name="emergencyContact" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Emergency Contact No.</span>
-                                    <input type="number" value="{{$user->patient_profile->emergencyContactNumber }}" min="0" title="Format: 09XXXXXXXXX" class="form-control" placeholder="Emergency Contact No." name="emergencyContactNumber" required>
+                                    <input type="number" value="{{$user->patient_profile->emergencyContactNumber }}"
+                                           min="0"
+                                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                           maxlength = "11"
+                                           title="Format: 09XXXXXXXXX" class="form-control" placeholder="09XXXXXXXXX" name="emergencyContactNumber" required>
                                 </div>
                             </div>
                         </div>

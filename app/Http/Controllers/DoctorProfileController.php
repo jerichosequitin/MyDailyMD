@@ -32,22 +32,20 @@ class DoctorProfileController extends Controller
         if($user->doctor_profile->digitalSignature == '' || $user->doctor_profile->prcImage == '')
         {
             request()->validate([
-                'name'=>'',
-                'email'=>'',
-                'birthdate'=>'',
-                'sex'=>'',
-                'contactNumber'=>'',
-                'specialization'=>'',
-                'workingHours'=>'',
-                'digitalSignature'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'prcNumber'=>'',
-                'licenseType'=>'',
-                'licenseExpiryDate'=>'',
-                'prcImage' =>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'clinicName'=>'',
-                'clinicAddress'=>'',
-                'clinicMobileNumber'=>'',
-                'clinicTelephoneNumber'=>'',
+                'birthdate'=>'required|date|before:-18 years',
+                'sex'=>'required',
+                'contactNumber'=>'required',
+                'specialization'=>'required',
+                'workingHours'=>'required',
+                'digitalSignature'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'prcNumber'=>'required|min:7|max:7',
+                'licenseType'=>'required',
+                'licenseExpiryDate'=>'required|after:today',
+                'prcImage' =>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'clinicName'=>'required',
+                'clinicAddress'=>'required',
+                'clinicMobileNumber'=>'nullable|min:11|max:11',
+                'clinicTelephoneNumber'=>'nullable|min:9|max:9',
             ]);
 
             $digitalSignature_name = time().'.'.request()->digitalSignature->extension();
@@ -78,22 +76,20 @@ class DoctorProfileController extends Controller
         else
         {
             $data = request()->validate([
-                'name'=>'',
-                'email'=>'',
                 'birthdate'=>'',
                 'sex'=>'',
-                'contactNumber'=>'',
+                'contactNumber'=>'min:11|max:11',
                 'specialization'=>'',
                 'workingHours'=>'',
-                'digitalSignature'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'digitalSignature'=>'',
                 'prcNumber'=>'',
                 'licenseType'=>'',
                 'licenseExpiryDate'=>'',
-                'prcImage' =>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'prcImage' =>'',
                 'clinicName'=>'',
                 'clinicAddress'=>'',
-                'clinicMobileNumber'=>'',
-                'clinicTelephoneNumber'=>'',
+                'clinicMobileNumber'=>'nullable|min:11|max:11',
+                'clinicTelephoneNumber'=>'nullable|min:9|max:9',
             ]);
             $user->doctor_profile()->update($data);
         }
