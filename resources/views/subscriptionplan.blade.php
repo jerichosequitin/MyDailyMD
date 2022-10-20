@@ -90,7 +90,7 @@
     <a href="/">Home</a>
     <a href="aboutus">About Us</a>
     <a href="subscriptionplan" class="active">Subscription</a>
-    <a href="email">Contact Us</a>
+    <a href="contact-us">Contact Us</a>
 </div>
 <br>
 <div class="container">

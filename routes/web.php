@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PHPMailerController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//for contact us:
+Route::get('/contact-us', [ContactController::class, 'index']);
+Route::post('/contact-us', [ContactController::class, 'save'])->name('contact.store');
+
 Route::get("email", [PHPMailerController::class, "email"])->name("email");
 Route::post("send-email", [PHPMailerController::class, "composeEmail"])->name("send-email");
 
