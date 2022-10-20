@@ -80,7 +80,7 @@ class DoctorProfileController extends Controller
                 'sex'=>'',
                 'contactNumber'=>'min:11|max:11',
                 'specialization'=>'',
-                'workingHours'=>'',
+                'workingHours'=>'required',
                 'digitalSignature'=>'',
                 'prcNumber'=>'',
                 'licenseType'=>'',

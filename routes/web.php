@@ -48,14 +48,6 @@ Route::get('userregistration', function (){
     return view('userregistration');
 });
 
-Route::get('patientcreateprofile', function (){
-    return view('patientcreateprofile');
-});
-
-Route::get('doctorcreateprofile', function (){
-    return view('doctorcreateprofile');
-});
-
 Route::get('privacypolicy', function (){
     return view('privacypolicy');
 });

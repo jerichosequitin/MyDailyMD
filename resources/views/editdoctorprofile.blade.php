@@ -209,7 +209,7 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Working Hours</span>
-                            <input type="time" value="{{$user->doctor_profile->workingHours }} "class="form-control" name="workingHours">
+                            <input type="time" value="{{$user->doctor_profile->workingHours }} "class="form-control" name="workingHours" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Digital Signature</span>
