@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Laratrust\Traits\LaratrustUserTrait;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use LaratrustUserTrait;
     use HasApiTokens, HasFactory, Notifiable;

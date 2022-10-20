@@ -189,7 +189,7 @@ Route::get('email', function (){
 
 
 //Auth route for Register & Login
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
     //Complete Profile First
     Route::group(['middleware' => ['profile']], function () {
 
@@ -205,13 +205,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');
         Route::get('/doctorprofile/{user}/edit', 'App\Http\Controllers\DoctorProfileController@edit')->name('doctorprofile.edit');
     });
+
+    //Create Profile can only be visited once
+    Route::group(['middleware' => ['createprofileonce']], function () {
+        Route::get('/patientprofile/{user}/create', 'App\Http\Controllers\PatientProfileController@create')->name('patientprofile.create');
+        Route::get('/doctorprofile/{user}/create', 'App\Http\Controllers\DoctorProfileController@create')->name('doctorprofile.create');
+    });
 });
 
-//Create Profile can only be visited once
-Route::group(['middleware' => ['createprofileonce']], function () {
-    Route::get('/patientprofile/{user}/create', 'App\Http\Controllers\PatientProfileController@create')->name('patientprofile.create');
-    Route::get('/doctorprofile/{user}/create', 'App\Http\Controllers\DoctorProfileController@create')->name('doctorprofile.create');
-});
+
 
 
 Route::patch('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@update')->name('patientprofile.update');
