@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Patient Profile</title>
+    <title>MyDailyMD - Create Patient Profile</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
@@ -16,11 +16,6 @@
         a.back{
             text-align: left;
             display: block;
-        }
-        .container-fluid{
-            background-size: 100% 100%;
-            background-attachment: fixed;
-            background-image: url("./img/bg03.png");
         }
         .content form .user-details{
             display: flex;
@@ -48,9 +43,16 @@
             border-bottom-width: 2px;
             transition: all 0.3s ease;
         }
+        select[name="maritalStatus"]{
+            width:100%;
+            display: block;
+            margin-bottom: 5px;
+            height: 45px;
+        }
         .user-details .input-box input:focus,
-        .user-details .input-box input:valid{
-            border-color: #9b59b6;
+        .user-details .input-box input:valid,
+        .user-details .input-box select:valid{
+            border-color: forestgreen;
         }
         img{
             filter: brightness(100%);
@@ -155,6 +157,17 @@
             background-color:#DEF1FD;
             border:1px solid black;
         }
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 <body>
@@ -164,12 +177,11 @@
         <div class="left-half">
             <h3>
                 <b>{{$user->name}}</b>
-                {{  $user->role_id }}
             </h3>
 
             <br>
 
-            <image src="/img/patient2.png" height="120" width="150"/>
+            <img src="/img/patient2.png" height="120" width="150"/>
         </div>
 
         <br>
@@ -191,11 +203,22 @@
 
     <div class="main">
         <h1>
-            <b>Patient Profile</b>
+            <b>Edit Patient Profile</b>
         </h1>
         <div class="row">
             <div class="content">
-                <form action="">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <form action="/patientprofile/{{ $user->id }}" method="post">
+                    @csrf
+                    @method('PATCH')
                     <div class="column">
                         <div class="container">
                             <div class="user-details">
@@ -209,11 +232,15 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Date of Birth</span>
-                                    <input type="date" value="{{$user->patient_profile->birthdate }}" class="form-control" name="birthdate" disabled>
+                                    <input type="date" value="{{$user->patient_profile->birthdate}}" class="form-control" name="birthdate" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Sex</span>
-                                    <input type="text" value="{{$user->patient_profile->sex }} "class="form-control" name="sex" disabled>
+                                    <select name="sex" value="{{$user->patient_profile->sex}}" class="form-control"}} required>
+                                        <option selected disabled hidden>{{$user->patient_profile->sex }}</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -227,46 +254,68 @@
                             <div class="user-details">
                                 <div class="input-box">
                                     <span class="details">Address</span>
-                                    <input type="text" value="{{$user->patient_profile->address }}" class="form-control" name="address" disabled>
+                                    <input type="text" value="{{$user->patient_profile->address }}" class="form-control" placeholder="Unit #, Street Name, Barangay" name="address" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">City</span>
-                                    <input type="text" value="{{$user->patient_profile->city }}" class="form-control" name="city" disabled>
+                                    <input type="text" value="{{$user->patient_profile->city }}" class="form-control" name="city" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Postal Code</span>
-                                    <input type="text" value="{{$user->patient_profile->postalCode }}" class="form-control" name="postalCode" disabled>
+                                    <input type="number" value="{{$user->patient_profile->postalCode }}"
+                                           min="0"
+                                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                           maxlength = "4"
+                                           title="Format: XXXX" class="form-control" placeholder="XXXX" name="postalCode">
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Marital Status</span>
-                                    <input type="text" value="{{$user->patient_profile->maritalStatus }}" class="form-control" name="maritalStatus" disabled>
+                                    <select name="maritalStatus" value="{{$user->patient_profile->maritalStatus }}" class="form-control" required>
+                                        <option selected disabled hidden>{{$user->patient_profile->maritalStatus }}</option>
+                                        <option value="Single">Single</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Divorced">Divorced</option>
+                                        <option value="Separated">Separated</option>
+                                        <option value="Widowed">Widowed</option>
+                                    </select>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Mobile Number</span>
-                                    <input type="text" value="{{$user->patient_profile->mobileNumber }}" class="form-control" name="mobileNumber" disabled>
+                                    <input type="number" value="{{$user->patient_profile->mobileNumber }}"
+                                           min="0"
+                                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                           maxlength = "11"
+                                           title="Format: 09XXXXXXXXX" maxlength="11" class="form-control" placeholder="09XXXXXXXXX" name="mobileNumber" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Landline Number</span>
-                                    <input type="text" value="{{$user->patient_profile->landlineNumber }}" class="form-control" name="landlineNumber" disabled>
+                                    <input type="number" value="{{$user->patient_profile->landlineNumber }}"
+                                           min="0"
+                                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                           maxlength = "9"
+                                           title="Format: XXXX-XXXX" class="form-control" placeholder="XXXX-XXXX" name="landlineNumber">
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Emergency Contact</span>
-                                    <input type="text" value="{{$user->patient_profile->emergencyContact }}" class="form-control" name="emergencyContact" disabled>
+                                    <input type="text" value="{{$user->patient_profile->emergencyContact }}" class="form-control" name="emergencyContact" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Emergency Contact No.</span>
-                                    <input type="text" value="{{$user->patient_profile->emergencyContactNumber }}" class="form-control" name="emergencyContactNumber" disabled>
+                                    <input type="number" value="{{$user->patient_profile->emergencyContactNumber }}"
+                                           min="0"
+                                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                           maxlength = "11"
+                                           title="Format: 09XXXXXXXXX" class="form-control" placeholder="09XXXXXXXXX" name="emergencyContactNumber" required>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <br>
+                    <button class="btn btn-primary">Create Profile</button>
                 </form>
             </div>
         </div>
         <br>
-            <a href="/patientprofile/{{$user->id}}/edit">
-                <button class="btn btn-primary">Edit</button>
-            </a>
     </div>
 </div>
 </body>

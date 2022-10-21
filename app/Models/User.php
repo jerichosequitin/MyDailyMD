@@ -6,10 +6,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Laratrust\Traits\LaratrustUserTrait;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use LaratrustUserTrait;
     use HasApiTokens, HasFactory, Notifiable;
@@ -22,6 +24,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'type',
         'password',
     ];
 
@@ -43,4 +46,30 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+            if($user->type == 'patient')
+            {
+                $user->patient_profile()->create();
+            }
+            elseif($user->type == 'doctor' )
+            {
+                $user->doctor_profile()->create();
+            }
+        });
+    }
+
+    public function patient_profile()
+    {
+        return $this->hasOne(PatientProfile::class);
+    }
+
+    public function doctor_profile()
+    {
+        return $this->hasOne(DoctorProfile::class);
+    }
 }

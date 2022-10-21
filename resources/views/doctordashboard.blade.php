@@ -158,24 +158,29 @@
             text-align: center;
         }
         .topnav {
-            background-image: linear-gradient(to left, white, rgb(180, 230, 255));
             text-align: right;
+            background-image: linear-gradient(to right, white, rgb(180, 230, 255));
         }
     </style>
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <!-- Authentication -->
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
+    <div class="dropdown">
+        <button class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i></button>
+        <div class="dropdown-content">
+            <a href="doctorprofile/{{Auth::user()->id}}"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
 
-        <a :href="route('logout')"
-           onclick="event.preventDefault();
+                <a :href="route('logout')"
+                   onclick="event.preventDefault();
                                         this.closest('form').submit();">
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
-            {{ __('Log Out') }}
-        </a>
-    </form>
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    {{ __('Log Out') }}
+                </a>
+            </form>
+        </div>
+    </div>
 </div>
 <img src="./img/logo.png" width="180" height="180" class="logo">
 <div class="container">
