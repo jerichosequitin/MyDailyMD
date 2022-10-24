@@ -81,9 +81,6 @@ Route::get('patientmedications', function (){
     return view('patientmedications');
 });
 
-Route::get('patientmedicalhistory', function (){
-    return view('patientmedicalhistory');
-});
 
 Route::get('patientimmunization', function (){
     return view('patientimmunization');
@@ -173,9 +170,7 @@ Route::get('adminhomepage', function (){
     return view('adminhomepage');
 });
 
-Route::get('admindoctorlist', function (){
-    return view('admindoctorlist');
-});
+Route::get('/admindoctorlist', 'App\Http\Controllers\AdminDoctorListController@index')->name('doctorlist.show');
 
 Route::get('adminclientlist', function (){
     return view('adminclientlist');
@@ -198,6 +193,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@index')->name('patientprofile.show');
         Route::get('/patientprofile/{user}/edit', 'App\Http\Controllers\PatientProfileController@edit')->name('patientprofile.edit');
 
+        Route::get('/patientmedicalhistory/{user}', 'App\Http\Controllers\MedicalHistoryController@index')->name('medicalhistory.show');
+        Route::get('/patientmedicalhistory/{user}/edit', 'App\Http\Controllers\MedicalHistoryController@edit')->name('medicalhistory.edit');
+
         //DOCTOR
         Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');
         Route::get('/doctorprofile/{user}/edit', 'App\Http\Controllers\DoctorProfileController@edit')->name('doctorprofile.edit');
@@ -211,9 +209,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 });
 
 
-
-
 Route::patch('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@update')->name('patientprofile.update');
+Route::patch('/patientmedicalhistory/', 'App\Http\Controllers\PatientMedicalHistoryController@update')->name('medicalhistory.update');
 Route::patch('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@update')->name('doctorprofile.update');
 
 

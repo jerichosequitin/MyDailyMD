@@ -75,54 +75,21 @@
     <table class="table">
         <thead>
         <tr style="background-color:#18A0FB;">
-            <th>Last Name</th>
-            <th>First Name</th>
+            <th>Full Name</th>
             <th>Email</th>
-            <th>Specialization</th>
-            <th>PRC No.</th>
-            <th>License Type</th>
-            <th>Expiry Date</th>
-            <th>PRC ID</th>
-            <th>Action</th>
-            <th colspan='2'></th>
+            <th>Created At</th>
+            <th>Updated At</th>
         </tr>
-        <tr style="background-color:#DEF1FD">
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <th colspan='2'></th>
-        </tr>
-        <tr style="background-color:#FFFFFF">
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <th colspan='2'></th>
-        </tr>
-        <tr style="background-color:#DEF1FD">
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <th colspan='2'></th>
-        </tr>
+        @foreach($doc as $data)
+            <tr style="background-color:whitesmoke">
+                <td>{{ $data->name }}</td>
+                <td>{{ $data->email }}</td>
+                <td>{{ $data->created_at }}</td>
+                <td>{{ $data->updated_at }}</td>
+            </tr>
+        @endforeach
         </thead>
     </table>
+</div>
 </body>
 </html>
