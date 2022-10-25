@@ -163,8 +163,7 @@
     <div class="sidenav">
         <div class="left-half">
             <h3>
-                <b>{{$user->name}}</b>
-                {{  $user->role_id }}
+                <b>{{Auth::user()->name}}</b>
             </h3>
 
             <br>
@@ -174,9 +173,9 @@
 
         <br>
 
-        <a href="/patientprofile/{{$user->id}}">Profile</a>
+        <a href="/patientprofile/{{Auth::user()->id}}">Profile</a>
         <br>
-        <a href="{{ url('patientmedicalhistory') }}">Medical History</a>
+        <a href="{{ url('patientmedicalhistory/') }}">Medical History</a>
         <br>
         <a href="{{ url('patientmedications') }}">Medications</a>
         <br>

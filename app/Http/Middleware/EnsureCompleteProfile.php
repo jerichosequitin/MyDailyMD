@@ -30,7 +30,7 @@ class EnsureCompleteProfile
                 //dd($request->user()->doctor_profile);
                 //return redirect ('dashboard');
                 //return redirect('/doctorprofile/' . $request->user()->doctor_profile->id . '/create');
-                return redirect()->route('doctorprofile.create', Auth::user()->id);
+                return redirect()->route('doctorprofile.create', Auth::user()->id)->with('Error', 'Please complete your profile first.');
             }
         }
         elseif($request->user()->type == 'patient')
@@ -43,7 +43,7 @@ class EnsureCompleteProfile
                 //dd($request->user()->patient_profile);
                 //return redirect ('dashboard');
                 //return redirect('/patientprofile/' . $request->user()->patient_profile->id . '/create');
-                return redirect()->route('patientprofile.create', Auth::user()->id);
+                return redirect()->route('patientprofile.create', Auth::user()->id)->with('Error', 'Please complete your profile first.');
             }
         }
 

@@ -207,6 +207,11 @@
         </h1>
         <div class="row">
             <div class="content">
+                @if(session()->get('Error'))
+                    <div class="alert alert-danger">
+                        {{ session()->get('Error') }}
+                    </div><br />
+                @endif
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>

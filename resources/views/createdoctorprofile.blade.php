@@ -151,6 +151,11 @@
     </div>
     <img src="/img/logo.png" width="180" height="180" class="logo">
     <div style="width: 100%">
+        @if(session()->get('Error'))
+            <div class="alert alert-danger">
+                {{ session()->get('Error') }}
+            </div><br />
+        @endif
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
