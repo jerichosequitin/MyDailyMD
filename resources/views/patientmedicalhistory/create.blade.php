@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>MyDailyMD - Add Medical History</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Internal CSS -->
+    <style>
+        a{
+            text-decoration: none;
+        }
+        a.back{
+            text-align: left;
+            display: block;
+        }
+        .content form .user-details{
+            display:inline;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0 12px 0;
+        }
+        form .user-details .input-box{
+            margin-bottom: 15px;
+            width: calc(100% / 2 - 20px);
+        }
+        form .input-box span.details{
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .user-details .input-box input{
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+        .user-details .input-box input:focus,
+        .user-details .input-box input:valid{
+            border-color: #9b59b6;
+        }
+
+        img{
+            filter: brightness(100%);
+            filter: contrast(100%);
+            filter: drop-shadow(1px 1px 1px gray);
+            align-items: center;
+        }
+        h1{
+            text-align:center;
+            font-size:large;
+        }
+        h2{
+            font-size:medium;
+            text-align:center;
+        }
+        h3{
+            font-size:20px;
+            text-align:center;
+            color:#EFFCFF;
+        }
+
+        body{
+            background-color:#EAFAFF;
+            background-size:contain;
+            background-position-y: top;
+            background-position-x: right;
+            background-repeat:round;
+            text-align: center;
+        }
+        p{
+            text-align: center;
+            font-size: medium;
+
+        }
+        .sidenav{
+            height: 150%;
+            width: 250px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #0184DF;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #EFFCFF;
+            display: block;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+        .main {
+            margin-left: 250px; /* Same as the width of the sidenav */
+            font-size: 14px; /* Increased text to enable scrolling */
+            padding: 0px 10px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+        }
+
+        /* Style inputs with type="text", select elements and textareas */
+        input[type=text], select, textarea {
+            width: 100%; /* Full width */
+            padding: 12px; /* Some padding */
+            border: 1px solid #ccc; /* Gray border */
+            border-radius: 4px; /* Rounded borders */
+            box-sizing: border-box; /* Make sure that padding and width stays in place */
+            margin-top: 6px; /* Add a top margin */
+            margin-bottom: 16px; /* Bottom margin */
+            resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+        }
+
+        /* Style the submit button with a specific background color etc */
+        input[type=submit] {
+            background-color: #04AA6D;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* When moving the mouse over the submit button, add a darker green color */
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        /* Add a background color and some padding around the form */
+        .container {
+            border-radius: 15px;
+            padding: 20px;
+            width: 50%;
+            height: 15%;
+            background-color:#DEF1FD;
+            border:1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid p-5 text-black text-center">
+    <br>
+    <div class="sidenav">
+        <div class="left-half">
+            <h3>
+                <b>
+                    {{Auth::user()->name}}
+                </b>
+            </h3>
+            <br>
+            <input type="image" src="/img/patient2.png" height="120" width="150"/>
+        </div>
+
+        <br>
+
+        <a href="/patientprofile/{{Auth::user()->id}}">Profile</a>
+        <br>
+        <a href="{{ url('patientmedicalhistory/') }}">Medical History</a>
+        <br>
+        <a href="patientmedications">Medications</a>
+        <br>
+        <a href="patientallergies">Allergies</a>
+        <br>
+        <a href="patientprogressnotes">Progress Notes</a>
+        <br>
+        <a href="patientimmunization">Immunization</a>
+        <br><br>
+        <a href="mainpatientdashboard"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
+    </div>
+
+    <div class="main">
+        <h1>
+            <b>Add Medical History</b>
+        </h1>
+        <div class="content">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div><br />
+            @endif
+            <form method="post" action="{{ route('patientmedicalhistory.store') }}">
+                @csrf
+                <div class="container">
+                    <center>
+                        <div class="user-details">
+                            <input type="text" class="form-control" name="user_id" value="{{Auth::user()->id}}" required hidden>
+
+                            <div class="input-box">
+                                <span class="details">Surgical Procedure</span>
+                                <input type="text" class="form-control" name="surgicalProcedure" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Hospital</span>
+                                <input type="text" class="form-control" name="hospital" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Surgery Date</span>
+                                <input type="date" class="form-control" name="surgeryDate" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Surgery Notes</span>
+                                <textarea name="surgeryNotes" style="height:150px" required></textarea>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">Save</button>
+                    </center>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\PHPMailerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MedicalHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -193,8 +194,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@index')->name('patientprofile.show');
         Route::get('/patientprofile/{user}/edit', 'App\Http\Controllers\PatientProfileController@edit')->name('patientprofile.edit');
 
-        Route::get('/patientmedicalhistory/{user}', 'App\Http\Controllers\MedicalHistoryController@index')->name('medicalhistory.show');
-        Route::get('/patientmedicalhistory/{user}/edit', 'App\Http\Controllers\MedicalHistoryController@edit')->name('medicalhistory.edit');
+        Route::resource('patientmedicalhistory', MedicalHistoryController::class);
 
         //DOCTOR
         Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');
@@ -210,7 +210,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 
 Route::patch('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@update')->name('patientprofile.update');
-Route::patch('/patientmedicalhistory/', 'App\Http\Controllers\PatientMedicalHistoryController@update')->name('medicalhistory.update');
 Route::patch('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@update')->name('doctorprofile.update');
 
 
