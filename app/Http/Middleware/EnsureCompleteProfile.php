@@ -34,7 +34,7 @@ class EnsureCompleteProfile
             }
             elseif(Auth::user()->doctor_profile->isVerified != 'Enabled')
             {
-                return redirect()->route('doctorverifyinglicense');
+                return redirect()->route('doctorverifyinglicense')->with('Error', 'Please wait for an admin to verify your profile.');
             }
         }
         elseif($request->user()->type == 'patient')

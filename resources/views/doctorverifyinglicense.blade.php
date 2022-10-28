@@ -119,13 +119,17 @@
     </form>
 </div>
 <img src="./img/logo.png" width="180" height="180" class="logo">
+@if(session()->get('Error'))
+    <div class="alert alert-warning">
+        {{ session()->get('Error') }}
+    </div><br />
+@endif
 <div class="container">
     <br><br>
 
     <h2>Hello, <b>{{Auth::user()->name}}</b>! Your account is currently undergoing profile verification. Please wait for at least <b>1-2 hours</b> upon profile creation to gain access to your account.</h2>
 
     <br>
-
 </div>
 </body>
 </html>
