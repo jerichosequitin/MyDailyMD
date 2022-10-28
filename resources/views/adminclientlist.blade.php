@@ -78,33 +78,21 @@
     <table class="table">
         <thead>
         <tr style="background-color:#18A0FB;">
-            <th>Last Name</th>
-            <th>First Name</th>
+            <th>Full Name</th>
             <th>Email</th>
-            <th>Phone Number</th>
-            <th colspan='2'></th>
+            <th>Mobile Number</th>
+            <th>Created At</th>
+            <th>Updated At</th>
         </tr>
-        <tr style="background-color:#DEF1FD">
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <th colspan='2'></th>
+        @foreach($patient as $data)
+            <tr style="background-color:whitesmoke">
+                <td>{{ $data->name }}</td>
+                <td>{{ $data->email }}</td>
+                <td>{{ $data->mobileNumber }}</td>
+                <td>{{ $data->created_at }}</td>
+                <td>{{ $data->updated_at }}</td>
         </tr>
-        <tr style="background-color:#FFFFFF">
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <th colspan='2'></th>
-        </tr>
-        <tr style="background-color:#DEF1FD">
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <td>Sample</td>
-            <th colspan='2'></th>
-        </tr>
+        @endforeach
         </thead>
     </table>
 </body>
