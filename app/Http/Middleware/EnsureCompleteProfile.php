@@ -32,6 +32,10 @@ class EnsureCompleteProfile
                 //return redirect('/doctorprofile/' . $request->user()->doctor_profile->id . '/create');
                 return redirect()->route('doctorprofile.create', Auth::user()->id);
             }
+            elseif(Auth::user()->doctor_profile->isVerified != 'Enabled')
+            {
+                return redirect()->route('doctorverifyinglicense');
+            }
         }
         elseif($request->user()->type == 'patient')
         {
