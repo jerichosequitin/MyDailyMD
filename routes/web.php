@@ -3,6 +3,7 @@
 use App\Http\Controllers\PHPMailerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MedicalHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -166,15 +167,6 @@ Route::get('codeverification', function (){
     return view('codeverification');
 });
 
-Route::get('adminhomepage', function (){
-    return view('adminhomepage');
-});
-
-Route::get('/admindoctorlist', 'App\Http\Controllers\AdminDoctorListController@index')->name('doctorlist.show');
-
-Route::get('adminclientlist', function (){
-    return view('adminclientlist');
-});
 Route::get('email', function (){
     return view('email');
 });
@@ -193,25 +185,36 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@index')->name('patientprofile.show');
         Route::get('/patientprofile/{user}/edit', 'App\Http\Controllers\PatientProfileController@edit')->name('patientprofile.edit');
 
-        Route::get('/patientmedicalhistory/{user}', 'App\Http\Controllers\MedicalHistoryController@index')->name('medicalhistory.show');
-        Route::get('/patientmedicalhistory/{user}/edit', 'App\Http\Controllers\MedicalHistoryController@edit')->name('medicalhistory.edit');
+        Route::resource('patientmedicalhistory', MedicalHistoryController::class);
 
         //DOCTOR
         Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');
         Route::get('/doctorprofile/{user}/edit', 'App\Http\Controllers\DoctorProfileController@edit')->name('doctorprofile.edit');
     });
 
+    Route::group(['middleware' => ['adminaccess']], function () {
+        //ADMIN
+        Route::get('adminhomepage', function (){
+            return view('adminhomepage');
+        });
+        Route::get('/admindoctorlist', 'App\Http\Controllers\AdminDoctorListController@index')->name('doctorlist.show');
+        Route::get('/adminpatientlist', 'App\Http\Controllers\AdminPatientListController@index')->name('patientlist.show');
+        Route::get('/admindoctorlist/{doctorProfile}/verify', 'App\Http\Controllers\AdminDoctorListController@verify')->name('doctorlist.verify');
+        Route::patch('/admindoctorlist/{doctorProfile}', 'App\Http\Controllers\AdminDoctorListController@update')->name('doctorlist.update');
+    });
+
     //Create Profile can only be visited once
     Route::group(['middleware' => ['createprofileonce']], function () {
-        Route::get('/patientprofile/{user}/create', 'App\Http\Controllers\PatientProfileController@create')->name('patientprofile.create');
+        //Route::get('/patientprofile/{user}/create', 'App\Http\Controllers\PatientProfileController@create')->name('patientprofile.create');
         Route::get('/doctorprofile/{user}/create', 'App\Http\Controllers\DoctorProfileController@create')->name('doctorprofile.create');
     });
+
+    //Update Profile
+    Route::patch('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@update')->name('patientprofile.update');
+    Route::patch('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@update')->name('doctorprofile.update');
 });
 
 
-Route::patch('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@update')->name('patientprofile.update');
-Route::patch('/patientmedicalhistory/', 'App\Http\Controllers\PatientMedicalHistoryController@update')->name('medicalhistory.update');
-Route::patch('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@update')->name('doctorprofile.update');
 
 
 require __DIR__.'/auth.php';

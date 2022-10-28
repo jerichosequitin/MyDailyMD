@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
-class AdminClientListController extends Controller
+class AdminPatientListController extends Controller
 {
     public function index(User $user)
     {
@@ -15,6 +15,6 @@ class AdminClientListController extends Controller
             ->join('patient_profiles','users.id','=','patient_profiles.user_id')
             ->where('type', '=', 'patient')
             ->get();
-        return view ('adminclientlist')->with('patient', $patient);
+        return view ('adminpatientlist')->with('patient', $patient);
     }
 }
