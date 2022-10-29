@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Patient Medical History</title>
+    <title>MyDailyMD - Patient Immunization</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
@@ -207,7 +207,7 @@
     </div>
 
     <div class="main">
-        <h1><b>Medical History</b></h1>
+        <h1><b>Immunization</b></h1>
         <div class="row">
             <div class="content">
                 <form action="patientprofile">
@@ -238,21 +238,19 @@
                             <table class="table">
                                 <thead>
                                 <tr style="background-color:#18A0FB;">
-                                    <th>Surgical Procedure</th>
-                                    <th>Hospital</th>
-                                    <th>Surgery Date</th>
-                                    <th>Surgery Notes</th>
+                                    <th>Vaccines</th>
+                                    <th>Purpose</th>
+                                    <th>Date Taken</th>
                                     <th colspan="2" style="width: 10%">Action</th>
                                 </tr>
-                                @foreach($medicalHistory as $mh)
+                                @foreach($immunization as $im)
                                 <tr style="background-color:whitesmoke">
-                                    <td>{{ $mh->surgicalProcedure }}</td>
-                                    <td>{{ $mh->hospital }}</td>
-                                    <td>{{ $mh->surgeryDate }}</td>
-                                    <td>{{ $mh->surgeryNotes }}</td>
-                                    <td><a href="{{ route('patientmedicalhistory.edit', $mh->id) }}" class="btn btn-primary btn-sm">Edit</a></td>
+                                    <td>{{ $im->vaccines }}</td>
+                                    <td>{{ $im->purpose }}</td>
+                                    <td>{{ $im->dateTaken }}</td>
+                                    <td><a href="{{ route('patientimmunization.edit', $im->id) }}" class="btn btn-primary btn-sm">Edit</a></td>
                                     <td>
-                                        <form action="{{ route('patientmedicalhistory.destroy', $mh->id)}}" method="post" style="display: inline-block">
+                                        <form action="{{ route('patientimmunization.destroy', $im->id)}}" method="post" style="display: inline-block">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger btn-sm" type="submit">Delete</button>
@@ -268,7 +266,7 @@
 
                     </div>
                 </form>
-                <a href="{{ route('patientmedicalhistory.create') }}" class="btn btn-primary">Add</a>
+                <a href="{{ route('patientimmunization.create') }}" class="btn btn-primary">Add</a>
             </div>
         </div>
     </div>

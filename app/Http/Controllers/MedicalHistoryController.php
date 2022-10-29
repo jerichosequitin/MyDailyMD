@@ -27,7 +27,7 @@ class MedicalHistoryController extends Controller
             'user_id' => 'required',
             'surgicalProcedure'=>'required',
             'hospital'=>'required',
-            'surgeryDate'=>'required',
+            'surgeryDate'=>'required|before:today',
             'surgeryNotes'=>'required',
         ]);
 
@@ -48,7 +48,7 @@ class MedicalHistoryController extends Controller
         $updateData = request()->validate([
             'surgicalProcedure'=>'required',
             'hospital'=>'required',
-            'surgeryDate'=>'required',
+            'surgeryDate'=>'required|before:today',
             'surgeryNotes'=>'required',
         ]);
 

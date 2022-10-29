@@ -182,9 +182,9 @@
         <br>
         <a href="patientprogressnotes">Progress Notes</a>
         <br>
-        <a href="patientimmunization">Immunization</a>
+        <a href="{{ url('patientimmunization/') }}">Immunization</a>
         <br><br>
-        <a href="mainpatientdashboard"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
+        <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
     </div>
 
     <div class="main">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Patient Medical History</title>
+    <title>MyDailyMD - Edit Immunization</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
@@ -12,21 +12,15 @@
     <style>
         a{
             text-decoration: none;
-
         }
         a.back{
             text-align: left;
             display: block;
         }
-        .container-fluid{
-            background-size: 100% 100%;
-            background-attachment: fixed;
-            background-image: url("./img/bg03.png");
-        }
         .content form .user-details{
-            display: flex;
+            display:inline;
             flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: center;
             margin: 20px 0 12px 0;
         }
         form .user-details .input-box{
@@ -80,7 +74,7 @@
             background-position-y: top;
             background-position-x: right;
             background-repeat:round;
-            text-align:center;
+            text-align: center;
         }
         p{
             text-align: center;
@@ -121,8 +115,6 @@
             .sidenav a {font-size: 18px;}
         }
 
-
-
         /* Style inputs with type="text", select elements and textareas */
         input[type=text], select, textarea {
             width: 100%; /* Full width */
@@ -154,22 +146,11 @@
         .container {
             border-radius: 15px;
             padding: 20px;
-            width: 100%;
-            height: 50%;
+            width: 50%;
+            height: 15%;
             background-color:#DEF1FD;
             border:1px solid black;
-        }
-        table{
-            width: 100%;
             text-align: center;
-            table-layout:auto;
-        }
-        td{
-            border-collapse: collapse;
-            color:black;
-        }
-        th{
-            color:white;
         }
     </style>
 </head>
@@ -207,69 +188,42 @@
     </div>
 
     <div class="main">
-        <h1><b>Medical History</b></h1>
-        <div class="row">
-            <div class="content">
-                <form action="patientprofile">
-                    <div class="column">
-                        <div class="container">
-                            <div class="user-details">
-                                <div class="input-box">
-                                    <span class="details">Patient Name</span>
-                                    <input type="text" class="form-control" value="{{ Auth::user()->name }}" name="patientName" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Date of Birth</span>
-                                    <input type="text" class="form-control" value="{{ Auth::user()->patient_profile->birthdate }}"name="birthdate" disabled>
-                                </div>
+        <h1>
+            <b>Edit Medical History</b>
+        </h1>
+        <div class="content">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div><br />
+            @endif
+            <form method="post" action="{{ route('patientimmunization.update', $immunization->id) }}">
+                @csrf
+                @method('PATCH')
+                <div class="container">
+                    <center>
+                        <div class="user-details">
+                            <div class="input-box">
+                                <span class="details">Vaccine</span>
+                                <input type="text" value="{{$immunization->vaccines }}" class="form-control" name="vaccines" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Purpose</span>
+                                <input type="text" value="{{$immunization->purpose }}" class="form-control" name="purpose" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Date Taken</span>
+                                <input type="date" value="{{$immunization->dateTaken }}" class="form-control" name="dateTaken" required>
                             </div>
                         </div>
-                    </div>
-
-                    <br>
-
-                    <div class="column">
-                        @if(session()->get('Completed'))
-                            <div class="alert alert-success">
-                                {{ session()->get('Completed') }}
-                            </div><br />
-                        @endif
-                        <div class="container">
-                            <table class="table">
-                                <thead>
-                                <tr style="background-color:#18A0FB;">
-                                    <th>Surgical Procedure</th>
-                                    <th>Hospital</th>
-                                    <th>Surgery Date</th>
-                                    <th>Surgery Notes</th>
-                                    <th colspan="2" style="width: 10%">Action</th>
-                                </tr>
-                                @foreach($medicalHistory as $mh)
-                                <tr style="background-color:whitesmoke">
-                                    <td>{{ $mh->surgicalProcedure }}</td>
-                                    <td>{{ $mh->hospital }}</td>
-                                    <td>{{ $mh->surgeryDate }}</td>
-                                    <td>{{ $mh->surgeryNotes }}</td>
-                                    <td><a href="{{ route('patientmedicalhistory.edit', $mh->id) }}" class="btn btn-primary btn-sm">Edit</a></td>
-                                    <td>
-                                        <form action="{{ route('patientmedicalhistory.destroy', $mh->id)}}" method="post" style="display: inline-block">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm" type="submit">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </thead>
-                            </table>
-                        </div>
-
-                        <br>
-
-                    </div>
-                </form>
-                <a href="{{ route('patientmedicalhistory.create') }}" class="btn btn-primary">Add</a>
-            </div>
+                        <button class="btn btn-primary">Save</button>
+                    </center>
+                </div>
+            </form>
         </div>
     </div>
 </div>
