@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="navbar.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 
 
@@ -132,6 +132,7 @@
     </style>
 </head>
 <body>
+
 <div class="topnav" id="myTopnav">
     <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
@@ -139,16 +140,37 @@
 </div>
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
+
 <div class="container">
     <h1>Forgot Password?</h1>
-    <h2>Enter the email address you used when you joined us and we will send you instructions to reset your password.</h2>
     <br>
-    <label for="emailAdd">Enter Email Address</label>
-    <input type="text" id="emailAdd" name="emailAdd" required>
+    <h2>Enter the email address you used when you joined us and we will send you instructions to reset your password.
+    </h2>
+    <br>
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <a href="codeverification">
-        <button class="btn btn-primary" name="sendBtn" class="sendBtn">Send</button>
-    </a>
+    <!-- Validation Errors -->
+    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+    <form method="POST" action="{{ route('password.email') }}">
+        @csrf
+
+        <!-- Email Address -->
+        <div>
+            <x-label for="email" :value="__('Email')" />
+
+            <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+        </div>
+
+        <br>
+        <br>
+        <div class="col-md-6 offset-md-4">
+            <button type="submit" class="btn btn-primary">
+                {{ __('Send Reset Link') }}
+            </button>
+        </div>
+    </form>
 </div>
 </body>
 </html>

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - New Password 1</title>
+    <title>MyDailyMD - Reset Password</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="navbar.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 
 
@@ -46,9 +46,11 @@
         }
 
         body{
-            background-image: linear-gradient(to right, white, rgb(180, 230, 255));
-            margin:0;
-            padding:0;
+            background-color:#EAFAFF;
+            background-size:contain;
+            background-position-y: top;
+            background-position-x: right;
+            background-repeat:round;
             text-align: center;
         }
         p{
@@ -75,7 +77,7 @@
         }
 
         /* Style inputs with type="text", select elements and textareas */
-        input[type=password], select, textarea {
+        input[type=text], select, textarea {
             width: 100%; /* Full width */
             padding: 12px; /* Some padding */
             border: 1px solid #ccc; /* Gray border */
@@ -105,7 +107,7 @@
         .container{
             border-radius: 5px;
             padding: 20px;
-            width: 25%;
+            width: 40%;
             height: 15%;
             background-color:#DEF1FD;
             border:1px solid black;
@@ -122,26 +124,69 @@
             position:relative;
         }
         .topnav {
+            position: relative;
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
+            overflow: hidden;
             text-align: left;
         }
     </style>
 </head>
 <body>
-<div class="topnav" id="myTopnav">
-    <a href="codeverification"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
-</div>
 
-<img src="./img/logo.png" width="180" height="180" class="logo">
-<div class="container">
-    <h1>New Password</h1>
-    <h2>Please create a new password that you do not use on any other site.</h2>
-    <br>
-    <input type="password" id="newPass" name="newPass" placeholder="New Password">
-    <input type="password" id="confirmNewPass" name="confirmNewPass" placeholder="Confirm New Password">
-    <a href="newpasswordpt2">
-        <button class="btn btn-primary" name="sendBtn" class="sendBtn">Send</button>
+<div class="topnav" id="myTopnav">
+    <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     </a>
 </div>
+
+
+<img src="/img/logo.png" width="180" height="180" class="logo">
+<div class="container">
+    <!-- Validation Errors -->
+    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+    <h1>Reset Password</h1>
+    <br>
+    <h2><center>Please create a new password that you don’t use on any other site.</center></h2>
+    <br>
+    <br>
+    <form method="POST" action="{{ route('password.update') }}">
+        @csrf
+
+        <!-- Password Reset Token -->
+        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
+        <!-- Email Address -->
+        <div>
+            <x-label for="email" :value="__('Email')" />
+
+            <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
+        </div>
+
+        <!-- Password -->
+        <div class="mt-4">
+            <x-label for="password" :value="__('Password')" />
+
+            <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mt-4">
+            <x-label for="password_confirmation" :value="__('Confirm Password')" />
+
+            <x-input id="password_confirmation" class="block mt-1 w-full"
+                     type="password"
+                     name="password_confirmation" required />
+        </div>
+
+        <br>
+        <br>
+        <div>
+            <button type="submit" class="btn btn-primary">
+                {{ __('Reset Password') }}
+            </button>
+        </div>
+    </form>
+</div>
+
 </body>
 </html>
