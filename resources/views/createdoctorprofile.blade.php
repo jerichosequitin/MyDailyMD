@@ -151,6 +151,11 @@
     </div>
     <img src="/img/logo.png" width="180" height="180" class="logo">
     <div style="width: 100%">
+        @if(session()->get('Error'))
+            <div class="alert alert-danger">
+                {{ session()->get('Error') }}
+            </div><br />
+        @endif
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -182,7 +187,7 @@
                         <div class="input-box">
                             <span class="details">Sex</span>
                             <select name="sex" value="{{$user->doctor_profile->sex}}" class="form-control" required>
-                                <option selected disabled hidden>{{$user->doctor_profile->sex }}</option>
+                                <option selected hidden>{{$user->doctor_profile->sex }}</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
@@ -198,7 +203,7 @@
                         <div class="input-box">
                             <span class="details">Specialization</span>
                             <select name="specialization" value="{{$user->doctor_profile->specialization}}" class="form-control"}} required>
-                                <option selected disabled hidden>{{$user->doctor_profile->specialization }}</option>
+                                <option selected hidden>{{$user->doctor_profile->specialization }}</option>
                                 <option value="Dermatology">Dermatology</option>
                                 <option value="Neurology">Neurology</option>
                                 <option value="Pathology">Pathology</option>

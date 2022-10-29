@@ -32,9 +32,13 @@ class EnsureCompleteProfile
                 //return redirect('/doctorprofile/' . $request->user()->doctor_profile->id . '/create');
                 return redirect()->route('doctorprofile.create', Auth::user()->id);
             }
-            elseif(Auth::user()->doctor_profile->isVerified != 'Enabled')
+            elseif(Auth::user()->doctor_profile->isVerified == '')
             {
                 return redirect()->route('doctorverifyinglicense')->with('Error', 'Please wait for an admin to verify your profile.');
+            }
+            elseif(Auth::user()->doctor_profile->isVerified == 'Disabled')
+            {
+                return redirect()->route('doctorprofile.create', Auth::user()->id)->with('Error', 'Profile Verification failed. Please double check entered information then resubmit.');
             }
         }
         elseif($request->user()->type == 'patient')

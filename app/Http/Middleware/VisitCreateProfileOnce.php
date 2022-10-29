@@ -19,7 +19,7 @@ class VisitCreateProfileOnce
     {
         if($request->user()->type == 'doctor')
         {
-            if ($request->user()->doctor_profile->birthdate != '')
+            if ($request->user()->doctor_profile->isVerified == 'Enabled')
             {
                 return redirect()->route('doctorprofile.show', Auth::user()->id);
             }

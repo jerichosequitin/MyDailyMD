@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DoctorProfile;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,7 @@ class DoctorProfileController extends Controller
     {
         $this->authorize('update', $user->doctor_profile);
 
-        if($user->doctor_profile->digitalSignature == '' || $user->doctor_profile->prcImage == '')
+        if($user->doctor_profile->isVerified != 'Enabled')
         {
             request()->validate([
                 'birthdate'=>'required|date|before:-18 years',
@@ -70,6 +71,8 @@ class DoctorProfileController extends Controller
             $user->doctor_profile->clinicAddress = request()->clinicAddress;
             $user->doctor_profile->clinicMobileNumber = request()->clinicMobileNumber;
             $user->doctor_profile->clinicTelephoneNumber = request()->clinicTelephoneNumber;
+
+            $user->doctor_profile->isVerified = '';
 
             $user->doctor_profile->save();
         }

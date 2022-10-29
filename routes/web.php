@@ -206,6 +206,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/patientprofile/{user}/create', 'App\Http\Controllers\PatientProfileController@create')->name('patientprofile.create');
         Route::get('/doctorprofile/{user}/create', 'App\Http\Controllers\DoctorProfileController@create')->name('doctorprofile.create');
     });
+
     //Verify License
     Route::get('/doctorverifyinglicense', 'App\Http\Controllers\VerifyingLicense@index')->name('doctorverifyinglicense');
 
