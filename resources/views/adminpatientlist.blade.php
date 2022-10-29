@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Admin Home Page</title>
+    <title>MyDailyMD - Admin Client List</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="navbar.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-
     <!-- Internal CSS -->
     <style>
-        .container-fluid{
-            background-size: 100% 100%;
-            background-attachment: fixed;
-            background-image: url("./img/bg.png");
-            image-rendering:crisp-edges;
-            justify-content: center;
-        }
         img{
             filter: brightness(100%);
             filter: contrast(100%);
@@ -40,14 +32,16 @@
             text-align: center;
             font-size: medium;
         }
-        .button1{
-            background-color: none;
-            border: none;
-            color: black;
-            padding: 10px 10px;
+        table{
+            width: 100%;
             text-align: center;
-            display: inline-block;
-            font-size: 16px;
+        }
+        td{
+            border-collapse: collapse;
+            color:black;
+        }
+        th{
+            color:white;
         }
         .logo{
             float:center;
@@ -64,32 +58,42 @@
             position: relative;
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
             overflow: hidden;
-            text-align: right;
+            text-align: left;
         }
     </style>
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <a href="/"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</a>
+    <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
 </div>
-
 <img src="./img/logo.png" width="180" height="180" class="logo">
 
 <br><br>
+<div class="container-fluid">
+    <h1>Patients</h1>
+    <h2><i>Below is the list of Patients registered to MyDailyMD</i></h2>
 
-<h1>Hello, <i style="color: #028adf">Admin!</i> What's your agenda for today?</h1>
-<h2><i>I would like to view..</i></h2>
+    <br>
 
-<br>
-
-<center>
-    <a href="admindoctorlist">
-        <button class="btn btn-primary">List of Doctors</button>
-    </a>
-    <br><br>
-    <a href="adminclientlist">
-        <button class="btn btn-primary">List of Patients</button>
-    </a>
-</center>
+    <table class="table">
+        <thead>
+        <tr style="background-color:#18A0FB;">
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Mobile Number</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+        </tr>
+        @foreach($patient as $data)
+            <tr style="background-color:whitesmoke">
+                <td>{{ $data->name }}</td>
+                <td>{{ $data->email }}</td>
+                <td>{{ $data->mobileNumber }}</td>
+                <td>{{ $data->created_at }}</td>
+                <td>{{ $data->updated_at }}</td>
+        </tr>
+        @endforeach
+        </thead>
+    </table>
 </body>
 </html>

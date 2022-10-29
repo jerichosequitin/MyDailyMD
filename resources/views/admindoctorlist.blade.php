@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="navbar.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Internal CSS -->
     <style>
@@ -56,11 +56,45 @@
             background-image: linear-gradient(to left, white, rgb(180, 230, 255));
             text-align: left;
         }
+        form .user-details{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 5px 12px 5px;
+        }
+        form .user-details .input-box{
+            margin-bottom: 10px;
+            width: 50%;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+        form .input-box span.details{
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+
+        }
+        .user-details .input-box input{
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+        .user-details .input-box input:focus,
+        .user-details .input-box input:valid,
+        .user-details .input-box select:valid{
+            border-color: forestgreen;
+        }
     </style>
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <a href="adminhomepage"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
+    <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
 </div>
 <img src="./img/logo.png" width="180" height="180" class="logo">
 
@@ -71,21 +105,37 @@
     <h2><i>Below is the list of Doctors registered to MyDailyMD</i></h2>
 
     <br>
-
+    @if(session()->get('Completed'))
+        <div class="alert alert-success">
+            {{ session()->get('Completed') }}
+        </div><br />
+    @endif
     <table class="table">
         <thead>
         <tr style="background-color:#18A0FB;">
             <th>Full Name</th>
             <th>Email</th>
             <th>Created At</th>
-            <th>Updated At</th>
+            <th>PRC Number</th>
+            <th>License Type</th>
+            <th>License Expiry Date</th>
+            <th>PRC Image</th>
+            <th>Account Status</th>
+            <th>Action</th>
         </tr>
         @foreach($doc as $data)
             <tr style="background-color:whitesmoke">
                 <td>{{ $data->name }}</td>
                 <td>{{ $data->email }}</td>
                 <td>{{ $data->created_at }}</td>
-                <td>{{ $data->updated_at }}</td>
+                <td>{{ $data->prcNumber }}</td>
+                <td>{{ $data->licenseType }}</td>
+                <td>{{ $data->licenseExpiryDate }}</td>
+                <td><img src="{{ $data->prcImage }}" width="100" height="50"></td>
+                <td>{{ $data->isVerified }}</td>
+                <td>
+                    <a href="{{ route('doctorlist.verify', $data->id) }}" class="btn btn-success btn-sm">Verify License</a>
+                </td>
             </tr>
         @endforeach
         </thead>

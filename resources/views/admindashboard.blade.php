@@ -97,7 +97,7 @@
         <button class="btn btn-primary">List of Doctors</button>
     </a>
     <br><br>
-    <a href="adminclientlist">
+    <a href="adminpatientlist">
         <button class="btn btn-primary">List of Patients</button>
     </a>
 </center>

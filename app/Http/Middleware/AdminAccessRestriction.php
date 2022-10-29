@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class VisitCreateProfileOnce
+class AdminAccessRestriction
 {
     /**
      * Handle an incoming request.
@@ -17,19 +17,9 @@ class VisitCreateProfileOnce
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->user()->type == 'doctor')
+        if($request->user()->type != 'admin')
         {
-            if ($request->user()->doctor_profile->isVerified == 'Enabled')
-            {
-                return redirect()->route('doctorprofile.show', Auth::user()->id);
-            }
-        }
-        elseif($request->user()->type == 'patient')
-        {
-            if ($request->user()->patient_profile->birthdate != '')
-            {
-                return redirect()->route('patientprofile.show', Auth::user()->id);
-            }
+            return redirect()->route('dashboard');
         }
         return $next($request);
     }
