@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Patient Profile</title>
+    <title>MyDailyMD - Patient Immunization</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
@@ -12,6 +12,7 @@
     <style>
         a{
             text-decoration: none;
+
         }
         a.back{
             text-align: left;
@@ -52,6 +53,7 @@
         .user-details .input-box input:valid{
             border-color: #9b59b6;
         }
+
         img{
             filter: brightness(100%);
             filter: contrast(100%);
@@ -71,13 +73,14 @@
             text-align:center;
             color:#EFFCFF;
         }
+
         body{
             background-color:#EAFAFF;
             background-size:contain;
             background-position-y: top;
             background-position-x: right;
             background-repeat:round;
-            text-align: center;
+            text-align:center;
         }
         p{
             text-align: center;
@@ -119,6 +122,7 @@
         }
 
 
+
         /* Style inputs with type="text", select elements and textareas */
         input[type=text], select, textarea {
             width: 100%; /* Full width */
@@ -155,6 +159,18 @@
             background-color:#DEF1FD;
             border:1px solid black;
         }
+        table{
+            width: 100%;
+            text-align: center;
+            table-layout:auto;
+        }
+        td{
+            border-collapse: collapse;
+            color:black;
+        }
+        th{
+            color:white;
+        }
     </style>
 </head>
 <body>
@@ -163,12 +179,14 @@
     <div class="sidenav">
         <div class="left-half">
             <h3>
-                <b>{{Auth::user()->name}}</b>
+                <b>
+                    {{Auth::user()->name}}
+                </b>
             </h3>
 
             <br>
 
-            <image src="/img/patient2.png" height="120" width="150"/>
+            <input type="image" src="/img/patient2.png" height="120" width="150"/>
         </div>
 
         <br>
@@ -177,95 +195,80 @@
         <br>
         <a href="{{ url('patientmedicalhistory/') }}">Medical History</a>
         <br>
-        <a href="{{ url('patientmedications') }}">Medications</a>
+        <a href="patientmedications">Medications</a>
         <br>
-        <a href="{{ url('patientallergies') }}">Allergies</a>
+        <a href="patientallergies">Allergies</a>
         <br>
-        <a href="{{ url('patientprogressnotes') }}">Progress Notes</a>
+        <a href="patientprogressnotes">Progress Notes</a>
         <br>
-        <a href="{{ url('patientimmunization') }}">Immunization</a>
+        <a href="{{ url('patientimmunization/') }}">Immunization</a>
         <br><br>
         <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
     </div>
 
     <div class="main">
-        <h1>
-            <b>Patient Profile</b>
-        </h1>
+        <h1><b>Immunization</b></h1>
         <div class="row">
             <div class="content">
-                <form action="">
+                <form action="patientprofile">
                     <div class="column">
                         <div class="container">
                             <div class="user-details">
                                 <div class="input-box">
-                                    <span class="details">Full Name</span>
-                                    <input type="text" class="form-control" value="{{$user->name}}" name="name" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Email Address</span>
-                                    <input type="text" value="{{$user->email}}" class="form-control" name="emailAddress" disabled>
+                                    <span class="details">Patient Name</span>
+                                    <input type="text" class="form-control" value="{{ Auth::user()->name }}" name="patientName" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Date of Birth</span>
-                                    <input type="date" value="{{$user->patient_profile->birthdate }}" class="form-control" name="birthdate" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Sex</span>
-                                    <input type="text" value="{{$user->patient_profile->sex }} "class="form-control" name="sex" disabled>
+                                    <input type="text" class="form-control" value="{{ Auth::user()->patient_profile->birthdate }}"name="birthdate" disabled>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <br>
                     <br>
 
                     <div class="column">
+                        @if(session()->get('Completed'))
+                            <div class="alert alert-success">
+                                {{ session()->get('Completed') }}
+                            </div><br />
+                        @endif
                         <div class="container">
-                            <div class="user-details">
-                                <div class="input-box">
-                                    <span class="details">Address</span>
-                                    <input type="text" value="{{$user->patient_profile->address }}" class="form-control" name="address" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">City</span>
-                                    <input type="text" value="{{$user->patient_profile->city }}" class="form-control" name="city" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Postal Code</span>
-                                    <input type="text" value="{{$user->patient_profile->postalCode }}" class="form-control" name="postalCode" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Marital Status</span>
-                                    <input type="text" value="{{$user->patient_profile->maritalStatus }}" class="form-control" name="maritalStatus" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Mobile Number</span>
-                                    <input type="text" value="{{$user->patient_profile->mobileNumber }}" class="form-control" name="mobileNumber" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Landline Number</span>
-                                    <input type="text" value="{{$user->patient_profile->landlineNumber }}" class="form-control" name="landlineNumber" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Emergency Contact</span>
-                                    <input type="text" value="{{$user->patient_profile->emergencyContact }}" class="form-control" name="emergencyContact" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Emergency Contact No.</span>
-                                    <input type="text" value="{{$user->patient_profile->emergencyContactNumber }}" class="form-control" name="emergencyContactNumber" disabled>
-                                </div>
-                            </div>
+                            <table class="table">
+                                <thead>
+                                <tr style="background-color:#18A0FB;">
+                                    <th>Vaccines</th>
+                                    <th>Purpose</th>
+                                    <th>Date Taken</th>
+                                    <th colspan="2" style="width: 10%">Action</th>
+                                </tr>
+                                @foreach($immunization as $im)
+                                <tr style="background-color:whitesmoke">
+                                    <td>{{ $im->vaccines }}</td>
+                                    <td>{{ $im->purpose }}</td>
+                                    <td>{{ $im->dateTaken }}</td>
+                                    <td><a href="{{ route('patientimmunization.edit', $im->id) }}" class="btn btn-primary btn-sm">Edit</a></td>
+                                    <td>
+                                        <form action="{{ route('patientimmunization.destroy', $im->id)}}" method="post" style="display: inline-block">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                </thead>
+                            </table>
                         </div>
+
+                        <br>
+
                     </div>
                 </form>
+                <a href="{{ route('patientimmunization.create') }}" class="btn btn-primary">Add</a>
             </div>
         </div>
-        <br>
-            <a href="/patientprofile/{{$user->id}}/edit">
-                <button class="btn btn-primary">Edit</button>
-            </a>
     </div>
 </div>
 </body>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ImmunizationController;
 use App\Http\Controllers\PHPMailerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
@@ -82,11 +83,6 @@ Route::get('patientmedications', function (){
     return view('patientmedications');
 });
 
-
-Route::get('patientimmunization', function (){
-    return view('patientimmunization');
-});
-
 Route::get('patientallergies', function (){
     return view('patientallergies');
 });
@@ -95,9 +91,6 @@ Route::get('patientaddmedicalhistory', function (){
     return view('patientaddmedicalhistory');
 });
 
-Route::get('patientaddimmunization', function (){
-    return view('patientaddimmunization');
-});
 
 Route::get('newpasswordpt2', function (){
     return view('newpasswordpt2');
@@ -186,6 +179,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/patientprofile/{user}/edit', 'App\Http\Controllers\PatientProfileController@edit')->name('patientprofile.edit');
 
         Route::resource('patientmedicalhistory', MedicalHistoryController::class);
+        Route::resource('patientimmunization', ImmunizationController::class);
 
         //DOCTOR
         Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');

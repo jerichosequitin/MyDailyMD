@@ -156,11 +156,11 @@
                 {{ session()->get('Success') }}
             </div><br />
         @endif
-            @if(session()->get('Error'))
-                <div class="alert alert-danger">
-                    {{ session()->get('Error') }}
-                </div><br />
-            @endif
+        @if(session()->get('Error'))
+            <div class="alert alert-danger">
+                {{ session()->get('Error') }}
+            </div><br />
+        @endif
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

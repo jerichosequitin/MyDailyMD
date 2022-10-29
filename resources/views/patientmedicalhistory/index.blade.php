@@ -87,24 +87,6 @@
             font-size: medium;
 
         }
-        .button1{
-            background-color: none;
-            border: none;
-            color: black;
-            padding: 10px 10px;
-            text-align: center;
-            display: inline-block;
-            font-size: 16px;
-        }
-        .signUpBtn{
-            background-color: none;
-            border: none;
-            color: black;
-            padding: 10px 10px;
-            text-align: center;
-            display: inline-block;
-            font-size: 16px;
-        }
         .sidenav{
             height: 150%;
             width: 250px;
@@ -192,22 +174,26 @@
     </style>
 </head>
 <body>
-<div class="container-fluid p-5 bg-primary text-black text-center">
+<div class="container-fluid p-5 text-black text-center">
     <br>
     <div class="sidenav">
         <div class="left-half">
-            <h3><b>Katrina Belardo</b></h3>
+            <h3>
+                <b>
+                    {{Auth::user()->name}}
+                </b>
+            </h3>
 
             <br>
 
-            <input type="image" src="./img/patient2.png" height="120" width="150"/>
+            <input type="image" src="/img/patient2.png" height="120" width="150"/>
         </div>
 
         <br>
 
-        <a href="patientprofile/{{Auth::user()->id}}">Profile</a>
+        <a href="/patientprofile/{{Auth::user()->id}}">Profile</a>
         <br>
-        <a href="patientmedicalhistory">Medical History</a>
+        <a href="{{ url('patientmedicalhistory/') }}">Medical History</a>
         <br>
         <a href="patientmedications">Medications</a>
         <br>
@@ -215,9 +201,9 @@
         <br>
         <a href="patientprogressnotes">Progress Notes</a>
         <br>
-        <a href="patientimmunization">Immunization</a>
+        <a href="{{ url('patientimmunization/') }}">Immunization</a>
         <br><br>
-        <a href="mainpatientdashboard"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
+        <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
     </div>
 
     <div class="main">
@@ -230,11 +216,11 @@
                             <div class="user-details">
                                 <div class="input-box">
                                     <span class="details">Patient Name</span>
-                                    <input type="text" class="form-control" placeholder="Patient Name" name="patientName" disabled>
+                                    <input type="text" class="form-control" value="{{ Auth::user()->name }}" name="patientName" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Date of Birth</span>
-                                    <input type="text" class="form-control" placeholder="Date of Birth" name="birthdate" disabled>
+                                    <input type="text" class="form-control" value="{{ Auth::user()->patient_profile->birthdate }}"name="birthdate" disabled>
                                 </div>
                             </div>
                         </div>
@@ -243,45 +229,37 @@
                     <br>
 
                     <div class="column">
+                        @if(session()->get('Completed'))
+                            <div class="alert alert-success">
+                                {{ session()->get('Completed') }}
+                            </div><br />
+                        @endif
                         <div class="container">
                             <table class="table">
                                 <thead>
                                 <tr style="background-color:#18A0FB;">
-                                    <th>Surgical Procedures</th>
+                                    <th>Surgical Procedure</th>
                                     <th>Hospital</th>
-                                    <th>Date</th>
-                                    <th colspan='2'></th>
+                                    <th>Surgery Date</th>
+                                    <th>Surgery Notes</th>
+                                    <th colspan="2" style="width: 10%">Action</th>
                                 </tr>
-                                <tr style="background-color:#DEF1FD">
-                                    <td>Sample</td>
-                                    <td>Sample</td>
-                                    <td>Sample</td>
-                                    <th colspan='2'></th>
+                                @foreach($medicalHistory as $mh)
+                                <tr style="background-color:whitesmoke">
+                                    <td>{{ $mh->surgicalProcedure }}</td>
+                                    <td>{{ $mh->hospital }}</td>
+                                    <td>{{ $mh->surgeryDate }}</td>
+                                    <td>{{ $mh->surgeryNotes }}</td>
+                                    <td><a href="{{ route('patientmedicalhistory.edit', $mh->id) }}" class="btn btn-primary btn-sm">Edit</a></td>
+                                    <td>
+                                        <form action="{{ route('patientmedicalhistory.destroy', $mh->id)}}" method="post" style="display: inline-block">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
-                                <tr style="background-color:#FFFFFF">
-                                    <td>Sample</td>
-                                    <td>Sample</td>
-                                    <td>Sample</td>
-                                    <th colspan='2'></th>
-                                </tr>
-                                <tr style="background-color:#DEF1FD">
-                                    <td>Sample</td>
-                                    <td>Sample</td>
-                                    <td>Sample</td>
-                                    <th colspan='2'></th>
-                                </tr>
-                                <tr style="background-color:#FFFFFF">
-                                    <td>Sample</td>
-                                    <td>Sample</td>
-                                    <td>Sample</td>
-                                    <th colspan='2'></th>
-                                </tr>
-                                <tr style="background-color:#DEF1FD">
-                                    <td>Sample</td>
-                                    <td>Sample</td>
-                                    <td>Sample</td>
-                                    <th colspan='2'></th>
-                                </tr>
+                                @endforeach
                                 </thead>
                             </table>
                         </div>
@@ -290,9 +268,7 @@
 
                     </div>
                 </form>
-                <a href="patientaddmedicalhistory">
-                    <button class="btn btn-primary">Add</button>
-                </a>
+                <a href="{{ route('patientmedicalhistory.create') }}" class="btn btn-primary">Add</a>
             </div>
         </div>
     </div>

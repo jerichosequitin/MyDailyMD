@@ -30,7 +30,19 @@ class EnsureCompleteProfile
                 //dd($request->user()->doctor_profile);
                 //return redirect ('dashboard');
                 //return redirect('/doctorprofile/' . $request->user()->doctor_profile->id . '/create');
-                return redirect()->route('doctorprofile.create', Auth::user()->id);
+                return redirect()->route('doctorprofile.create', Auth::user()->id)->with('Error', 'Please complete your profile first.');
+            }
+            elseif(Auth::user()->doctor_profile->isVerified == '')
+            {
+                return redirect()->route('doctorverifyinglicense')->with('Error', 'Please wait for an admin to verify your profile.');
+            }
+            elseif(Auth::user()->doctor_profile->isVerified == 'Disabled')
+            {
+                return redirect()->route('doctorprofile.create', Auth::user()->id)->with('Error', 'Profile Verification failed. Please double check entered information then resubmit.');
+            }
+            elseif(Auth::user()->doctor_profile->isVerified == 'Change')
+            {
+                return redirect()->route('doctorprofile.create', Auth::user()->id)->with('Success', 'Change request approved. Please double check entered information then resubmit.');
             }
             elseif(Auth::user()->doctor_profile->isVerified == '')
             {
@@ -55,7 +67,7 @@ class EnsureCompleteProfile
                 //dd($request->user()->patient_profile);
                 //return redirect ('dashboard');
                 //return redirect('/patientprofile/' . $request->user()->patient_profile->id . '/create');
-                return redirect()->route('patientprofile.create', Auth::user()->id);
+                return redirect()->route('patientprofile.create', Auth::user()->id)->with('Error', 'Please complete your profile first.');
             }
         }
 
