@@ -39,7 +39,7 @@ class MedicalHistoryController extends Controller
         ]);
 
         $medicalHistory = MedicalHistory::create($storeData);
-        return redirect('/patientmedicalhistory')->with('Completed', 'Medical History has been saved!');
+        return redirect('/patientmedicalhistory')->with('Completed', 'Medical History successfully added');
     }
 
     public function edit($id)
@@ -66,13 +66,13 @@ class MedicalHistoryController extends Controller
         ]);
 
         MedicalHistory::whereId($id)->update($updateData);
-        return redirect("/patientmedicalhistory")->with('Completed', 'Medical History has been updated');
+        return redirect("/patientmedicalhistory")->with('Completed', 'Medical History successfully updated');
     }
 
     public function destroy($id)
     {
         $medicalHistory = MedicalHistory::findOrFail($id);
         $medicalHistory->delete();
-        return redirect("/patientmedicalhistory")->with('Completed', 'Medical History has been deleted');
+        return redirect("/patientmedicalhistory")->with('Completed', 'Medical History successfully deleted');
     }
 }

@@ -167,15 +167,6 @@ Route::get('codeverification', function (){
     return view('codeverification');
 });
 
-Route::get('adminhomepage', function (){
-    return view('adminhomepage');
-});
-
-Route::get('/admindoctorlist', 'App\Http\Controllers\AdminDoctorListController@index')->name('doctorlist.show');
-
-Route::get('adminclientlist', function (){
-    return view('adminclientlist');
-});
 Route::get('email', function (){
     return view('email');
 });
@@ -183,7 +174,7 @@ Route::get('email', function (){
 
 //Auth route for Register & Login
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    //Complete Profile First
+    //Complete Profile First then Verify Doctor Profile
     Route::group(['middleware' => ['profile']], function () {
 
         //DASHBOARD
@@ -199,6 +190,15 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         //DOCTOR
         Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');
         Route::get('/doctorprofile/{user}/edit', 'App\Http\Controllers\DoctorProfileController@edit')->name('doctorprofile.edit');
+
+    });
+
+    Route::group(['middleware' => ['adminaccess']], function () {
+        //ADMIN
+        Route::get('/admindoctorlist', 'App\Http\Controllers\AdminDoctorListController@index')->name('doctorlist.show');
+        Route::get('/adminpatientlist', 'App\Http\Controllers\AdminPatientListController@index')->name('patientlist.show');
+        Route::get('/admindoctorlist/{doctorProfile}/verify', 'App\Http\Controllers\AdminDoctorListController@verify')->name('doctorlist.verify');
+        Route::patch('/admindoctorlist/{doctorProfile}', 'App\Http\Controllers\AdminDoctorListController@update')->name('doctorlist.update');
     });
 
     //Create Profile can only be visited once
@@ -206,11 +206,16 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/patientprofile/{user}/create', 'App\Http\Controllers\PatientProfileController@create')->name('patientprofile.create');
         Route::get('/doctorprofile/{user}/create', 'App\Http\Controllers\DoctorProfileController@create')->name('doctorprofile.create');
     });
+
+    //Verify License
+    Route::get('/doctorverifyinglicense', 'App\Http\Controllers\VerifyingLicense@index')->name('doctorverifyinglicense');
+
+    //Update Profile
+    Route::patch('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@update')->name('patientprofile.update');
+    Route::patch('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@update')->name('doctorprofile.update');
 });
 
 
-Route::patch('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@update')->name('patientprofile.update');
-Route::patch('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@update')->name('doctorprofile.update');
 
 
 require __DIR__.'/auth.php';
