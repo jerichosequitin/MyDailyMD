@@ -146,6 +146,7 @@
                             <option selected disabled hidden>{{$doctorProfile->isVerified }}</option>
                             <option value="Enabled">Enabled</option>
                             <option value="Disabled">Disabled</option>
+                            <option value="Change">Change Request</option>
                         </select>
                     </div>
                     <br>

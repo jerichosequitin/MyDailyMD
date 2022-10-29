@@ -40,6 +40,10 @@ class EnsureCompleteProfile
             {
                 return redirect()->route('doctorprofile.create', Auth::user()->id)->with('Error', 'Profile Verification failed. Please double check entered information then resubmit.');
             }
+            elseif(Auth::user()->doctor_profile->isVerified == 'Change')
+            {
+                return redirect()->route('doctorprofile.create', Auth::user()->id)->with('Success', 'Change request approved. Please double check entered information then resubmit.');
+            }
         }
         elseif($request->user()->type == 'patient')
         {
