@@ -113,6 +113,7 @@
     <table class="table">
         <thead>
         <tr style="background-color:#18A0FB;">
+            <th>Doctor ID</th>
             <th>Full Name</th>
             <th>Email</th>
             <th>Created At</th>
@@ -125,6 +126,7 @@
         </tr>
         @foreach($doc as $data)
             <tr style="background-color:whitesmoke">
+                <td>{{ $data->id }}</td>
                 <td>{{ $data->name }}</td>
                 <td>{{ $data->email }}</td>
                 <td>{{ $data->created_at }}</td>

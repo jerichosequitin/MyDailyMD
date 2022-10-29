@@ -32,6 +32,6 @@ class AdminDoctorListController extends Controller
         ]);
 
         DoctorProfile::whereId($id)->update($updateData);
-        return redirect("/admindoctorlist")->with('Completed', 'Doctor ID:'.$id.' Account Status Updated');
+        return redirect("/admindoctorlist")->with('Completed', 'Doctor ID: '.$id.' Account Status updated to '.$request->isVerified);
     }
 }
