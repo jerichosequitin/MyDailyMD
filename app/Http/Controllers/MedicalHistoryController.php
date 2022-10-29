@@ -14,17 +14,10 @@ class MedicalHistoryController extends Controller
     {
         $medicalHistory = MedicalHistory::where('user_id','=',Auth::user()->id)->get();
         return view('patientmedicalhistory.index', compact ('medicalHistory'));
-
-        //$mh = DB::select('SELECT * from medical_histories WHERE user_id ='.$user->id);
-        //return view ('patientmedicalhistory')->with('mh', $mh);
-
-        //$this->authorize('view', $user->medical_histories);
-        //return view('patientmedicalhistory', compact('user'));
     }
 
     public function create()
     {
-        //$this->authorize('update', $user->medical_histories);
         return view('patientmedicalhistory.create');
     }
 
@@ -45,19 +38,13 @@ class MedicalHistoryController extends Controller
     public function edit($id)
     {
         $medicalHistory = MedicalHistory::findOrFail($id);
+
+        $this->authorize('update', $medicalHistory);
         return view('patientmedicalhistory.edit', compact('medicalHistory'));
-
-        //$mh = DB::select('SELECT * from medical_histories WHERE id =1');
-        //return view ('editpatientmedicalhistory')->with('mh', $mh);
-
-        //$this->authorize('update', $user->medical_histories);
-        //return view('editpatientmedicalhistory', compact('user'));
     }
 
     public function update(Request $request, $id)
     {
-        //$this->authorize('update', $user->medical_histories);
-
         $updateData = request()->validate([
             'surgicalProcedure'=>'required',
             'hospital'=>'required',
