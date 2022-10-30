@@ -258,8 +258,8 @@
                             <input type="number" value="{{$user->doctor_profile->clinicTelephoneNumber }}"
                                    min="0"
                                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                   maxlength = "9"
-                                   title="Format: XXXX-XXXX" class="form-control" placeholder="XXXX-XXXX" name="clinicTelephoneNumber" >
+                                   maxlength = "8"
+                                   title="Format: XXXXXXXX" class="form-control" placeholder="XXXXXXXX" name="clinicTelephoneNumber" >
                         </div>
                         <div class="input-box">
                             <span class="details">License Type</span>

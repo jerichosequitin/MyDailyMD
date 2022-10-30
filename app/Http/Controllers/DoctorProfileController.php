@@ -46,7 +46,7 @@ class DoctorProfileController extends Controller
                 'clinicName'=>'required',
                 'clinicAddress'=>'required',
                 'clinicMobileNumber'=>'nullable|min:11|max:11',
-                'clinicTelephoneNumber'=>'nullable|min:9|max:9',
+                'clinicTelephoneNumber'=>'nullable|min:8|max:8',
             ]);
 
             $digitalSignature_name = time().'.'.request()->digitalSignature->extension();
@@ -92,7 +92,7 @@ class DoctorProfileController extends Controller
                 'clinicName'=>'',
                 'clinicAddress'=>'',
                 'clinicMobileNumber'=>'nullable|min:11|max:11',
-                'clinicTelephoneNumber'=>'nullable|min:9|max:9',
+                'clinicTelephoneNumber'=>'nullable|min:8|max:8',
             ]);
             $user->doctor_profile()->update($data);
         }

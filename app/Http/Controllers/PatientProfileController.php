@@ -39,7 +39,7 @@ class PatientProfileController extends Controller
             'postalCode'=>'nullable|min:4|max:4',
             'maritalStatus' =>'',
             'mobileNumber'=>'min:11|max:11',
-            'landlineNumber'=>'nullable|min:9|max:9',
+            'landlineNumber'=>'nullable|min:8|max:8',
             'emergencyContact'=>'',
             'emergencyContactNumber'=>'min:11|max:11',
         ]);

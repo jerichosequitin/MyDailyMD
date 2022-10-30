@@ -30,7 +30,7 @@ class CreateDoctorProfilesTable extends Migration
             $table->string('clinicAddress')->nullable();
             $table->string('clinicMobileNumber')->nullable();
             $table->string('clinicTelephoneNumber')->nullable();
-            $table->integer('isVerified')->nullable();
+            $table->string('isVerified')->nullable();
             $table->timestamps();
 
             $table->index('user_id');
