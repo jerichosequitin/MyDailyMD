@@ -144,7 +144,7 @@ class PatientAppointmentController extends Controller
 
         $patientOneRequest = Appointment::where('patient_id', $request->patient_id)
             ->where('doctor_id', '=', $request->doctor_id)
-            ->where('status', '!=', 'Cancelled')
+            ->where('status', '!=', 'Done')
             ->exists();
 
         $patientPending = Appointment::where('patient_id', $request->patient_id)

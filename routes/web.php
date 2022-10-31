@@ -196,6 +196,15 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');
         Route::get('/doctorprofile/{user}/edit', 'App\Http\Controllers\DoctorProfileController@edit')->name('doctorprofile.edit');
 
+            //Appointment
+        Route::get('/doctorappointment/{user}', 'App\Http\Controllers\DoctorAppointmentController@index')->name('doctorappointment.show');
+        Route::get('/doctorappointment/{user}/pending', 'App\Http\Controllers\DoctorAppointmentController@pending')->name('doctorappointment.pending');
+        Route::get('/doctorappointment/{user}/history', 'App\Http\Controllers\DoctorAppointmentController@history')->name('doctorappointment.history');
+        Route::patch('/doctorappointment/{appointment}/accepted', 'App\Http\Controllers\DoctorAppointmentController@accepted')->name('doctorappointment.accepted');
+        Route::patch('/doctorappointment/{appointment}/declined', 'App\Http\Controllers\DoctorAppointmentController@declined')->name('doctorappointment.declined');
+        Route::patch('/doctorappointment/{appointment}/ongoing', 'App\Http\Controllers\DoctorAppointmentController@ongoing')->name('doctorappointment.ongoing');
+        Route::patch('/doctorappointment/{appointment}/done', 'App\Http\Controllers\DoctorAppointmentController@done')->name('doctorappointment.done');
+
     });
 
     Route::group(['middleware' => ['adminaccess']], function () {

@@ -209,7 +209,7 @@
 
         <section class="container">
             <div class="right">
-                <a href="doctorappointments">
+                <a href="doctorappointment/{{Auth::user()->id}}">
                     <input type="image" src="./img/myappoinmtent_img.png" height="180" width="180"/>
                 </a>
                 <p><b>Appointments</b></p>
