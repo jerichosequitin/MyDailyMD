@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PatientAppointmentController;
 use App\Http\Controllers\ImmunizationController;
 use App\Http\Controllers\PHPMailerController;
 use Illuminate\Support\Facades\Route;
@@ -181,6 +182,16 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('patientmedicalhistory', MedicalHistoryController::class);
         Route::resource('patientimmunization', ImmunizationController::class);
 
+            //Appointment
+        Route::get('/patientappointment/{user}', 'App\Http\Controllers\PatientAppointmentController@index')->name('patientappointment.show');
+        Route::get('/patientappointment/{user}/pending', 'App\Http\Controllers\PatientAppointmentController@pending')->name('patientappointment.pending');
+        Route::get('/patientappointment/{user}/history', 'App\Http\Controllers\PatientAppointmentController@history')->name('patientappointment.history');
+        Route::get('/patientappointment/{appointment}/edit', 'App\Http\Controllers\PatientAppointmentController@edit')->name('patientappointment.edit');
+        Route::patch('/patientappointment/{appointment}/cancel', 'App\Http\Controllers\PatientAppointmentController@cancel')->name('patientappointment.cancel');
+        Route::patch('/patientappointment/{appointment}/update', 'App\Http\Controllers\PatientAppointmentController@update')->name('patientappointment.update');
+        Route::get('/patientappointment', 'App\Http\Controllers\PatientAppointmentController@search')->name('patientappointment.search');
+        Route::get('/patientappointment/{doctorProfile}/book', 'App\Http\Controllers\PatientAppointmentController@book')->name('patientappointment.book');
+
         //DOCTOR
         Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');
         Route::get('/doctorprofile/{user}/edit', 'App\Http\Controllers\DoctorProfileController@edit')->name('doctorprofile.edit');
@@ -200,6 +211,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/patientprofile/{user}/create', 'App\Http\Controllers\PatientProfileController@create')->name('patientprofile.create');
         Route::get('/doctorprofile/{user}/create', 'App\Http\Controllers\DoctorProfileController@create')->name('doctorprofile.create');
     });
+    //Book Appointment
+    Route::post('/patientappointment', 'App\Http\Controllers\PatientAppointmentController@store')->name('patientappointment.store');
 
     //Verify License
     Route::get('/doctorverifyinglicense', 'App\Http\Controllers\VerifyingLicense@index')->name('doctorverifyinglicense');
