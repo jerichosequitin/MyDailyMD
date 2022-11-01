@@ -76,10 +76,6 @@ Route::get('patientprofile', function (){
     return view('patientprofile');
 });
 
-Route::get('patientmyappointment', function (){
-    return view('patientmyappointment');
-});
-
 Route::get('patientmedications', function (){
     return view('patientmedications');
 });
@@ -183,9 +179,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('patientimmunization', ImmunizationController::class);
 
             //Appointment
-        Route::get('/patientappointment/{user}', 'App\Http\Controllers\PatientAppointmentController@index')->name('patientappointment.show');
-        Route::get('/patientappointment/{user}/pending', 'App\Http\Controllers\PatientAppointmentController@pending')->name('patientappointment.pending');
-        Route::get('/patientappointment/{user}/history', 'App\Http\Controllers\PatientAppointmentController@history')->name('patientappointment.history');
+        Route::get('/patientappointment/list', 'App\Http\Controllers\PatientAppointmentController@index')->name('patientappointment.show');
+        Route::get('/patientappointment/pending', 'App\Http\Controllers\PatientAppointmentController@pending')->name('patientappointment.pending');
+        Route::get('/patientappointment/history', 'App\Http\Controllers\PatientAppointmentController@history')->name('patientappointment.history');
         Route::get('/patientappointment/{appointment}/edit', 'App\Http\Controllers\PatientAppointmentController@edit')->name('patientappointment.edit');
         Route::patch('/patientappointment/{appointment}/cancel', 'App\Http\Controllers\PatientAppointmentController@cancel')->name('patientappointment.cancel');
         Route::patch('/patientappointment/{appointment}/update', 'App\Http\Controllers\PatientAppointmentController@update')->name('patientappointment.update');
@@ -196,10 +192,16 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');
         Route::get('/doctorprofile/{user}/edit', 'App\Http\Controllers\DoctorProfileController@edit')->name('doctorprofile.edit');
 
+            //Manage Health Records
+        Route::get('/doctormanagehealthrecords', 'App\Http\Controllers\DoctorManageHealthRecordsController@index')->name('managehealthrecords.show');
+        Route::get('/doctormanagehealthrecords/profile/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@profile')->name('managehealthrecords.profile');
+        Route::get('/doctormanagehealthrecords/medicalhistory/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@medicalHistory')->name('managehealthrecords.medicalhistory');
+        Route::get('/doctormanagehealthrecords/immunization/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@immunization')->name('managehealthrecords.immunization');
+
             //Appointment
-        Route::get('/doctorappointment/{user}', 'App\Http\Controllers\DoctorAppointmentController@index')->name('doctorappointment.show');
-        Route::get('/doctorappointment/{user}/pending', 'App\Http\Controllers\DoctorAppointmentController@pending')->name('doctorappointment.pending');
-        Route::get('/doctorappointment/{user}/history', 'App\Http\Controllers\DoctorAppointmentController@history')->name('doctorappointment.history');
+        Route::get('/doctorappointment/list', 'App\Http\Controllers\DoctorAppointmentController@index')->name('doctorappointment.show');
+        Route::get('/doctorappointment/pending', 'App\Http\Controllers\DoctorAppointmentController@pending')->name('doctorappointment.pending');
+        Route::get('/doctorappointment/history', 'App\Http\Controllers\DoctorAppointmentController@history')->name('doctorappointment.history');
         Route::patch('/doctorappointment/{appointment}/accepted', 'App\Http\Controllers\DoctorAppointmentController@accepted')->name('doctorappointment.accepted');
         Route::patch('/doctorappointment/{appointment}/declined', 'App\Http\Controllers\DoctorAppointmentController@declined')->name('doctorappointment.declined');
         Route::patch('/doctorappointment/{appointment}/ongoing', 'App\Http\Controllers\DoctorAppointmentController@ongoing')->name('doctorappointment.ongoing');
