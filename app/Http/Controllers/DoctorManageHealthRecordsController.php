@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use App\Models\Immunization;
 use App\Models\MedicalHistory;
 use App\Models\PatientProfile;
@@ -26,6 +27,16 @@ class DoctorManageHealthRecordsController extends Controller
             ->get();
 
         return view('doctormanagehealthrecords.index', compact('user'))->with('list', $list);
+    }
+
+    public function inactive(Request $request)
+    {
+        DB::table('doctor_patient')
+            ->where('doctor_user_id', $request->doctor_user_id)
+            ->where('patient_user_id', '=', $request->patient_user_id)
+            ->update(['linkStatus' => 'Inactive']);
+
+        return redirect('/doctormanagehealthrecords')->with('Completed', 'Link Status with Patient set to Inactive. Health Records are no longer accessible.');
     }
 
     public function profile($id)

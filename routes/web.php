@@ -197,6 +197,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/doctormanagehealthrecords/profile/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@profile')->name('managehealthrecords.profile');
         Route::get('/doctormanagehealthrecords/medicalhistory/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@medicalHistory')->name('managehealthrecords.medicalhistory');
         Route::get('/doctormanagehealthrecords/immunization/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@immunization')->name('managehealthrecords.immunization');
+        Route::patch('/doctormanagehealthrecords/inactive', 'App\Http\Controllers\DoctorManageHealthRecordsController@inactive')->name('managehealthrecords.inactive');
 
             //Appointment
         Route::get('/doctorappointment/list', 'App\Http\Controllers\DoctorAppointmentController@index')->name('doctorappointment.show');
