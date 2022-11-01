@@ -94,7 +94,7 @@
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <a href="{{ url('doctorappointment/'.Auth::user()->id) }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
+    <a href="{{ url('doctorappointment/list') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
 </div>
 <img src="/img/logo.png" width="180" height="180" class="logo">
 
@@ -138,7 +138,10 @@
                     <form action="{{ route('doctorappointment.accepted', $app->appointment_id)}}" method="post" style="display: inline-block">
                         @csrf
                         @method('PATCH')
-                        <input type="text" name="status" value="Accepted" hidden>
+                        <input type="text" name="status" value="Accepted" required hidden>
+                        <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required hidden>
+                        <input type="text" name="doctor_user_id" value="{{$app->doctor_user_id}}" required hidden>
+                        <input type="text" name="linkStatus" value="Active" required hidden>
                         <button class="btn btn-success btn-sm" type="submit">Accepted</button>
                     </form>
                 </td>

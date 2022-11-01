@@ -155,8 +155,8 @@
         </thead>
     </table>
     <br>
-    <a href="{{ url('doctorappointment/'.Auth::user()->id.'/pending') }}" class="btn btn-primary">Pending Requests</a>
-    <a href="{{ url('doctorappointment/'.Auth::user()->id.'/history') }}" class="btn btn-primary">Appointment History</a>
+    <a href="{{ url('doctorappointment/pending') }}" class="btn btn-primary">Pending Requests</a>
+    <a href="{{ url('doctorappointment/history') }}" class="btn btn-primary">Appointment History</a>
 </div>
 </body>
 </html>

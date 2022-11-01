@@ -140,9 +140,9 @@
         </thead>
     </table>
     <br>
-    <a href="{{ url('patientappointment/'.Auth::user()->id.'/pending') }}" class="btn btn-primary">Pending Requests</a>
-    <a href="{{ route('patientappointment.search') }}" class="btn btn-primary">Schedule Appointment</a>
-    <a href="{{ url('patientappointment/'.Auth::user()->id.'/history') }}" class="btn btn-primary">Appointment History</a>
+    <a href="{{ url('patientappointment/pending') }}" class="btn btn-primary">Pending Requests</a>
+    <a href="{{ url('patientappointment') }}" class="btn btn-primary">Schedule Appointment</a>
+    <a href="{{ url('patientappointment/history') }}" class="btn btn-primary">Appointment History</a>
 </div>
 </body>
 </html>

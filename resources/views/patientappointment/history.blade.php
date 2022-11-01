@@ -94,7 +94,7 @@
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <a href="{{ url('patientappointment/'.Auth::user()->id) }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
+    <a href="{{ url('patientappointment/list') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
 </div>
 <img src="/img/logo.png" width="180" height="180" class="logo">
 

@@ -102,7 +102,7 @@ class PatientAppointmentController extends Controller
             ->join('doctor_profiles', 'appointments.doctor_id', '=', 'doctor_profiles.id')
             ->where('appointments.patient_user_id', '=', Auth::user()->id)
             ->select('*', 'appointments.id as appointment_id')
-            ->orderBy("appointment_id", "ASC")
+            ->orderBy("appointment_id", "DESC")
             ->get();
         return view('patientappointment.history', compact('user'))->with('list', $list);
     }
@@ -142,10 +142,13 @@ class PatientAppointmentController extends Controller
             ->where('status', '=', 'Accepted')
             ->where('date', '=', $request->date)->exists();
 
-        $patientOneRequest = Appointment::where('patient_id', $request->patient_id)
-            ->where('doctor_id', '=', $request->doctor_id)
-            ->where('status', '!=', 'Done')
-            ->exists();
+        $patientOneRequest = Appointment::where([
+            ['patient_id', '=', $request->patient_id],
+            ['doctor_id', '=', $request->doctor_id],
+            ['status', '!=', 'Done'],
+            ['status', '!=', 'Cancelled'],
+            ['status', '!=', 'Declined']
+        ])->exists();
 
         $patientPending = Appointment::where('patient_id', $request->patient_id)
             ->where('status', '=', 'Pending')->get();
@@ -169,13 +172,13 @@ class PatientAppointmentController extends Controller
         {
             return redirect()->back()->with('Error', 'You already have a pending appointment request with the chosen doctor. You can only have 1 at a time.');
         }
-        elseif ($patientPendingCount >= 3)
+        elseif ($patientPendingCount >= 5)
         {
-            return redirect('patientappointment/'.Auth::user()->id)->with('Error', 'You can only have up to 3 pending appointment requests at a time.');
+            return redirect('patientappointment/list')->with('Error', 'You can only have up to 5 pending appointment requests at a time.');
         }
         elseif ($doctorPendingCount >= 5)
         {
-            return redirect('patientappointment/'.Auth::user()->id)->with('Error', 'Doctor has too many pending requests at the moment. Please try again later.');
+            return redirect('patientappointment/list')->with('Error', 'Doctor has too many pending requests at the moment. Please try again later.');
         }
         else {
             $storeData = $request->validate([
@@ -189,7 +192,7 @@ class PatientAppointmentController extends Controller
             ]);
 
             $appointment = Appointment::create($storeData);
-            return redirect('patientappointment/' . Auth::user()->id)->with('Completed', 'Appointment requested successfully. Please wait for the chosen doctor to accept.');
+            return redirect('patientappointment/list')->with('Completed', 'Appointment requested successfully. Please wait for the chosen doctor to accept.');
         }
     }
 }
