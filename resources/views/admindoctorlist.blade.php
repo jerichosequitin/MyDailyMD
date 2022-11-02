@@ -142,6 +142,7 @@
         @endforeach
         </thead>
     </table>
+    {{$doc->links()}}
 </div>
 </body>
 </html>
