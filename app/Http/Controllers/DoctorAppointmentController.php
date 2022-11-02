@@ -59,7 +59,7 @@ class DoctorAppointmentController extends Controller
             ->where('appointments.status', '!=', 'Cancelled')
             ->select('*', 'appointments.id as appointment_id')
             ->orderBy("appointment_id", "DESC")
-            ->get();
+            ->simplePaginate(5);
         return view('doctorappointment.history', compact('user'))->with('list', $list);
     }
 
@@ -86,7 +86,10 @@ class DoctorAppointmentController extends Controller
                 DB::table('doctor_patient')
                     ->where('doctor_user_id', $request->doctor_user_id)
                     ->where('patient_user_id', '=', $request->patient_user_id)
-                    ->update(['linkStatus' => 'Active']);
+                    ->update([
+                        'linkStatus' => 'Active',
+                        'updated_at' => \Carbon\Carbon::now()
+                    ]);
 
                 return redirect('/doctorappointment/list')->with('Completed', 'Appointment successfully accepted. You have regained access to the Patients Health Records.');
             }
@@ -105,13 +108,20 @@ class DoctorAppointmentController extends Controller
             $appointment->status = $request->status;
             $appointment->save();
 
-            $patient = PatientProfile::findOrFail($request->patient_user_id);
+            DB::table('doctor_patient')
+                ->insert([
+                    'doctor_user_id' => $request->doctor_user_id,
+                    'patient_user_id' => $request->patient_user_id,
+                    'linkStatus' => 'Active',
+                    'created_at' => \Carbon\Carbon::now()
+                ]);
+
+            /*$patient = PatientProfile::findOrFail($request->patient_user_id);
             $doctorData = $request->validate([
                 'doctor_user_id' => 'required',
             ]);
 
-            $patient->doctors()->attach($doctorData);
-
+            $patient->doctors()->attach($doctorData);*/
 
             return redirect('/doctorappointment/list')->with('Completed', 'Appointment successfully accepted. You now have access to the Patients Health Records.');
         }

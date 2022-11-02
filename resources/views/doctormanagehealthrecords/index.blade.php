@@ -135,12 +135,12 @@
                         {{--<form action="{{ route('managehealthrecords.profile', $app->patient_user_id)}}" style="display: inline-block">
                             <button class="btn btn-warning btn-sm" type="submit">Edit</button>
                         </form>--}}
-                        <a href="{{ url('doctormanagehealthrecords/profile/'.$app->patient_user_id) }}">
+                        <a href="{{ url('doctormanagehealthrecords/profile/'.$app->patient_id) }}">
                             <button class="btn btn-primary btn-sm">View</button>
                         </a>
                     </td>
                     <td>
-                        <form action="{{ route('managehealthrecords.inactive', $app->patient_user_id)}}" method="post" style="display: inline-block">
+                        <form action="{{ route('managehealthrecords.inactive', $app->patient_id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('PATCH')
                             <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required hidden>
@@ -158,6 +158,7 @@
         @endif
         </thead>
     </table>
+    {{$list->links()}}
     <br>
 </div>
 </body>

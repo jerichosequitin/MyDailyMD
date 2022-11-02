@@ -22,9 +22,9 @@ class DoctorManageHealthRecordsController extends Controller
             ->where('doctor_patient.doctor_user_id', '=', Auth::user()->id)
             ->where('doctor_patient.linkStatus', '=', 'Active')
 
-            ->select('*', 'patient_profiles.user_id as patient_user_id')
+            ->select('*', 'patient_profiles.id as patient_id')
 
-            ->get();
+            ->simplePaginate(5);
 
         return view('doctormanagehealthrecords.index', compact('user'))->with('list', $list);
     }
@@ -34,7 +34,10 @@ class DoctorManageHealthRecordsController extends Controller
         DB::table('doctor_patient')
             ->where('doctor_user_id', $request->doctor_user_id)
             ->where('patient_user_id', '=', $request->patient_user_id)
-            ->update(['linkStatus' => 'Inactive']);
+            ->update([
+                'linkStatus' => 'Inactive',
+                'updated_at' => \Carbon\Carbon::now()
+            ]);
 
         return redirect('/doctormanagehealthrecords')->with('Completed', 'Link Status with Patient set to Inactive. Health Records are no longer accessible.');
     }

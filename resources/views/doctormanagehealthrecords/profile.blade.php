@@ -173,9 +173,9 @@
 
         <br>
 
-        <a href="{{ url('doctormanagehealthrecords/profile/'.$patientProfile->user->id) }}">Profile</a>
+        <a href="{{ url('doctormanagehealthrecords/profile/'.$patientProfile->id) }}">Profile</a>
         <br>
-        <a href="{{ url('doctormanagehealthrecords/medicalhistory/'.$patientProfile->user->id) }}">Medical History</a>
+        <a href="{{ url('doctormanagehealthrecords/medicalhistory/'.$patientProfile->id) }}">Medical History</a>
         <br>
         <a href="{{ url('patientmedications') }}">Medications</a>
         <br>
@@ -183,7 +183,7 @@
         <br>
         <a href="{{ url('patientprogressnotes') }}">Progress Notes</a>
         <br>
-        <a href="{{ url('doctormanagehealthrecords/immunization/'.$patientProfile->user->id) }}">Immunization</a>
+        <a href="{{ url('doctormanagehealthrecords/immunization/'.$patientProfile->id) }}">Immunization</a>
         <br><br>
         <a href="{{ url('doctormanagehealthrecords') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
     </div>
