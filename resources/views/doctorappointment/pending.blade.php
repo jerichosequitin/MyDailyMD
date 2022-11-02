@@ -126,35 +126,41 @@
             <th>Appointment Status</th>
             <th colspan="2">Mark As</th>
         </tr>
-        @foreach($list as $app)
+        @if(count($list) > 0)
+            @foreach($list as $app)
+                <tr style="background-color:whitesmoke">
+                    <td>{{ $app->name }}</td>
+                    <td>{{ $app->email }}</td>
+                    <td>{{ $app->mobileNumber }}</td>
+                    <td>{{ $app->sex }}</td>
+                    <td>{{ $app->date }}</td>
+                    <td>{{ $app->status }}</td>
+                    <td>
+                        <form action="{{ route('doctorappointment.accepted', $app->appointment_id)}}" method="post" style="display: inline-block">
+                            @csrf
+                            @method('PATCH')
+                            <input type="text" name="status" value="Accepted" required hidden>
+                            <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required hidden>
+                            <input type="text" name="doctor_user_id" value="{{$app->doctor_user_id}}" required hidden>
+                            <input type="text" name="linkStatus" value="Active" required hidden>
+                            <button class="btn btn-success btn-sm" type="submit">Accepted</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ route('doctorappointment.declined', $app->appointment_id)}}" method="post" style="display: inline-block">
+                            @csrf
+                            @method('PATCH')
+                            <input type="text" name="status" value="Declined" hidden>
+                            <button class="btn btn-danger btn-sm" type="submit">Declined</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        @else
             <tr style="background-color:whitesmoke">
-                <td>{{ $app->name }}</td>
-                <td>{{ $app->email }}</td>
-                <td>{{ $app->mobileNumber }}</td>
-                <td>{{ $app->sex }}</td>
-                <td>{{ $app->date }}</td>
-                <td>{{ $app->status }}</td>
-                <td>
-                    <form action="{{ route('doctorappointment.accepted', $app->appointment_id)}}" method="post" style="display: inline-block">
-                        @csrf
-                        @method('PATCH')
-                        <input type="text" name="status" value="Accepted" required hidden>
-                        <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required hidden>
-                        <input type="text" name="doctor_user_id" value="{{$app->doctor_user_id}}" required hidden>
-                        <input type="text" name="linkStatus" value="Active" required hidden>
-                        <button class="btn btn-success btn-sm" type="submit">Accepted</button>
-                    </form>
-                </td>
-                <td>
-                    <form action="{{ route('doctorappointment.declined', $app->appointment_id)}}" method="post" style="display: inline-block">
-                        @csrf
-                        @method('PATCH')
-                        <input type="text" name="status" value="Declined" hidden>
-                        <button class="btn btn-danger btn-sm" type="submit">Declined</button>
-                    </form>
-                </td>
+                <td colspan="8" class="text-center">You have no pending appointment requests.</td>
             </tr>
-        @endforeach
+        @endif
         </thead>
     </table>
     <br>

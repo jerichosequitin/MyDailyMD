@@ -124,32 +124,38 @@
             <th>Gender</th>
             <th colspan="2" style="width: 10%">Action</th>
         </tr>
-        @foreach($list as $app)
+        @if(count($list) > 0)
+            @foreach($list as $app)
+                <tr style="background-color:whitesmoke">
+                    <td>{{ $app->name }}</td>
+                    <td>{{ $app->email }}</td>
+                    <td>{{ $app->mobileNumber }}</td>
+                    <td>{{ $app->sex }}</td>
+                    <td>
+                        {{--<form action="{{ route('managehealthrecords.profile', $app->patient_user_id)}}" style="display: inline-block">
+                            <button class="btn btn-warning btn-sm" type="submit">Edit</button>
+                        </form>--}}
+                        <a href="{{ url('doctormanagehealthrecords/profile/'.$app->patient_user_id) }}">
+                            <button class="btn btn-primary btn-sm">View</button>
+                        </a>
+                    </td>
+                    <td>
+                        <form action="{{ route('managehealthrecords.inactive', $app->patient_user_id)}}" method="post" style="display: inline-block">
+                            @csrf
+                            @method('PATCH')
+                            <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required hidden>
+                            <input type="text" name="doctor_user_id" value="{{Auth::user()->id}}" required hidden>
+                            <input type="text" name="linkStatus" value="Inactive" required hidden>
+                            <button class="btn btn-danger btn-sm" type="submit">Inactive</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        @else
             <tr style="background-color:whitesmoke">
-                <td>{{ $app->name }}</td>
-                <td>{{ $app->email }}</td>
-                <td>{{ $app->mobileNumber }}</td>
-                <td>{{ $app->sex }}</td>
-                <td>
-                    {{--<form action="{{ route('managehealthrecords.profile', $app->patient_user_id)}}" style="display: inline-block">
-                        <button class="btn btn-warning btn-sm" type="submit">Edit</button>
-                    </form>--}}
-                    <a href="{{ url('doctormanagehealthrecords/profile/'.$app->patient_user_id) }}">
-                        <button class="btn btn-primary btn-sm">View</button>
-                    </a>
-                </td>
-                <td>
-                    <form action="{{ route('managehealthrecords.inactive', $app->patient_user_id)}}" method="post" style="display: inline-block">
-                        @csrf
-                        @method('PATCH')
-                        <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required hidden>
-                        <input type="text" name="doctor_user_id" value="{{Auth::user()->id}}" required hidden>
-                        <input type="text" name="linkStatus" value="Inactive" required hidden>
-                        <button class="btn btn-danger btn-sm" type="submit">Inactive</button>
-                    </form>
-                </td>
+                <td colspan="6" class="text-center">You have no active patients at the moment.</td>
             </tr>
-        @endforeach
+        @endif
         </thead>
     </table>
     <br>

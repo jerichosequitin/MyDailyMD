@@ -126,32 +126,38 @@
             <th>Appointment Status</th>
             <th colspan="2">Mark As</th>
         </tr>
-        @foreach($list as $app)
+        @if(count($list) > 0)
+            @foreach($list as $app)
+                <tr style="background-color:whitesmoke">
+                    <td>{{ $app->name }}</td>
+                    <td>{{ $app->email }}</td>
+                    <td>{{ $app->mobileNumber }}</td>
+                    <td>{{ $app->sex }}</td>
+                    <td>{{ $app->date }}</td>
+                    <td>{{ $app->status }}</td>
+                    <td>
+                        <form action="{{ route('doctorappointment.ongoing', $app->appointment_id)}}" method="post" style="display: inline-block">
+                            @csrf
+                            @method('PATCH')
+                            <input type="text" name="status" value="Ongoing" hidden>
+                            <button class="btn btn-warning btn-sm" type="submit">Ongoing</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ route('doctorappointment.done', $app->appointment_id)}}" method="post" style="display: inline-block">
+                            @csrf
+                            @method('PATCH')
+                            <input type="text" name="status" value="Done" hidden>
+                            <button class="btn btn-success btn-sm" type="submit">Done</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        @else
             <tr style="background-color:whitesmoke">
-                <td>{{ $app->name }}</td>
-                <td>{{ $app->email }}</td>
-                <td>{{ $app->mobileNumber }}</td>
-                <td>{{ $app->sex }}</td>
-                <td>{{ $app->date }}</td>
-                <td>{{ $app->status }}</td>
-                <td>
-                    <form action="{{ route('doctorappointment.ongoing', $app->appointment_id)}}" method="post" style="display: inline-block">
-                        @csrf
-                        @method('PATCH')
-                        <input type="text" name="status" value="Ongoing" hidden>
-                        <button class="btn btn-warning btn-sm" type="submit">Ongoing</button>
-                    </form>
-                </td>
-                <td>
-                    <form action="{{ route('doctorappointment.done', $app->appointment_id)}}" method="post" style="display: inline-block">
-                        @csrf
-                        @method('PATCH')
-                        <input type="text" name="status" value="Done" hidden>
-                        <button class="btn btn-success btn-sm" type="submit">Done</button>
-                    </form>
-                </td>
+                <td colspan="7" class="text-center">You have no upcoming appointments.</td>
             </tr>
-        @endforeach
+        @endif
         </thead>
     </table>
     <br>

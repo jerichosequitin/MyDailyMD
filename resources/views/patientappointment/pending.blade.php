@@ -125,24 +125,30 @@
             <th>Appointment Status</th>
             <th colspan="2" style="width: 10%"></th>
         </tr>
-        @foreach($list as $app)
+        @if(count($list) > 0)
+            @foreach($list as $app)
+                <tr style="background-color:whitesmoke">
+                    <td>{{ $app->name }}</td>
+                    <td>{{ $app->specialization }}</td>
+                    <td>{{ $app->contactNumber }}</td>
+                    <td>{{ $app->date }}</td>
+                    <td>{{ $app->status }}</td>
+                    <td><a href="{{ route('patientappointment.edit', $app->appointment_id) }}" class="btn btn-primary btn-sm">Edit</a></td>
+                    <td>
+                        <form action="{{ route('patientappointment.cancel', $app->appointment_id)}}" method="post" style="display: inline-block">
+                            @csrf
+                            @method('PATCH')
+                            <input type="text" name="status" value="Cancelled" hidden>
+                            <button class="btn btn-danger btn-sm" type="submit">Cancel</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        @else
             <tr style="background-color:whitesmoke">
-                <td>{{ $app->name }}</td>
-                <td>{{ $app->specialization }}</td>
-                <td>{{ $app->contactNumber }}</td>
-                <td>{{ $app->date }}</td>
-                <td>{{ $app->status }}</td>
-                <td><a href="{{ route('patientappointment.edit', $app->appointment_id) }}" class="btn btn-primary btn-sm">Edit</a></td>
-                <td>
-                    <form action="{{ route('patientappointment.cancel', $app->appointment_id)}}" method="post" style="display: inline-block">
-                        @csrf
-                        @method('PATCH')
-                        <input type="text" name="status" value="Cancelled" hidden>
-                        <button class="btn btn-danger btn-sm" type="submit">Cancel</button>
-                    </form>
-                </td>
+                <td colspan="7" class="text-center">You have no pending appointment requests.</td>
             </tr>
-        @endforeach
+        @endif
         </thead>
     </table>
     <br>

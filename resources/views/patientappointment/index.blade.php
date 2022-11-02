@@ -126,17 +126,23 @@
             <th>Appointment Date</th>
             <th>Appointment Status</th>
         </tr>
-        @foreach($list as $app)
+        @if(count($list) > 0)
+            @foreach($list as $app)
+                <tr style="background-color:whitesmoke">
+                {{--<td>{{ $app->doctor_user_id}}</td>--}}
+                {{--<td>{{ $app->id }}</td>--}}
+                    <td>{{ $app->name }}</td>
+                    <td>{{ $app->specialization }}</td>
+                    <td>{{ $app->contactNumber }}</td>
+                    <td>{{ $app->date }}</td>
+                    <td>{{ $app->status }}</td>
+                </tr>
+            @endforeach
+        @else
             <tr style="background-color:whitesmoke">
-            {{--<td>{{ $app->doctor_user_id}}</td>--}}
-            {{--<td>{{ $app->id }}</td>--}}
-                <td>{{ $app->name }}</td>
-                <td>{{ $app->specialization }}</td>
-                <td>{{ $app->contactNumber }}</td>
-                <td>{{ $app->date }}</td>
-                <td>{{ $app->status }}</td>
+                <td colspan="5" class="text-center">You have no upcoming appointments.</td>
             </tr>
-        @endforeach
+        @endif
         </thead>
     </table>
     <br>

@@ -126,17 +126,23 @@
             <th>Appointment Date</th>
             <th>Appointment Status</th>
         </tr>
-        @foreach($list as $app)
+        @if(count($list) > 0)
+            @foreach($list as $app)
+                <tr style="background-color:whitesmoke">
+                    <td>{{ $app->appointment_id }}</td>
+                    <td>{{ $app->name }}</td>
+                    <td>{{ $app->email }}</td>
+                    <td>{{ $app->sex }}</td>
+                    <td>{{ $app->mobileNumber }}</td>
+                    <td>{{ $app->date }}</td>
+                    <td>{{ $app->status }}</td>
+                </tr>
+            @endforeach
+        @else
             <tr style="background-color:whitesmoke">
-                <td>{{ $app->appointment_id }}</td>
-                <td>{{ $app->name }}</td>
-                <td>{{ $app->email }}</td>
-                <td>{{ $app->sex }}</td>
-                <td>{{ $app->mobileNumber }}</td>
-                <td>{{ $app->date }}</td>
-                <td>{{ $app->status }}</td>
+                <td colspan="7" class="text-center">You have no appointment history.</td>
             </tr>
-        @endforeach
+        @endif
         </thead>
     </table>
     <br>
