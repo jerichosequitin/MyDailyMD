@@ -145,6 +145,7 @@
         @endif
         </thead>
     </table>
+    {{$list->links()}}
     <br>
     <a href="{{ url('patientappointment/pending') }}" class="btn btn-primary">Pending Requests</a>
     <a href="{{ url('patientappointment') }}" class="btn btn-primary">Schedule Appointment</a>

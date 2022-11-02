@@ -54,8 +54,9 @@ class PatientAppointmentController extends Controller
             ->where('appointments.status', '=', 'Accepted')
 
             ->select('*', 'users.id as doctor_user_id')
+            ->orderBy("date", "ASC")
 
-            ->get();
+            ->simplePaginate(4);
         return view('patientappointment.index', compact('user'))->with('list', $list);
     }
 
