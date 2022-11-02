@@ -102,7 +102,7 @@
 
 <div class="container-fluid">
     <h1>Good day, <b>{{ Auth::user()->name }}</b>!</h1>
-    <h2><i>Below is the list of your appointments</i></h2>
+    <h2><i>Below is the list of your pending appointment requests</i></h2>
 
     <br>
     @if(session()->get('Completed'))

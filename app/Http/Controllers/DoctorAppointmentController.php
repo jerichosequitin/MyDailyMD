@@ -6,7 +6,7 @@ use App\Models\Appointment;
 use App\Models\PatientProfile;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -14,6 +14,9 @@ class DoctorAppointmentController extends Controller
 {
     public function index(User $user)
     {
+        $dateNow = Carbon::now();
+        $dateToday = $dateNow->toDateString();
+
         $list = DB::table('appointments')
             //Join Users Table if Appointments Doctor ID = User ID
             ->join('users', 'appointments.patient_user_id', '=', 'users.id')
@@ -21,6 +24,7 @@ class DoctorAppointmentController extends Controller
             //Join DoctorProfiles Table if User ID = DoctorProfiles User ID
             ->join('patient_profiles', 'appointments.patient_id', '=', 'patient_profiles.id')
 
+            ->where('appointments.date', '=', $dateToday)
 
             //Where Appointments Patient User ID should be equal to Current User's ID
             ->where('appointments.doctor_user_id', '=', Auth::user()->id)
@@ -29,11 +33,9 @@ class DoctorAppointmentController extends Controller
             ->where('appointments.status', '=', 'Accepted')
             ->orWhere('appointments.status', '=', 'Ongoing')
 
-            ->where('date', '=', Carbon::today())
-
             ->select('*', 'appointments.id as appointment_id')
 
-            ->get();
+            ->simplePaginate(4);
 
         return view('doctorappointment.index', compact('user'))->with('list', $list);
     }

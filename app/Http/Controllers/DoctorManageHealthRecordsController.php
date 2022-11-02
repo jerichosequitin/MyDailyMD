@@ -23,23 +23,40 @@ class DoctorManageHealthRecordsController extends Controller
             ->where('doctor_patient.linkStatus', '=', 'Active')
 
             ->select('*', 'patient_profiles.id as patient_id')
-
-            ->simplePaginate(5);
+            ->orderBy('doctor_patient.updated_at', 'DESC')
+            ->simplePaginate(4);
 
         return view('doctormanagehealthrecords.index', compact('user'))->with('list', $list);
     }
 
     public function inactive(Request $request)
     {
-        DB::table('doctor_patient')
-            ->where('doctor_user_id', $request->doctor_user_id)
-            ->where('patient_user_id', '=', $request->patient_user_id)
-            ->update([
-                'linkStatus' => 'Inactive',
-                'updated_at' => \Carbon\Carbon::now()
-            ]);
+        $existingAppointment = Appointment::where([
+            ['doctor_user_id', '=', $request->doctor_user_id],
+            ['patient_user_id', '=', $request->patient_user_id],
+            ['status', '!=', 'Done'],
+            ['status', '!=', 'Cancelled'],
+            ['status', '!=', 'Declined'],
+            ['status', '!=', 'Pending']
+        ])->exists();
 
-        return redirect('/doctormanagehealthrecords')->with('Completed', 'Link Status with Patient set to Inactive. Health Records are no longer accessible.');
+        if($existingAppointment)
+        {
+            return redirect('/doctormanagehealthrecords')->with('Error', 'There is an existing appointment with the Patient. Cannot set Link Status to Inactive.');
+        }
+        else
+        {
+            DB::table('doctor_patient')
+                ->where('doctor_user_id', Auth::user()->id)
+                ->where('patient_user_id', '=', $request->patient_user_id)
+                ->update([
+                    'linkStatus' => 'Inactive',
+                    'updated_at' => \Carbon\Carbon::now()
+                ]);
+
+            return redirect('/doctormanagehealthrecords')->with('Completed', 'Link Status with Patient set to Inactive. Health Records are no longer accessible.');
+        }
+
     }
 
     public function profile($id)

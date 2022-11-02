@@ -102,7 +102,7 @@
 
 <div class="container-fluid">
     <h1>Good day, <b>{{ Auth::user()->name }}</b>!</h1>
-    <h2><i>Below is the list of your appointments</i></h2>
+    <h2><i>Below is the list of your appointments for today</i></h2>
 
     <br>
     @if(session()->get('Completed'))
@@ -155,11 +155,12 @@
             @endforeach
         @else
             <tr style="background-color:whitesmoke">
-                <td colspan="7" class="text-center">You have no upcoming appointments.</td>
+                <td colspan="7" class="text-center">You have no appointment/s today.</td>
             </tr>
         @endif
         </thead>
     </table>
+    {{$list->links()}}
     <br>
     <a href="{{ url('doctorappointment/pending') }}" class="btn btn-primary">Pending Requests</a>
     <a href="{{ url('doctorappointment/history') }}" class="btn btn-primary">Appointment History</a>
