@@ -139,7 +139,7 @@
                         <form action="{{ route('doctorappointment.ongoing', $app->appointment_id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('PATCH')
-                            <input type="text" name="status" value="Ongoing" hidden>
+                            <input type="text" name="status" value="Ongoing" required readonly hidden>
                             <button class="btn btn-warning btn-sm" type="submit">Ongoing</button>
                         </form>
                     </td>
@@ -147,7 +147,7 @@
                         <form action="{{ route('doctorappointment.done', $app->appointment_id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('PATCH')
-                            <input type="text" name="status" value="Done" hidden>
+                            <input type="text" name="status" value="Done" required readonly hidden>
                             <button class="btn btn-success btn-sm" type="submit">Done</button>
                         </form>
                     </td>

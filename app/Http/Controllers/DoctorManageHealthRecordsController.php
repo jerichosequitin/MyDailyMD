@@ -42,7 +42,7 @@ class DoctorManageHealthRecordsController extends Controller
 
         if($existingAppointment)
         {
-            return redirect('/doctormanagehealthrecords')->with('Error', 'There is an existing appointment with the Patient. Cannot set Link Status to Inactive.');
+            return redirect('/doctormanagehealthrecords')->with('Error', 'You have an upcoming appointment with the Patient. Cannot set Link Status to Inactive.');
         }
         else
         {
@@ -54,7 +54,7 @@ class DoctorManageHealthRecordsController extends Controller
                     'updated_at' => \Carbon\Carbon::now()
                 ]);
 
-            return redirect('/doctormanagehealthrecords')->with('Completed', 'Link Status with Patient set to Inactive. Health Records are no longer accessible.');
+            return redirect('/doctormanagehealthrecords')->with('Completed', 'Link Status with Patient set to Inactive. You can no longer access their Health Records.');
         }
 
     }

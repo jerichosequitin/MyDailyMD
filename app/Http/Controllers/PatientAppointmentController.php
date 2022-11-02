@@ -96,6 +96,56 @@ class PatientAppointmentController extends Controller
         return redirect('/patientappointment/'.Auth::user()->id.'/pending')->with('Completed', 'Appointment successfully cancelled.');
     }
 
+    public function linked(User $user)
+    {
+        $list = DB::table('doctor_patient')
+            ->join('users', 'doctor_patient.doctor_user_id', '=', 'users.id')
+            ->join('doctor_profiles', 'doctor_patient.doctor_user_id', '=', 'doctor_profiles.user_id')
+            ->where('doctor_patient.patient_user_id', '=', Auth::user()->id)
+            ->where('doctor_patient.linkStatus', '=', 'Active')
+
+            ->select('*', 'doctor_profiles.id as doctor_id')
+            ->orderBy('doctor_patient.updated_at', 'DESC')
+            ->simplePaginate(4);
+
+        return view('patientappointment.linked', compact('user'))->with('list', $list);
+    }
+
+    public function inactive(Request $request)
+    {
+        $existingAppointment = Appointment::where([
+            ['doctor_user_id', '=', $request->doctor_user_id],
+            ['patient_user_id', '=', $request->patient_user_id],
+            ['status', '!=', 'Done'],
+            ['status', '!=', 'Cancelled'],
+            ['status', '!=', 'Declined'],
+            ['status', '!=', 'Pending']
+        ])->exists();
+
+        if($existingAppointment)
+        {
+            return redirect('/patientappointment/linked')->with('Error', 'You have an upcoming appointment with the Doctor. Cannot set Link Status to Inactive.');
+        }
+        else
+        {
+            DB::table('doctor_patient')
+                ->where('doctor_user_id', $request->doctor_user_id)
+                ->where('patient_user_id', '=', Auth::user()->id)
+                ->update([
+                    'linkStatus' => 'Inactive',
+                    'updated_at' => \Carbon\Carbon::now()
+                ]);
+
+            return redirect('/patientappointment/linked')->with('Completed', 'Link Status with Doctor set to Inactive. Your Health Records are no longer accessible to them.');
+        }
+    }
+
+    public function doctorProfile($id)
+    {
+        $doctorProfile = DoctorProfile::findOrFail($id);
+        return view('patientappointment.doctorprofile', compact('doctorProfile'));
+    }
+
     public function history(User $user)
     {
         $list = DB::table('appointments')

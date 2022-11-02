@@ -181,6 +181,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             //Appointment
         Route::get('/patientappointment/list', 'App\Http\Controllers\PatientAppointmentController@index')->name('patientappointment.show');
         Route::get('/patientappointment/pending', 'App\Http\Controllers\PatientAppointmentController@pending')->name('patientappointment.pending');
+        Route::get('/patientappointment/linked', 'App\Http\Controllers\PatientAppointmentController@linked')->name('patientappointment.linked');
+        Route::get('/patientappointment/linked/profile/{doctorProfile}', 'App\Http\Controllers\PatientAppointmentController@doctorProfile')->name('patientappointment.doctorprofile');
+        Route::patch('/patientappointment/inactive', 'App\Http\Controllers\PatientAppointmentController@inactive')->name('patientappointment.inactive');
         Route::get('/patientappointment/history', 'App\Http\Controllers\PatientAppointmentController@history')->name('patientappointment.history');
         Route::get('/patientappointment/{appointment}/edit', 'App\Http\Controllers\PatientAppointmentController@edit')->name('patientappointment.edit');
         Route::patch('/patientappointment/{appointment}/cancel', 'App\Http\Controllers\PatientAppointmentController@cancel')->name('patientappointment.cancel');

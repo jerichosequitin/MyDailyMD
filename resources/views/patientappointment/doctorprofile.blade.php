@@ -1,20 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Set an Appointment</title>
+    <title>MyDailyMD - Linked Doctor Profile</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.date').datetimepicker({
-                format: 'MM/DD/YYYY',
-                locale: 'en'
-            });
-    </script>
     <!-- Internal CSS -->
     <style>
         a{
@@ -24,10 +17,15 @@
             text-align: left;
             display: block;
         }
+        .container-fluid{
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            background-image: url("./img/bg03.png");
+        }
         .content form .user-details{
-            display:inline;
+            display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-between;
             margin: 20px 0 12px 0;
         }
         form .user-details .input-box{
@@ -54,7 +52,6 @@
         .user-details .input-box input:valid{
             border-color: #9b59b6;
         }
-
         img{
             filter: brightness(100%);
             filter: contrast(100%);
@@ -74,7 +71,6 @@
             text-align:center;
             color:#EFFCFF;
         }
-
         body{
             background-color:#EAFAFF;
             background-size:contain;
@@ -122,6 +118,7 @@
             .sidenav a {font-size: 18px;}
         }
 
+
         /* Style inputs with type="text", select elements and textareas */
         input[type=text], select, textarea {
             width: 100%; /* Full width */
@@ -153,11 +150,10 @@
         .container {
             border-radius: 15px;
             padding: 20px;
-            width: 50%;
-            height: 15%;
+            width: 100%;
+            height: 50%;
             background-color:#DEF1FD;
             border:1px solid black;
-            text-align: center;
         }
     </style>
 </head>
@@ -167,88 +163,84 @@
     <div class="sidenav">
         <div class="left-half">
             <h3>
-                <b>
-                    {{Auth::user()->name}}
-                </b>
+                <b>{{$doctorProfile->user->name}}</b>
             </h3>
+
             <br>
-            <input type="image" src="/img/patient2.png" height="120" width="150"/>
+
+            <image src="/img/patient2.png" height="120" width="150"/>
         </div>
 
         <br><br><br><br><br><br><br><br>
 
-        <a href="{{ url('patientappointment') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
+        <a href="{{ url('patientappointment/linked') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
     </div>
 
     <div class="main">
         <h1>
-            <b>Book an Appointment</b>
+            <b>Doctor Profile</b>
         </h1>
-        <div class="content">
-            @if(session()->get('Error'))
-                <div class="alert alert-danger">
-                    {{ session()->get('Error') }}
-                </div><br />
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div><br />
-            @endif
-                <div class="container">
-                    <table class="table">
-                        <thead>
-                        <tr style="background-color:#18A0FB;">
-                            <th>Reserved Dates</th>
-                        </tr>
-                        @foreach($list as $app)
-                            <tr style="background-color:whitesmoke">
-                                <td>{{ $app->date }}</td>
-                            </tr>
-                        @endforeach
-                        </thead>
-                    </table>
-                    <center>
-                        <form method="post" action="{{ route('patientappointment.store')}}">
-                            @csrf
-                        <div class="user-details">
-                            <input type="text" class="form-control" name="patient_user_id" value="{{Auth::user()->id}}" required readonly hidden>
-                            <input type="text" class="form-control" name="patient_id" value="{{Auth::user()->patient_profile->id}}" required readonly hidden>
-                            <input type="text" class="form-control" name="patient_email" value="{{Auth::user()->email}}" required readonly hidden>
-                            <input type="text" class="form-control" name="doctor_user_id" value="{{$doctorProfile->user_id}}" required readonly hidden>
-                            <input type="text" class="form-control" name="doctor_id" value="{{$doctorProfile->id}}" required readonly hidden>
-
-                            <div class="input-box">
-                                <span class="details">Doctor Name</span>
-                                <input type="text" class="form-control" value="{{$doctorProfile->user->name}}" name="doctorName" disabled>
+        <div class="row">
+            <div class="content">
+                <form action="">
+                    <div class="column">
+                        <div class="container">
+                            <div class="user-details">
+                                <div class="input-box">
+                                    <span class="details">Full Name</span>
+                                    <input type="text" class="form-control" value="{{$doctorProfile->user->name}}" name="name" disabled>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Email Address</span>
+                                    <input type="text" value="{{$doctorProfile->user->email}}" class="form-control" name="emailAddress" disabled>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Date of Birth</span>
+                                    <input type="date" value="{{$doctorProfile->birthdate }}" class="form-control" name="birthdate" disabled>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Sex</span>
+                                    <input type="text" value="{{$doctorProfile->sex }} "class="form-control" name="sex" disabled>
+                                </div>
                             </div>
-                            <div class="input-box">
-                                <span class="details">Doctor Gender</span>
-                                <input type="text" class="form-control" value="{{$doctorProfile->sex}}" name="doctorGender" disabled>
-                            </div>
-                            <div class="input-box">
-                                <span class="details">Doctor Specialization</span>
-                                <input type="text" class="form-control" value="{{$doctorProfile->specialization}}" name="doctorSpecialization" disabled>
-                            </div>
-                            <div class="input-box">
-                                <span class="details">Doctor Contact Number</span>
-                                <input type="text" class="form-control" value="{{$doctorProfile->contactNumber}}" name="doctorContactNumber" disabled>
-                            </div>
-                            <div class="input-box">
-                                <span class="details">Appointment Date</span>
-                                <input type="date" class="form-control" name="date">
-                            </div>
-
-                            <input type="text" class="form-control" name="status" value="Pending" hidden>
                         </div>
-                        <button class="btn btn-primary">Schedule Appointment</button>
-                    </center>
-                </div>
-            </form>
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <div class="column">
+                        <div class="container">
+                            <div class="user-details">
+                                <div class="input-box">
+                                    <span class="details">Specialization</span>
+                                    <input type="text" value="{{$doctorProfile->specialization }}" class="form-control" name="specialization" disabled>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Contact Number</span>
+                                    <input type="text" value="{{$doctorProfile->contactNumber }}" class="form-control" name="contactNumber" disabled>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Clinic Name</span>
+                                    <input type="text" value="{{$doctorProfile->clinicName }}" class="form-control" name="clinicName" disabled>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Clinic Address</span>
+                                    <input type="text" value="{{$doctorProfile->clinicAddress }}" class="form-control" name="clinicAddress" disabled>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Clinic Mobile Number</span>
+                                    <input type="text" value="{{$doctorProfile->clinicMobileNumber }}" class="form-control" name="clinicMobileNumber" disabled>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Clinic Telephone Number</span>
+                                    <input type="text" value="{{$doctorProfile->clinicTelephoneNumber }}" class="form-control" name="clinicTelephoneNumber" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

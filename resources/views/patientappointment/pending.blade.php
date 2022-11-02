@@ -138,7 +138,7 @@
                         <form action="{{ route('patientappointment.cancel', $app->appointment_id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('PATCH')
-                            <input type="text" name="status" value="Cancelled" hidden>
+                            <input type="text" name="status" value="Cancelled" required readonly hidden>
                             <button class="btn btn-danger btn-sm" type="submit">Cancel</button>
                         </form>
                     </td>

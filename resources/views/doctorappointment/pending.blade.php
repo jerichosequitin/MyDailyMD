@@ -139,10 +139,10 @@
                         <form action="{{ route('doctorappointment.accepted', $app->appointment_id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('PATCH')
-                            <input type="text" name="status" value="Accepted" required hidden>
-                            <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required hidden>
-                            <input type="text" name="doctor_user_id" value="{{$app->doctor_user_id}}" required hidden>
-                            <input type="text" name="linkStatus" value="Active" required hidden>
+                            <input type="text" name="status" value="Accepted" required readonly hidden>
+                            <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required readonly hidden>
+                            <input type="text" name="doctor_user_id" value="{{$app->doctor_user_id}}" required readonly hidden>
+                            <input type="text" name="linkStatus" value="Active" required readonly hidden>
                             <button class="btn btn-success btn-sm" type="submit">Accepted</button>
                         </form>
                     </td>
@@ -150,7 +150,7 @@
                         <form action="{{ route('doctorappointment.declined', $app->appointment_id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('PATCH')
-                            <input type="text" name="status" value="Declined" hidden>
+                            <input type="text" name="status" value="Declined" required readonly hidden>
                             <button class="btn btn-danger btn-sm" type="submit">Declined</button>
                         </form>
                     </td>

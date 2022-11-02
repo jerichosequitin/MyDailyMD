@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Patient Appointment List</title>
+    <title>MyDailyMD - Linked Doctors</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -94,7 +94,7 @@
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
+    <a href="{{ url('patientappointment/list') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
 </div>
 <img src="/img/logo.png" width="180" height="180" class="logo">
 
@@ -102,7 +102,7 @@
 
 <div class="container-fluid">
     <h1>Good day, <b>{{ Auth::user()->name }}</b>!</h1>
-    <h2><i>Below is the list of your upcoming appointments</i></h2>
+    <h2><i>Below is the list of Doctors that can access your health records.</i></h2>
 
     <br>
     @if(session()->get('Completed'))
@@ -118,39 +118,45 @@
     <table class="table">
         <thead>
         <tr style="background-color:#18A0FB;">
-        {{--<th>Doctor User ID</th>--}}
-        {{--<th>Doctor ID</th>--}}
             <th>Doctor Name</th>
-            <th>Doctor Specialization</th>
-            <th>Doctor Contact Number</th>
-            <th>Appointment Date</th>
-            <th>Appointment Status</th>
+            <th>Email</th>
+            <th>Contact Number</th>
+            <th>Gender</th>
+            <th colspan="2" style="width: 10%">Action</th>
         </tr>
         @if(count($list) > 0)
             @foreach($list as $app)
                 <tr style="background-color:whitesmoke">
-                {{--<td>{{ $app->doctor_user_id}}</td>--}}
-                {{--<td>{{ $app->id }}</td>--}}
                     <td>{{ $app->name }}</td>
-                    <td>{{ $app->specialization }}</td>
+                    <td>{{ $app->email }}</td>
                     <td>{{ $app->contactNumber }}</td>
-                    <td>{{ $app->date }}</td>
-                    <td>{{ $app->status }}</td>
+                    <td>{{ $app->sex }}</td>
+                    <td>
+                        <a href="{{ url('patientappointment/linked/profile/'.$app->doctor_id) }}">
+                            <button class="btn btn-primary btn-sm">View</button>
+                        </a>
+                    </td>
+                    <td>
+                        <form action="{{ route('patientappointment.inactive', $app->doctor_id)}}" method="post" style="display: inline-block">
+                            @csrf
+                            @method('PATCH')
+                            <input type="text" name="patient_user_id" value="{{Auth::user()->id}}" required readonly hidden>
+                            <input type="text" name="doctor_user_id" value="{{$app->doctor_user_id}}" required readonly hidden>
+                            <input type="text" name="linkStatus" value="Inactive" required hidden>
+                            <button class="btn btn-danger btn-sm" type="submit">Inactive</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         @else
             <tr style="background-color:whitesmoke">
-                <td colspan="5" class="text-center">You have no upcoming appointments.</td>
+                <td colspan="6" class="text-center">You have no active patients at the moment.</td>
             </tr>
         @endif
         </thead>
     </table>
     {{$list->links()}}
     <br>
-    <a href="{{ url('patientappointment/pending') }}" class="btn btn-primary">Pending Requests</a>
-    <a href="{{ url('patientappointment') }}" class="btn btn-primary">Schedule Appointment</a>
-    <a href="{{ url('patientappointment/linked') }}" class="btn btn-primary">Linked Doctors</a>
-    <a href="{{ url('patientappointment/history') }}" class="btn btn-primary">Appointment History</a>
 </div>
 </body>
 </html>

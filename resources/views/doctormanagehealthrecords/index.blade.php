@@ -143,8 +143,8 @@
                         <form action="{{ route('managehealthrecords.inactive', $app->patient_id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('PATCH')
-                            <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required hidden>
-                            <input type="text" name="doctor_user_id" value="{{Auth::user()->id}}" required hidden>
+                            <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required readonly hidden>
+                            <input type="text" name="doctor_user_id" value="{{Auth::user()->id}}" required readonly hidden>
                             <input type="text" name="linkStatus" value="Inactive" required hidden>
                             <button class="btn btn-danger btn-sm" type="submit">Inactive</button>
                         </form>
