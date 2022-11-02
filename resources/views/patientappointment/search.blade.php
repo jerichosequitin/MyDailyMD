@@ -119,19 +119,20 @@
             <th>Contact Number</th>
             <th></th>
         </tr>
-        @foreach($doc as $doc)
+        @foreach($doc as $doctor)
             <tr style="background-color:whitesmoke">
-                <td>{{ $doc->name }}</td>
-                <td>{{ $doc->sex }}</td>
-                <td>{{ $doc->specialization }}</td>
-                <td>{{ $doc->contactNumber }}</td>
+                <td>{{ $doctor->name }}</td>
+                <td>{{ $doctor->sex }}</td>
+                <td>{{ $doctor->specialization }}</td>
+                <td>{{ $doctor->contactNumber }}</td>
                 <td>
-                    <a href="{{ route('patientappointment.book', $doc->id) }}" class="btn btn-success btn-sm">Choose Doctor</a>
+                    <a href="{{ route('patientappointment.book', $doctor->id) }}" class="btn btn-success btn-sm">Choose Doctor</a>
                 </td>
             </tr>
         @endforeach
         </thead>
     </table>
+    {{$doc->links()}}
 </div>
 </body>
 </html>

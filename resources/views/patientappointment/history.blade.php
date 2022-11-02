@@ -145,6 +145,7 @@
         @endif
         </thead>
     </table>
+    {{$list->links()}}
     <br>
 </div>
 </body>

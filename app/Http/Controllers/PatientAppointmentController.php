@@ -103,7 +103,7 @@ class PatientAppointmentController extends Controller
             ->where('appointments.patient_user_id', '=', Auth::user()->id)
             ->select('*', 'appointments.id as appointment_id')
             ->orderBy("appointment_id", "DESC")
-            ->get();
+            ->simplePaginate(5);
         return view('patientappointment.history', compact('user'))->with('list', $list);
     }
 
@@ -114,7 +114,7 @@ class PatientAppointmentController extends Controller
             ->where('type', '=', 'doctor')
             ->where('isVerified', '=', 'Enabled')
             ->select('*', 'users.id as doctor_user_id')
-            ->get();
+            ->simplePaginate(5);
         return view ('patientappointment.search')->with('doc', $doc);
     }
 
