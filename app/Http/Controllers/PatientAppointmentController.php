@@ -173,14 +173,15 @@ class PatientAppointmentController extends Controller
     public function book($id)
     {
         $doctorProfile = DoctorProfile::findOrFail($id);
-        $oneMonthFromNow = Carbon::now()->addDays(30);
+        $oneMonthFromNow = Carbon::now()->addDays(31);
 
         $list = DB::table('appointments')
             ->join('users', 'appointments.doctor_user_id', '=', 'users.id')
             ->join('doctor_profiles', 'appointments.doctor_id', '=', 'doctor_profiles.id')
             ->where('appointments.doctor_user_id', '=', $doctorProfile->user->id)
             ->where('appointments.status', '=', 'Accepted')
-            ->whereDate('appointments.date', '<', $oneMonthFromNow)
+            ->whereDate('appointments.date', '>=', Carbon::now()->addDay())
+            ->whereDate('appointments.date', '<=', $oneMonthFromNow)
             ->select('*', 'users.id as doctor_user_id')
             ->orderBy('appointments.date', 'ASC')
             ->get();
