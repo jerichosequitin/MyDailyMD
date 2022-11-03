@@ -241,9 +241,10 @@ class PatientAppointmentController extends Controller
             ->join('doctor_profiles', 'appointments.doctor_id', '=', 'doctor_profiles.id')
             ->where('appointments.doctor_user_id', '=', $doctorProfile->user->id)
             ->where('appointments.status', '=', 'Accepted')
-            ->whereDate('appointments.start', '>=', Carbon::now()->addDay())
-            ->whereDate('appointments.start', '<=', $oneMonthFromNow)
+            ->whereDate('appointments.date', '>=', Carbon::now()->addDay())
+            ->whereDate('appointments.date', '<=', $oneMonthFromNow)
             ->select('*', 'users.id as doctor_user_id')
+            ->orderBy('appointments.date', 'ASC')
             ->orderBy('appointments.start', 'ASC')
             ->get();
 
