@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\DoctorProfile;
+use App\Models\PatientProfile;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -75,18 +76,41 @@ class PatientAppointmentController extends Controller
 
     public function edit($id)
     {
-        $appointment = Appointment::findOrFail($id);
-        return view('patientappointment.edit', compact('appointment'));
+        $appointment = DB::table('appointments')
+            ->where('id', '=', $id)
+            ->first();
+
+        if($appointment->patient_user_id == Auth::user()->id)
+        {
+            $appointment = Appointment::findOrFail($id);
+            return view('patientappointment.edit', compact('appointment'));
+        }
+        else
+        {
+            return redirect()->back()->with('Error', 'This appointment does not belong to you.');
+        }
     }
 
     public function update(Request $request, $id)
     {
-        $updateData = request()->validate([
-            'date'=>'after:today',
-        ]);
+        $appointment = DB::table('appointments')
+            ->where('patient_user_id', '=', Auth::user()->id)
+            ->where('id', '=', $id)
+            ->first();
 
-        Appointment::whereId($id)->update($updateData);
-        return redirect('/patientappointment/pending')->with('Completed', 'Appointment details successfully updated.');
+        if($appointment->status != 'Pending')
+        {
+            return redirect('/patientappointment/pending')->with('Error', 'Appointment not pending anymore. Cannot be updated.');
+        }
+        else
+        {
+            $updateData = request()->validate([
+                'date'=>'after:today',
+            ]);
+
+            Appointment::whereId($id)->update($updateData);
+            return redirect('/patientappointment/pending')->with('Completed', 'Appointment details successfully updated.');
+        }
     }
 
     public function cancel(Request $request, $id)
@@ -143,8 +167,33 @@ class PatientAppointmentController extends Controller
 
     public function doctorProfile($id)
     {
-        $doctorProfile = DoctorProfile::findOrFail($id);
-        return view('patientappointment.doctorprofile', compact('doctorProfile'));
+        $linkExists = DB::table('doctor_patient')
+            ->where('doctor_id', '=', $id)
+            ->where('patient_user_id', '=', Auth::user()->id)
+            ->exists();
+
+        $link = DB::table('doctor_patient')
+            ->where('doctor_id', '=', $id)
+            ->where('patient_user_id', '=', Auth::user()->id)
+            ->first();
+
+        if($linkExists)
+        {
+
+            if($link->linkStatus == 'Active')
+            {
+                $doctorProfile = DoctorProfile::findOrFail($id);
+                return view('patientappointment.doctorprofile', compact('doctorProfile'));
+            }
+            else
+            {
+                return redirect()->back()->with('Error', 'Link Status with Patient is Inactive. Cannot access Health Records.');
+            }
+        }
+        else
+        {
+            return redirect()->back()->with('Error', 'You are not linked to the Patient. Cannot access Health Records.');
+        }
     }
 
     public function history(User $user)
