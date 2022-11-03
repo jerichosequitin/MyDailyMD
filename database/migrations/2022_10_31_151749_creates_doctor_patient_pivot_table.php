@@ -16,7 +16,9 @@ class CreatesDoctorPatientPivotTable extends Migration
         Schema::create('doctor_patient', function (Blueprint $table) {
            $table->bigIncrements('id');
            $table->unsignedBigInteger('doctor_user_id');
+           $table->unsignedBigInteger('doctor_id');
            $table->unsignedBigInteger('patient_user_id');
+           $table->unsignedBigInteger('patient_id');
            $table->string('linkStatus')->default('Active');
            $table->timestamps();
         });
