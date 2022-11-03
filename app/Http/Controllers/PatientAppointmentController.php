@@ -76,13 +76,10 @@ class PatientAppointmentController extends Controller
 
     public function edit($id)
     {
-        $appointment = DB::table('appointments')
-            ->where('id', '=', $id)
-            ->first();
+        $appointment = Appointment::findOrFail($id);
 
         if($appointment->patient_user_id == Auth::user()->id)
         {
-            $appointment = Appointment::findOrFail($id);
             return view('patientappointment.edit', compact('appointment'));
         }
         else
@@ -100,7 +97,7 @@ class PatientAppointmentController extends Controller
 
         if($appointment->status != 'Pending')
         {
-            return redirect('/patientappointment/pending')->with('Error', 'Appointment not pending anymore. Cannot be updated.');
+            return redirect('/patientappointment/pending')->with('Error', 'This appointment cannot be updated because it is no longer pending.');
         }
         else
         {
