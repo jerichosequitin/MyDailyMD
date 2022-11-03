@@ -18,22 +18,25 @@ class DoctorAppointmentController extends Controller
         $dateToday = $dateNow->toDateString();
 
         $list = DB::table('appointments')
-            //Join Users Table if Appointments Doctor ID = User ID
+            //Join Users Table if Appointments Patient User ID = User ID
             ->join('users', 'appointments.patient_user_id', '=', 'users.id')
 
-            //Join DoctorProfiles Table if User ID = DoctorProfiles User ID
+            //Join PatientProfiles Table if User ID = PatientProfiles User ID
             ->join('patient_profiles', 'appointments.patient_id', '=', 'patient_profiles.id')
 
-            ->where('appointments.date', '=', $dateToday)
+            //Where Appointment Date = Date Today
+            ->whereDate('appointments.date', '=', $dateToday)
 
-            //Where Appointments Patient User ID should be equal to Current User's ID
+            //Where Appointments Doctor User ID should be equal to Current User's ID
             ->where('appointments.doctor_user_id', '=', Auth::user()->id)
 
-            //Where Appointments Status is Accepted
+            //Where Appointments Status is Accepted or Ongoing
             ->where('appointments.status', '=', 'Accepted')
             ->orWhere('appointments.status', '=', 'Ongoing')
 
             ->select('*', 'appointments.id as appointment_id')
+
+            ->orderBy('appointments.start', 'ASC')
 
             ->simplePaginate(4);
 
@@ -113,17 +116,12 @@ class DoctorAppointmentController extends Controller
             DB::table('doctor_patient')
                 ->insert([
                     'doctor_user_id' => $request->doctor_user_id,
+                    'doctor_id' => $request->doctor_id,
                     'patient_user_id' => $request->patient_user_id,
+                    'patient_id' => $request->patient_id,
                     'linkStatus' => 'Active',
                     'created_at' => \Carbon\Carbon::now()
                 ]);
-
-            /*$patient = PatientProfile::findOrFail($request->patient_user_id);
-            $doctorData = $request->validate([
-                'doctor_user_id' => 'required',
-            ]);
-
-            $patient->doctors()->attach($doctorData);*/
 
             return redirect('/doctorappointment/list')->with('Completed', 'Appointment successfully accepted. You now have access to the Patients Health Records.');
         }

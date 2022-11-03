@@ -123,6 +123,7 @@
             <th>Mobile Number</th>
             <th>Gender</th>
             <th>Appointment Date</th>
+            <th>Appointment Time</th>
             <th>Appointment Status</th>
             <th colspan="2">Mark As</th>
         </tr>
@@ -133,7 +134,8 @@
                     <td>{{ $app->email }}</td>
                     <td>{{ $app->mobileNumber }}</td>
                     <td>{{ $app->sex }}</td>
-                    <td>{{ $app->date }}</td>
+                    <td>{{ date('F j, Y', strtotime($app->date)) }}</td>
+                    <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
                     <td>{{ $app->status }}</td>
                     <td>
                         <form action="{{ route('doctorappointment.ongoing', $app->appointment_id)}}" method="post" style="display: inline-block">
@@ -155,7 +157,7 @@
             @endforeach
         @else
             <tr style="background-color:whitesmoke">
-                <td colspan="7" class="text-center">You have no appointment/s today.</td>
+                <td colspan="8" class="text-center">You have no appointment/s today.</td>
             </tr>
         @endif
         </thead>

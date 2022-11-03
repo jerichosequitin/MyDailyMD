@@ -22,6 +22,8 @@ class CreateAppointmentsTable extends Migration
             $table->integer('doctor_id');
             $table->string('doctor_email');
             $table->date('date');
+            $table->time('start');
+            $table->time('end');
             $table->string('meetingLink')->nullable();
             $table->string('status');
             $table->timestamps();

@@ -180,6 +180,11 @@
             <b>Edit Appointment</b>
         </h1>
         <div class="content">
+            @if(session()->get('Error'))
+                <div class="alert alert-danger">
+                    {{ session()->get('Error') }}
+                </div><br />
+            @endif
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -195,9 +200,29 @@
                 <div class="container">
                     <center>
                         <div class="user-details">
+                            @foreach ($doctor as $doc)
+                            <input type="text" class="form-control" name="patient_id" value="{{Auth::user()->patient_profile->id}}" required readonly hidden>
+                            <input type="text" class="form-control" name="doctor_id" value="{{$doc->doctor_id}}" required readonly hidden>
+                                <div class="input-box">
+                                    <span class="details">Doctor Name</span>
+                                    <input type="text" value="{{$doc->name}}" class="form-control" name="date" disabled>
+                                </div>
+                            <div class="input-box">
+                                <span class="details">Doctor Working Hours</span>
+                                <input type="text" value="{{ date('h:i A', strtotime($doc->workingHoursStart)) }} - {{ date('h:i A', strtotime($doc->workingHoursEnd)) }}" class="form-control" name="date" disabled>
+                            </div>
+                            @endforeach
                             <div class="input-box">
                                 <span class="details">Appointment Date</span>
                                 <input type="date" value="{{ $appointment->date }}" class="form-control" name="date" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Appointment Start</span>
+                                <input type="time" step="3600" value="{{ $appointment->start }}" class="form-control" name="start" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Appointment End</span>
+                                <input type="time" step="3600" value="{{ $appointment->end }}" class="form-control" name="end" required>
                             </div>
                         </div>
                         <button class="btn btn-primary">Save</button>

@@ -124,6 +124,7 @@
             <th>Doctor Specialization</th>
             <th>Doctor Contact Number</th>
             <th>Appointment Date</th>
+            <th>Appointment Time</th>
             <th>Appointment Status</th>
         </tr>
         @if(count($list) > 0)
@@ -134,13 +135,14 @@
                     <td>{{ $app->name }}</td>
                     <td>{{ $app->specialization }}</td>
                     <td>{{ $app->contactNumber }}</td>
-                    <td>{{ $app->date }}</td>
+                    <td>{{ date('F j, Y', strtotime($app->date)) }}</td>
+                    <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
                     <td>{{ $app->status }}</td>
                 </tr>
             @endforeach
         @else
             <tr style="background-color:whitesmoke">
-                <td colspan="5" class="text-center">You have no upcoming appointments.</td>
+                <td colspan="6" class="text-center">You have no upcoming appointments.</td>
             </tr>
         @endif
         </thead>

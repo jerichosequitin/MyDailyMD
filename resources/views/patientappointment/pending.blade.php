@@ -122,6 +122,7 @@
             <th>Doctor Specialization</th>
             <th>Doctor Contact Number</th>
             <th>Appointment Date</th>
+            <th>Appointment Time</th>
             <th>Appointment Status</th>
             <th colspan="2" style="width: 10%"></th>
         </tr>
@@ -131,7 +132,8 @@
                     <td>{{ $app->name }}</td>
                     <td>{{ $app->specialization }}</td>
                     <td>{{ $app->contactNumber }}</td>
-                    <td>{{ $app->date }}</td>
+                    <td>{{ date('F j, Y', strtotime($app->date)) }}</td>
+                    <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
                     <td>{{ $app->status }}</td>
                     <td><a href="{{ route('patientappointment.edit', $app->appointment_id) }}" class="btn btn-primary btn-sm">Edit</a></td>
                     <td>

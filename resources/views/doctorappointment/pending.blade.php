@@ -123,6 +123,7 @@
             <th>Mobile Number</th>
             <th>Gender</th>
             <th>Appointment Date</th>
+            <th>Appointment Time</th>
             <th>Appointment Status</th>
             <th colspan="2">Mark As</th>
         </tr>
@@ -133,7 +134,8 @@
                     <td>{{ $app->email }}</td>
                     <td>{{ $app->mobileNumber }}</td>
                     <td>{{ $app->sex }}</td>
-                    <td>{{ $app->date }}</td>
+                    <td>{{ date('F j, Y', strtotime($app->date)) }}</td>
+                    <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
                     <td>{{ $app->status }}</td>
                     <td>
                         <form action="{{ route('doctorappointment.accepted', $app->appointment_id)}}" method="post" style="display: inline-block">
@@ -141,7 +143,9 @@
                             @method('PATCH')
                             <input type="text" name="status" value="Accepted" required readonly hidden>
                             <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required readonly hidden>
+                            <input type="text" name="patient_id" value="{{$app->patient_id}}" required readonly hidden>
                             <input type="text" name="doctor_user_id" value="{{$app->doctor_user_id}}" required readonly hidden>
+                            <input type="text" name="doctor_id" value="{{$app->doctor_id}}" required readonly hidden>
                             <input type="text" name="linkStatus" value="Active" required readonly hidden>
                             <button class="btn btn-success btn-sm" type="submit">Accepted</button>
                         </form>

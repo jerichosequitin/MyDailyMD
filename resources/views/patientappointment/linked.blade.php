@@ -150,7 +150,7 @@
             @endforeach
         @else
             <tr style="background-color:whitesmoke">
-                <td colspan="6" class="text-center">You have no active patients at the moment.</td>
+                <td colspan="6" class="text-center">You have no active doctors at the moment.</td>
             </tr>
         @endif
         </thead>

@@ -61,23 +61,98 @@ class DoctorManageHealthRecordsController extends Controller
 
     public function profile($id)
     {
-        $patientProfile = PatientProfile::findOrFail($id);
-        return view('doctormanagehealthrecords.profile', compact('patientProfile'));
+        $linkExists = DB::table('doctor_patient')
+            ->where('patient_id', '=', $id)
+            ->where('doctor_user_id', '=', Auth::user()->id)
+            ->exists();
+
+        $link = DB::table('doctor_patient')
+            ->where('patient_id', '=', $id)
+            ->where('doctor_user_id', '=', Auth::user()->id)
+            ->first();
+
+        if($linkExists)
+        {
+
+            if($link->linkStatus == 'Active')
+            {
+                $patientProfile = PatientProfile::findOrFail($id);
+                return view('doctormanagehealthrecords.profile', compact('patientProfile'));
+            }
+            else
+            {
+                return redirect()->back()->with('Error', 'Link Status with Patient is Inactive. Cannot access Health Records.');
+            }
+        }
+        else
+        {
+            return redirect()->back()->with('Error', 'You are not linked to the Patient. Cannot access Health Records.');
+        }
     }
 
     public function medicalHistory($id)
     {
-        $patientProfile = PatientProfile::findOrFail($id);
+        $linkExists = DB::table('doctor_patient')
+            ->where('patient_id', '=', $id)
+            ->where('doctor_user_id', '=', Auth::user()->id)
+            ->exists();
 
-        $medicalHistory = MedicalHistory::where('user_id','=',$patientProfile->user_id)->get();
-        return view('doctormanagehealthrecords.medicalhistory', compact ('patientProfile','medicalHistory'));
+        $link = DB::table('doctor_patient')
+            ->where('patient_id', '=', $id)
+            ->where('doctor_user_id', '=', Auth::user()->id)
+            ->first();
+
+        if($linkExists)
+        {
+
+            if($link->linkStatus == 'Active')
+            {
+                $patientProfile = PatientProfile::findOrFail($id);
+
+                $medicalHistory = MedicalHistory::where('user_id','=',$patientProfile->user_id)->get();
+                return view('doctormanagehealthrecords.medicalhistory', compact ('patientProfile','medicalHistory'));
+            }
+            else
+            {
+                return redirect()->back()->with('Error', 'Link Status with Patient is Inactive. Cannot access Health Records.');
+            }
+        }
+        else
+        {
+            return redirect()->back()->with('Error', 'You are not linked to the Patient. Cannot access Health Records.');
+        }
     }
 
     public function immunization($id)
     {
-        $patientProfile = PatientProfile::findOrFail($id);
+        $linkExists = DB::table('doctor_patient')
+            ->where('patient_id', '=', $id)
+            ->where('doctor_user_id', '=', Auth::user()->id)
+            ->exists();
 
-        $immunization = Immunization::where('user_id','=',$patientProfile->user_id)->get();
-        return view('doctormanagehealthrecords.immunization', compact ('patientProfile','immunization'));
+        $link = DB::table('doctor_patient')
+            ->where('patient_id', '=', $id)
+            ->where('doctor_user_id', '=', Auth::user()->id)
+            ->first();
+
+        if($linkExists)
+        {
+
+            if($link->linkStatus == 'Active')
+            {
+                $patientProfile = PatientProfile::findOrFail($id);
+
+                $immunization = Immunization::where('user_id','=',$patientProfile->user_id)->get();
+                return view('doctormanagehealthrecords.immunization', compact ('patientProfile','immunization'));
+            }
+            else
+            {
+                return redirect()->back()->with('Error', 'Link Status with Patient is Inactive. Cannot access Health Records.');
+            }
+        }
+        else
+        {
+            return redirect()->back()->with('Error', 'You are not linked to the Patient. Cannot access Health Records.');
+        }
     }
 }

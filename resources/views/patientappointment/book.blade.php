@@ -156,12 +156,12 @@
             <table class="table" style="width: 60%; text-align: center;">
                 <thead>
                 <tr style="background-color:#18A0FB;">
-                    <th>Dr. {{$doctorProfile->user->name}}'s Reserved Dates</th>
+                    <th colspan="2">Dr. {{$doctorProfile->user->name}}'s Reserved Dates</th>
                 </tr>
                 @if(count($list) > 0)
                     @foreach($list as $app)
                         <tr style="background-color:whitesmoke">
-                            <td>{{ $app->date }}</td>
+                            <td>{{ date('F j', strtotime($app->date)) }} {{ date('h:i', strtotime($app->start)) }} - {{ date('h:i A', strtotime($app->end)) }}</td>
                         </tr>
                     @endforeach
                 @else
@@ -209,6 +209,9 @@
                             <input type="text" class="form-control" name="doctor_user_id" value="{{$doctorProfile->user_id}}" required readonly hidden>
                             <input type="text" class="form-control" name="doctor_id" value="{{$doctorProfile->id}}" required readonly hidden>
                             <input type="text" class="form-control" name="doctor_email" value="{{$doctorProfile->user->email}}" required readonly hidden>
+                            <input type="time" class="form-control" name="workingHoursStart" value="{{$doctorProfile->workingHoursStart}}" required readonly hidden>
+                            <input type="time" class="form-control" name="workingHoursEnd" value="{{$doctorProfile->workingHoursEnd}}" required readonly hidden>
+
 
                             <div class="input-box">
                                 <span class="details">Doctor Name</span>
@@ -228,11 +231,19 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Doctor Working Hours</span>
-                                <input type="text" class="form-control" value="{{$doctorProfile->workingHoursStart}} to {{$doctorProfile->workingHoursEnd}}" name="doctorWorkingHours" disabled>
+                                <input type="text" class="form-control" value="{{ date('h:i A', strtotime($doctorProfile->workingHoursStart)) }} - {{ date('h:i A', strtotime($doctorProfile->workingHoursEnd)) }}" name="doctorWorkingHours" disabled>
                             </div>
                             <div class="input-box">
                                 <span class="details">Appointment Date</span>
-                                <input type="date" class="form-control" name="date">
+                                <input type="date" class="form-control" name="date" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Start Time</span>
+                                <input type="time" step="3600" class="form-control" name="start" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">End Time</span>
+                                <input type="time" step="3600" class="form-control" name="end" required>
                             </div>
 
                             <input type="text" class="form-control" name="status" value="Pending" hidden>

@@ -15,31 +15,6 @@ class PatientAppointmentController extends Controller
 {
     public function index(User $user)
     {
-        //Version 1
-        /*$list = DB::table('users')
-            //Join Appointments Table if Users ID = Appointments Patient User ID
-            ->join('appointments', 'users.id', '=', 'appointments.patient_user_id')
-
-            //Join DoctorProfiles Table if Appointments DoctorID = DoctorProfiles ID
-            ->join('doctor_profiles', 'appointments.doctor_id', '=', 'doctor_profiles.id')
-
-            //Display Doctor Name
-            //->join('users', 'doctor_profiles.user_id', '=', 'users.id')
-
-
-            //Where Appointments Patient User ID should be equal to Current User's ID
-            ->where('appointments.patient_user_id', '=', Auth::user()->id)
-
-            //Where Appointments Status is Pending
-            ->where('appointments.status', '=', 'Pending')
-
-            ->select('*', 'users.id as user_id')
-            //->select('*', 'users.name as doctor_name')
-            ->select('*', 'doctor_profiles.id as doctor_id')
-
-            ->get();
-        return view('patientappointment.index', compact('user'))->with('list', $list);*/
-
         //Version 2
         $list = DB::table('appointments')
             //Join Users Table if Appointments Doctor ID = User ID
@@ -56,7 +31,7 @@ class PatientAppointmentController extends Controller
             ->where('appointments.status', '=', 'Accepted')
 
             ->select('*', 'users.id as doctor_user_id')
-            ->orderBy("date", "ASC")
+            ->orderBy("start", "ASC")
 
             ->simplePaginate(4);
         return view('patientappointment.index', compact('user'))->with('list', $list);
@@ -76,11 +51,18 @@ class PatientAppointmentController extends Controller
 
     public function edit($id)
     {
+        $doctor = DB::table('appointments')
+            ->join('users', 'appointments.doctor_user_id', '=', 'users.id')
+            ->join('doctor_profiles', 'appointments.doctor_id', '=', 'doctor_profiles.id')
+            ->where('appointments.patient_user_id', '=', Auth::user()->id)
+            ->where('appointments.id', '=', $id)
+            ->get();
+
         $appointment = Appointment::findOrFail($id);
 
         if($appointment->patient_user_id == Auth::user()->id)
         {
-            return view('patientappointment.edit', compact('appointment'));
+            return view('patientappointment.edit', compact('appointment'))->with('doctor', $doctor);
         }
         else
         {
@@ -95,18 +77,51 @@ class PatientAppointmentController extends Controller
             ->where('id', '=', $id)
             ->first();
 
+        $doctorDateUnavailable = Appointment::where('doctor_id', $request->doctor_id)
+            ->where('status', '=', 'Accepted')
+            ->where('date', '=', $request->date)
+            ->where('start', '<=', $request->end)
+            ->where('end', '>=', $request->start)->exists();
+
+        $patientDateUnavailable = Appointment::where('patient_id', $request->patient_id)
+            ->where('status', '=', 'Accepted')
+            ->where('date', '=', $request->date)
+            ->where('start', '<=', $request->end)
+            ->where('end', '>=', $request->start)->exists();
+
         if($appointment->status != 'Pending')
         {
             return redirect('/patientappointment/pending')->with('Error', 'This appointment cannot be updated because it is no longer pending.');
         }
         else
         {
-            $updateData = request()->validate([
-                'date'=>'after:today',
-            ]);
+            if($doctorDateUnavailable)
+            {
+                return redirect()->back()->with('Error', 'Doctor is not available for the chosen date.');
+            }
+            elseif($patientDateUnavailable)
+            {
+                return redirect()->back()->with('Error', 'You already have an appointment set for the chosen date.');
+            }
+            else
+            {
+                $doctor = DB::table('appointments')
+                    ->join('users', 'appointments.doctor_user_id', '=', 'users.id')
+                    ->join('doctor_profiles', 'appointments.doctor_id', '=', 'doctor_profiles.id')
+                    ->where('appointments.patient_user_id', '=', Auth::user()->id)
+                    ->where('appointments.id', '=', $id)
+                    ->select('*', 'doctor_profiles.id as doctor_id')
+                    ->first();
 
-            Appointment::whereId($id)->update($updateData);
-            return redirect('/patientappointment/pending')->with('Completed', 'Appointment details successfully updated.');
+                $updateData = request()->validate([
+                    'date' => 'required|after:7 days',
+                    'start' => 'required|after:'.$doctor->workingHoursStart,
+                    'end' => 'required|after:start|before:'.$doctor->workingHoursEnd,
+                ]);
+
+                Appointment::whereId($id)->update($updateData);
+                return redirect('/patientappointment/pending')->with('Completed', 'Appointment details successfully updated.');
+            }
         }
     }
 
@@ -226,10 +241,10 @@ class PatientAppointmentController extends Controller
             ->join('doctor_profiles', 'appointments.doctor_id', '=', 'doctor_profiles.id')
             ->where('appointments.doctor_user_id', '=', $doctorProfile->user->id)
             ->where('appointments.status', '=', 'Accepted')
-            ->whereDate('appointments.date', '>=', Carbon::now()->addDay())
-            ->whereDate('appointments.date', '<=', $oneMonthFromNow)
+            ->whereDate('appointments.start', '>=', Carbon::now()->addDay())
+            ->whereDate('appointments.start', '<=', $oneMonthFromNow)
             ->select('*', 'users.id as doctor_user_id')
-            ->orderBy('appointments.date', 'ASC')
+            ->orderBy('appointments.start', 'ASC')
             ->get();
 
         if($doctorProfile->isVerified == 'Enabled')
@@ -246,11 +261,15 @@ class PatientAppointmentController extends Controller
     {
         $doctorDateUnavailable = Appointment::where('doctor_id', $request->doctor_id)
             ->where('status', '=', 'Accepted')
-            ->where('date', '=', $request->date)->exists();
+            ->where('date', '=', $request->date)
+            ->where('start', '<=', $request->end)
+            ->where('end', '>=', $request->start)->exists();
 
         $patientDateUnavailable = Appointment::where('patient_id', $request->patient_id)
             ->where('status', '=', 'Accepted')
-            ->where('date', '=', $request->date)->exists();
+            ->where('date', '=', $request->date)
+            ->where('start', '<=', $request->end)
+            ->where('end', '>=', $request->start)->exists();
 
         $patientOneRequest = Appointment::where([
             ['patient_id', '=', $request->patient_id],
@@ -269,6 +288,7 @@ class PatientAppointmentController extends Controller
             ->where('status', '=', 'Pending')->get();
 
         $doctorPendingCount = count($doctorPending);
+
 
         if($doctorDateUnavailable)
         {
@@ -299,6 +319,8 @@ class PatientAppointmentController extends Controller
                 'doctor_id' => 'required',
                 'doctor_email' => 'required',
                 'date' => 'required|after:7 days',
+                'start' => 'required|after:'.$request->workingHoursStart,
+                'end' => 'required|after:start|before:'.$request->workingHoursEnd,
                 'status' => 'required',
             ]);
 
