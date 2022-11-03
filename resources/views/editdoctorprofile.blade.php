@@ -209,7 +209,9 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Working Hours</span>
-                            <input type="time" value="{{$user->doctor_profile->workingHours }} "class="form-control" name="workingHours" required>
+                            <input type="time" value="{{$user->doctor_profile->workingHoursStart }}" step="3600" class="form-control" name="workingHoursStart" required>
+                            <span class="details">to</span>
+                            <input type="time" value="{{$user->doctor_profile->workingHoursEnd }}" step="3600" class="form-control" name="workingHoursEnd" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Digital Signature</span>

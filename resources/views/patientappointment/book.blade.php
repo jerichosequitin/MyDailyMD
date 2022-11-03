@@ -8,22 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.date').datetimepicker({
-                format: 'MM/DD/YYYY',
-                locale: 'en'
-            });
-    </script>
     <!-- Internal CSS -->
     <style>
-        a{
-            text-decoration: none;
-        }
-        a.back{
-            text-align: left;
-            display: block;
-        }
         .content form .user-details{
             display:inline;
             flex-wrap: wrap;
@@ -165,17 +151,29 @@
 <div class="container-fluid p-5 text-black text-center">
     <br>
     <div class="sidenav">
-        <div class="left-half">
-            <h3>
-                <b>
-                    {{Auth::user()->name}}
-                </b>
-            </h3>
-            <br>
-            <input type="image" src="/img/patient2.png" height="120" width="150"/>
-        </div>
+        <br><br>
+        <center>
+            <table class="table" style="width: 60%; text-align: center;">
+                <thead>
+                <tr style="background-color:#18A0FB;">
+                    <th>Dr. {{$doctorProfile->user->name}}'s Reserved Dates</th>
+                </tr>
+                @if(count($list) > 0)
+                    @foreach($list as $app)
+                        <tr style="background-color:whitesmoke">
+                            <td>{{ $app->date }}</td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr style="background-color:whitesmoke">
+                        <td style="text-align: center;">Doctor has no reserved dates.</td>
+                    </tr>
+                @endif
+                </thead>
+            </table>
+        </center>
 
-        <br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br>
 
         <a href="{{ url('patientappointment') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
     </div>
@@ -200,18 +198,7 @@
                 </div><br />
             @endif
                 <div class="container">
-                    <table class="table">
-                        <thead>
-                        <tr style="background-color:#18A0FB;">
-                            <th>Reserved Dates</th>
-                        </tr>
-                        @foreach($list as $app)
-                            <tr style="background-color:whitesmoke">
-                                <td>{{ $app->date }}</td>
-                            </tr>
-                        @endforeach
-                        </thead>
-                    </table>
+
                     <center>
                         <form method="post" action="{{ route('patientappointment.store')}}">
                             @csrf
@@ -221,6 +208,7 @@
                             <input type="text" class="form-control" name="patient_email" value="{{Auth::user()->email}}" required readonly hidden>
                             <input type="text" class="form-control" name="doctor_user_id" value="{{$doctorProfile->user_id}}" required readonly hidden>
                             <input type="text" class="form-control" name="doctor_id" value="{{$doctorProfile->id}}" required readonly hidden>
+                            <input type="text" class="form-control" name="doctor_email" value="{{$doctorProfile->user->email}}" required readonly hidden>
 
                             <div class="input-box">
                                 <span class="details">Doctor Name</span>
@@ -237,6 +225,10 @@
                             <div class="input-box">
                                 <span class="details">Doctor Contact Number</span>
                                 <input type="text" class="form-control" value="{{$doctorProfile->contactNumber}}" name="doctorContactNumber" disabled>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Doctor Working Hours</span>
+                                <input type="text" class="form-control" value="{{$doctorProfile->workingHoursStart}} to {{$doctorProfile->workingHoursEnd}}" name="doctorWorkingHours" disabled>
                             </div>
                             <div class="input-box">
                                 <span class="details">Appointment Date</span>

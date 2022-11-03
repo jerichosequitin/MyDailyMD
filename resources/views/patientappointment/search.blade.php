@@ -116,7 +116,7 @@
             <th>Name</th>
             <th>Gender</th>
             <th>Specialization</th>
-            <th>Contact Number</th>
+            <th>Working Hours</th>
             <th></th>
         </tr>
         @foreach($doc as $doctor)
@@ -124,7 +124,7 @@
                 <td>{{ $doctor->name }}</td>
                 <td>{{ $doctor->sex }}</td>
                 <td>{{ $doctor->specialization }}</td>
-                <td>{{ $doctor->contactNumber }}</td>
+                <td>{{ $doctor->workingHoursStart }} to {{$doctor->workingHoursEnd}}</td>
                 <td>
                     <a href="{{ route('patientappointment.book', $doctor->id) }}" class="btn btn-success btn-sm">Choose Doctor</a>
                 </td>

@@ -20,8 +20,9 @@ class CreateAppointmentsTable extends Migration
             $table->string('patient_email');
             $table->integer('doctor_user_id');
             $table->integer('doctor_id');
+            $table->string('doctor_email');
             $table->date('date');
-            $table->string('meetingLink');
+            $table->string('meetingLink')->nullable();
             $table->string('status');
             $table->timestamps();
         });

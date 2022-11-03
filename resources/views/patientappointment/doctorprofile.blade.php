@@ -163,7 +163,7 @@
     <div class="sidenav">
         <div class="left-half">
             <h3>
-                <b>{{$doctorProfile->user->name}}</b>
+                <b>{{Auth::user()->name}}</b>
             </h3>
 
             <br>

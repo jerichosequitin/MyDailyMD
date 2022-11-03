@@ -20,7 +20,8 @@ class CreateDoctorProfilesTable extends Migration
             $table->string('sex')->nullable();
             $table->string('contactNumber')->nullable();
             $table->string('specialization')->nullable();
-            $table->time('workingHours')->nullable();
+            $table->time('workingHoursStart')->nullable();
+            $table->time('workingHoursEnd')->nullable();
             $table->string('digitalSignature')->nullable();
             $table->integer('prcNumber')->nullable();
             $table->string('licenseType')->nullable();

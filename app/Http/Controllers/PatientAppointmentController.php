@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\DoctorProfile;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -85,7 +86,7 @@ class PatientAppointmentController extends Controller
         ]);
 
         Appointment::whereId($id)->update($updateData);
-        return redirect('/patientappointment/'.Auth::user()->id.'/pending')->with('Completed', 'Appointment details successfully updated.');
+        return redirect('/patientappointment/pending')->with('Completed', 'Appointment details successfully updated.');
     }
 
     public function cancel(Request $request, $id)
@@ -93,7 +94,7 @@ class PatientAppointmentController extends Controller
         $appointment = Appointment::findOrFail($id);
         $appointment->status = $request->status;
         $appointment->save();
-        return redirect('/patientappointment/'.Auth::user()->id.'/pending')->with('Completed', 'Appointment successfully cancelled.');
+        return redirect('/patientappointment/pending')->with('Completed', 'Appointment successfully cancelled.');
     }
 
     public function linked(User $user)
@@ -179,6 +180,7 @@ class PatientAppointmentController extends Controller
             ->where('appointments.doctor_user_id', '=', $doctorProfile->user->id)
             ->where('appointments.status', '=', 'Accepted')
             ->select('*', 'users.id as doctor_user_id')
+            ->orderBy('appointments.date', 'ASC')
             ->get();
         return view('patientappointment.book', compact('doctorProfile'))->with('list', $list);
     }
@@ -238,7 +240,8 @@ class PatientAppointmentController extends Controller
                 'patient_email' => 'required',
                 'doctor_user_id' => 'required',
                 'doctor_id' => 'required',
-                'date' => 'required|after:today',
+                'doctor_email' => 'required',
+                'date' => 'required|after:7 days',
                 'status' => 'required',
             ]);
 

@@ -170,21 +170,9 @@
             <input type="image" src="/img/patient2.png" height="120" width="150"/>
         </div>
 
-        <br>
+        <br><br><br><br><br><br><br><br>
 
-        <a href="/patientprofile/{{Auth::user()->id}}">Profile</a>
-        <br>
-        <a href="{{ url('patientmedicalhistory/') }}">Medical History</a>
-        <br>
-        <a href="patientmedications">Medications</a>
-        <br>
-        <a href="patientallergies">Allergies</a>
-        <br>
-        <a href="patientprogressnotes">Progress Notes</a>
-        <br>
-        <a href="{{ url('patientimmunization/') }}">Immunization</a>
-        <br><br>
-        <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
+        <a href="{{ url('patientappointment/pending') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
     </div>
 
     <div class="main">
