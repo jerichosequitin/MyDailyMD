@@ -234,7 +234,15 @@ class PatientAppointmentController extends Controller
             ->select('*', 'users.id as doctor_user_id')
             ->orderBy('appointments.date', 'ASC')
             ->get();
-        return view('patientappointment.book', compact('doctorProfile'))->with('list', $list);
+
+        if($doctorProfile->isVerified == 'Enabled')
+        {
+            return view('patientappointment.book', compact('doctorProfile'))->with('list', $list);
+        }
+        else
+        {
+            return redirect()->back()->with('Error', 'Doctor is not yet verified.');
+        }
     }
 
     public function store(Request $request)
