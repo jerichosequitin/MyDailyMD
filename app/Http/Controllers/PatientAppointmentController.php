@@ -72,6 +72,8 @@ class PatientAppointmentController extends Controller
 
     public function update(Request $request, $id)
     {
+        $oneMonthFromNow = Carbon::now()->addDays(31)->toDateString();
+
         $appointment = DB::table('appointments')
             ->where('patient_user_id', '=', Auth::user()->id)
             ->where('id', '=', $id)
@@ -113,10 +115,20 @@ class PatientAppointmentController extends Controller
                     ->select('*', 'doctor_profiles.id as doctor_id')
                     ->first();
 
+                $doctorWorkingHoursStart = Carbon::parse($doctor->workingHoursStart);
+                $doctorWorkingHoursEnd = Carbon::parse($doctor->workingHoursEnd);
+
                 $updateData = request()->validate([
-                    'date' => 'required|after:7 days',
+                    'date' => 'required|after:7 days|before:'.$oneMonthFromNow,
                     'start' => 'required|after:'.$doctor->workingHoursStart,
                     'end' => 'required|after:start|before:'.$doctor->workingHoursEnd,
+                ],
+                [
+                    'date.after' => 'Date should be after 7 days.',
+                    'date.before' => 'Date should be within a month from now.',
+                    'start.after' => 'Appointment Start should be after '.$doctorWorkingHoursStart->format('h:i A'),
+                    'end.after' => 'Appointment End should be after Appointment Start.',
+                    'end.before' => 'Appointment End should be before '.$doctorWorkingHoursEnd->format('h:i A'),
                 ]);
 
                 Appointment::whereId($id)->update($updateData);
@@ -260,6 +272,8 @@ class PatientAppointmentController extends Controller
 
     public function store(Request $request)
     {
+        $oneMonthFromNow = Carbon::now()->addDays(31)->toDateString();
+
         $doctorDateUnavailable = Appointment::where('doctor_id', $request->doctor_id)
             ->where('status', '=', 'Accepted')
             ->where('date', '=', $request->date)
@@ -312,6 +326,9 @@ class PatientAppointmentController extends Controller
             return redirect('patientappointment/list')->with('Error', 'Doctor has too many pending requests at the moment. Please try again later.');
         }
         else {
+            $doctorWorkingHoursStart = Carbon::parse($request->workingHoursStart);
+            $doctorWorkingHoursEnd = Carbon::parse($request->workingHoursEnd);
+
             $storeData = $request->validate([
                 'patient_user_id' => 'required',
                 'patient_id' => 'required',
@@ -319,11 +336,18 @@ class PatientAppointmentController extends Controller
                 'doctor_user_id' => 'required',
                 'doctor_id' => 'required',
                 'doctor_email' => 'required',
-                'date' => 'required|after:7 days',
+                'date' => 'required|after:7 days|before:'.$oneMonthFromNow,
                 'start' => 'required|after:'.$request->workingHoursStart,
                 'end' => 'required|after:start|before:'.$request->workingHoursEnd,
                 'status' => 'required',
-            ]);
+            ],
+                [
+                    'date.after' => 'Date should be after 7 days.',
+                    'date.before' => 'Date should be within a month from now.',
+                    'start.after' => 'Appointment Start should be after '.$doctorWorkingHoursStart->format('h:i A'),
+                    'end.after' => 'Appointment End should be after Appointment Start.',
+                    'end.before' => 'Appointment End should be before '.$doctorWorkingHoursEnd->format('h:i A'),
+                ]);
 
             $appointment = Appointment::create($storeData);
             return redirect('patientappointment/list')->with('Completed', 'Appointment requested successfully. Please wait for the chosen doctor to accept.');
