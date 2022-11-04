@@ -124,6 +124,7 @@
             <th>Gender</th>
             <th>Appointment Time</th>
             <th>Appointment Status</th>
+            <th>Meeting Link</th>
             <th colspan="2">Mark As</th>
         </tr>
         @if(count($list) > 0)
@@ -135,6 +136,7 @@
                     <td>{{ $app->sex }}</td>
                     <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
                     <td>{{ $app->status }}</td>
+                    <td>{{ $app->meetingLink }}</td>
                     <td>
                         <form action="{{ route('doctorappointment.ongoing', $app->appointment_id)}}" method="post" style="display: inline-block">
                             @csrf
@@ -155,7 +157,7 @@
             @endforeach
         @else
             <tr style="background-color:whitesmoke">
-                <td colspan="7" class="text-center">You have no appointment/s today.</td>
+                <td colspan="8" class="text-center">You have no appointment/s today.</td>
             </tr>
         @endif
         </thead>
@@ -163,6 +165,7 @@
     {{$list->links()}}
     <br>
     <a href="{{ url('doctorappointment/pending') }}" class="btn btn-primary">Pending Requests</a>
+    <a href="{{ url('doctorappointment/upcoming') }}" class="btn btn-primary">Upcoming Appointments</a>
     <a href="{{ url('doctorappointment/history') }}" class="btn btn-primary">Appointment History</a>
 </div>
 </body>

@@ -205,6 +205,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             //Appointment
         Route::get('/doctorappointment/list', 'App\Http\Controllers\DoctorAppointmentController@index')->name('doctorappointment.show');
         Route::get('/doctorappointment/pending', 'App\Http\Controllers\DoctorAppointmentController@pending')->name('doctorappointment.pending');
+        Route::get('/doctorappointment/upcoming', 'App\Http\Controllers\DoctorAppointmentController@upcoming')->name('doctorappointment.upcoming');
         Route::get('/doctorappointment/history', 'App\Http\Controllers\DoctorAppointmentController@history')->name('doctorappointment.history');
         Route::patch('/doctorappointment/{appointment}/accepted', 'App\Http\Controllers\DoctorAppointmentController@accepted')->name('doctorappointment.accepted');
         Route::patch('/doctorappointment/{appointment}/declined', 'App\Http\Controllers\DoctorAppointmentController@declined')->name('doctorappointment.declined');

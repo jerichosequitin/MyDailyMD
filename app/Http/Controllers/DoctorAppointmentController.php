@@ -55,6 +55,24 @@ class DoctorAppointmentController extends Controller
         return view('doctorappointment.pending', compact('user'))->with('list', $list);
     }
 
+    public function upcoming(User $user)
+    {
+        $dateNow = Carbon::now();
+        $dateToday = $dateNow->toDateString();
+
+        $list = DB::table('appointments')
+            ->join('users', 'appointments.patient_user_id', '=', 'users.id')
+            ->join('patient_profiles', 'appointments.patient_id', '=', 'patient_profiles.id')
+            ->where('appointments.doctor_user_id', '=', Auth::user()->id)
+            ->where('appointments.status', '=', 'Accepted')
+            ->where('appointments.date', '>', $dateToday)
+            ->select('*', 'appointments.id as appointment_id')
+            ->orderBy('appointments.date', 'ASC')
+            ->orderBy('appointments.start', 'ASC')
+            ->simplePaginate(5);
+        return view('doctorappointment.upcoming', compact('user'))->with('list', $list);
+    }
+
     public function history(User $user)
     {
         $list = DB::table('appointments')
