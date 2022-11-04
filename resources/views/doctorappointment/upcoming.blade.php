@@ -64,7 +64,7 @@
         }
         form .user-details .input-box{
             margin-bottom: 10px;
-            width: 50%;
+            width: 60%;
             padding-left: 25px;
             padding-right: 25px;
         }
@@ -89,45 +89,6 @@
         .user-details .input-box input:valid,
         .user-details .input-box select:valid{
             border-color: forestgreen;
-        }
-
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-
-        /* Modal Content */
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 40%;
-        }
-
-        /* The Close Button */
-        .close {
-            color: #aaaaaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -154,6 +115,15 @@
             {{ session()->get('Error') }}
         </div><br />
     @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <table class="table">
         <thead>
         <tr style="background-color:#18A0FB;">
@@ -177,8 +147,11 @@
                     <td>{{ date('F j, Y', strtotime($app->date)) }}</td>
                     <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
                     <td>{{ $app->status }}</td>
-                    <td>{{ $app->meetingLink }}</td>
-                    <td><a href="{{ route('patientappointment.edit', $app->appointment_id) }}" class="btn btn-primary btn-sm">Edit</a></td>
+                    <td><a href="{{ $app->meetingLink }}" target="_blank"><i class="fa fa-video-camera"></i></a></td>
+                    <td>
+                        <a href="#edit{{$app->id}}" data-bs-toggle="modal" class="btn btn-primary btn-sm"> Edit</a>
+                        @include('doctorappointment.edit')
+                    </td>
                 </tr>
             @endforeach
         @else

@@ -136,7 +136,7 @@
                     <td>{{ $app->sex }}</td>
                     <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
                     <td>{{ $app->status }}</td>
-                    <td>{{ $app->meetingLink }}</td>
+                    <td><a href="{{ $app->meetingLink }}" target="_blank"><i class="fa fa-video-camera"></i></a></td>
                     <td>
                         <form action="{{ route('doctorappointment.ongoing', $app->appointment_id)}}" method="post" style="display: inline-block">
                             @csrf

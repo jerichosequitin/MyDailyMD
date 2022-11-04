@@ -206,7 +206,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/doctorappointment/list', 'App\Http\Controllers\DoctorAppointmentController@index')->name('doctorappointment.show');
         Route::get('/doctorappointment/pending', 'App\Http\Controllers\DoctorAppointmentController@pending')->name('doctorappointment.pending');
         Route::get('/doctorappointment/upcoming', 'App\Http\Controllers\DoctorAppointmentController@upcoming')->name('doctorappointment.upcoming');
+        Route::get('/doctorappointment/{appointment}/edit', 'App\Http\Controllers\DoctorAppointmentController@edit')->name('doctorappointment.edit');
+        Route::patch('/doctorappointment/{appointment}/update', 'App\Http\Controllers\DoctorAppointmentController@update')->name('doctorappointment.update');
         Route::get('/doctorappointment/history', 'App\Http\Controllers\DoctorAppointmentController@history')->name('doctorappointment.history');
+        Route::get('/doctorappointment/{appointment}/acceptedModal', 'App\Http\Controllers\DoctorAppointmentController@acceptedModal')->name('doctorappointment.acceptedModal');
         Route::patch('/doctorappointment/{appointment}/accepted', 'App\Http\Controllers\DoctorAppointmentController@accepted')->name('doctorappointment.accepted');
         Route::patch('/doctorappointment/{appointment}/declined', 'App\Http\Controllers\DoctorAppointmentController@declined')->name('doctorappointment.declined');
         Route::patch('/doctorappointment/{appointment}/ongoing', 'App\Http\Controllers\DoctorAppointmentController@ongoing')->name('doctorappointment.ongoing');

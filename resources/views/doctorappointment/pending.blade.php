@@ -64,7 +64,7 @@
         }
         form .user-details .input-box{
             margin-bottom: 10px;
-            width: 50%;
+            width: 60%;
             padding-left: 25px;
             padding-right: 25px;
         }
@@ -115,6 +115,15 @@
             {{ session()->get('Error') }}
         </div><br />
     @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <table class="table">
         <thead>
         <tr style="background-color:#18A0FB;">
@@ -138,7 +147,9 @@
                     <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
                     <td>{{ $app->status }}</td>
                     <td>
-                        <form action="{{ route('doctorappointment.accepted', $app->appointment_id)}}" method="post" style="display: inline-block">
+                        <a href="#edit{{$app->id}}" data-bs-toggle="modal" class="btn btn-success btn-sm"> Accepted</a>
+                        @include('doctorappointment.accepted')
+                        {{--<form action="{{ route('doctorappointment.accepted', $app->appointment_id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('PATCH')
                             <input type="text" name="status" value="Accepted" required readonly hidden>
@@ -148,7 +159,7 @@
                             <input type="text" name="doctor_id" value="{{$app->doctor_id}}" required readonly hidden>
                             <input type="text" name="linkStatus" value="Active" required readonly hidden>
                             <button class="btn btn-success btn-sm" type="submit">Accepted</button>
-                        </form>
+                        </form>--}}
                     </td>
                     <td>
                         <form action="{{ route('doctorappointment.declined', $app->appointment_id)}}" method="post" style="display: inline-block">

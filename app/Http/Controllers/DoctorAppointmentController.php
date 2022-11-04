@@ -73,6 +73,31 @@ class DoctorAppointmentController extends Controller
         return view('doctorappointment.upcoming', compact('user'))->with('list', $list);
     }
 
+    public function edit($id)
+    {
+        $appointment = Appointment::findOrFail($id);
+
+        if($appointment->doctor_user_id == Auth::user()->id)
+        {
+            return view('doctorappointment.edit', compact('appointment'));
+        }
+        else
+        {
+            return redirect()->back()->with('Error', 'This appointment does not belong to you.');
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $updateData = $request->validate([
+            'meetingLink' => ['required', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+        ]);
+
+        Appointment::whereId($id)->update($updateData);
+        return redirect('/doctorappointment/upcoming')->with('Completed', 'Appointment Meeting Link successfully updated.');
+    }
+
+
     public function history(User $user)
     {
         $list = DB::table('appointments')
@@ -104,6 +129,10 @@ class DoctorAppointmentController extends Controller
             {
                 $appointment = Appointment::findOrFail($id);
                 $appointment->status = $request->status;
+                $appointment->meetingLink = $request->meetingLink;
+                $request->validate([
+                    'meetingLink' => ['required', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+                ]);
                 $appointment->save();
 
                 DB::table('doctor_patient')
@@ -120,6 +149,10 @@ class DoctorAppointmentController extends Controller
             {
                 $appointment = Appointment::findOrFail($id);
                 $appointment->status = $request->status;
+                $appointment->meetingLink = $request->meetingLink;
+                $request->validate([
+                    'meetingLink' => ['required', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+                ]);
                 $appointment->save();
 
                 return redirect('/doctorappointment/list')->with('Completed', 'Appointment successfully accepted.');
@@ -129,6 +162,10 @@ class DoctorAppointmentController extends Controller
         {
             $appointment = Appointment::findOrFail($id);
             $appointment->status = $request->status;
+            $appointment->meetingLink = $request->meetingLink;
+            $request->validate([
+                'meetingLink' => ['required', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+            ]);
             $appointment->save();
 
             DB::table('doctor_patient')
