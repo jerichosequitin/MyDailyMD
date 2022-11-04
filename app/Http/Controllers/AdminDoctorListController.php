@@ -16,7 +16,7 @@ class AdminDoctorListController extends Controller
                         ->join('doctor_profiles', 'users.id', '=', 'doctor_profiles.user_id')
                         ->where('type', '=', 'doctor')
                         ->orderBy('doctor_profiles.isVerified', 'ASC')
-                        ->simplePaginate(4);
+                        ->simplePaginate(3);
         return view ('admindoctorlist')->with('doc', $doc);
     }
 

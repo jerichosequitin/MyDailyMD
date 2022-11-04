@@ -132,7 +132,6 @@
                 <label for="role_id">Register as a: </label>
                 <select name="role_id" required>
                     <option selected disabled hidden></option>
-                    <option value="admin">Admin</option>
                     <option value="doctor">Medical Professional</option>
                     <option value="patient">Patient</option>
                 </select>

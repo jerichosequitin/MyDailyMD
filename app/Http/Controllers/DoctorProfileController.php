@@ -48,7 +48,10 @@ class DoctorProfileController extends Controller
                 'clinicAddress'=>'required',
                 'clinicMobileNumber'=>'nullable|min:11|max:11',
                 'clinicTelephoneNumber'=>'nullable|min:8|max:8',
-            ]);
+            ],
+                [
+                    'workingHoursEnd.after' => 'Working Hours End should be after Working Hours Start'
+                ]);
 
             $digitalSignature_name = time().'.'.request()->digitalSignature->extension();
             request()->digitalSignature->move(public_path('digital_signature_image'), $digitalSignature_name);
@@ -86,7 +89,7 @@ class DoctorProfileController extends Controller
                 'contactNumber'=>'min:11|max:11',
                 'specialization'=>'',
                 'workingHoursStart'=>'required',
-                'workingHoursEnd'=>'required',
+                'workingHoursEnd'=>'required|after:workingHoursStart',
                 'digitalSignature'=>'',
                 'prcNumber'=>'',
                 'licenseType'=>'',
@@ -96,7 +99,10 @@ class DoctorProfileController extends Controller
                 'clinicAddress'=>'',
                 'clinicMobileNumber'=>'nullable|min:11|max:11',
                 'clinicTelephoneNumber'=>'nullable|min:8|max:8',
-            ]);
+            ],
+                [
+                    'workingHoursEnd.after' => 'Working Hours End should be after Working Hours Start'
+                ]);
             $user->doctor_profile()->update($data);
         }
 

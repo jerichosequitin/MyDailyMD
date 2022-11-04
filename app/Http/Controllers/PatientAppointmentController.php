@@ -239,6 +239,8 @@ class PatientAppointmentController extends Controller
             ->where('type', '=', 'doctor')
             ->where('isVerified', '=', 'Enabled')
             ->select('*', 'users.id as doctor_user_id')
+            ->orderBy('doctor_profiles.specialization', 'ASC')
+            ->orderBy('doctor_profiles.workingHoursStart', 'ASC')
             ->simplePaginate(5);
         return view ('patientappointment.search')->with('doc', $doc);
     }

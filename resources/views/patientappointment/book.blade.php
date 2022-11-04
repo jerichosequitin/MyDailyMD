@@ -161,7 +161,7 @@
                 @if(count($list) > 0)
                     @foreach($list as $app)
                         <tr style="background-color:whitesmoke">
-                            <td>{{ date('F j', strtotime($app->date)) }} {{ date('h:i', strtotime($app->start)) }} - {{ date('h:i A', strtotime($app->end)) }}</td>
+                            <td>{{ date('F j', strtotime($app->date)) }} {{ date('h:i A', strtotime($app->start)) }} - {{ date('h:i A', strtotime($app->end)) }}</td>
                         </tr>
                     @endforeach
                 @else
