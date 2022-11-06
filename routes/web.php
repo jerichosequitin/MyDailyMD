@@ -171,50 +171,59 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name
         ('dashboard');
 
-        //PATIENT
-        Route::get('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@index')->name('patientprofile.show');
-        Route::get('/patientprofile/{user}/edit', 'App\Http\Controllers\PatientProfileController@edit')->name('patientprofile.edit');
+        Route::group(['middleware' => ['patientaccess']], function () {
+            //PATIENT
+            Route::get('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@index')->name('patientprofile.show');
+            Route::get('/patientprofile/{user}/edit', 'App\Http\Controllers\PatientProfileController@edit')->name('patientprofile.edit');
 
-        Route::resource('patientmedicalhistory', MedicalHistoryController::class);
-        Route::resource('patientimmunization', ImmunizationController::class);
+                //Health Records
+            Route::resource('patientmedicalhistory', MedicalHistoryController::class);
+            Route::resource('patientimmunization', ImmunizationController::class);
 
-            //Appointment
-        Route::get('/patientappointment/list', 'App\Http\Controllers\PatientAppointmentController@index')->name('patientappointment.show');
-        Route::get('/patientappointment/pending', 'App\Http\Controllers\PatientAppointmentController@pending')->name('patientappointment.pending');
-        Route::get('/patientappointment/linked', 'App\Http\Controllers\PatientAppointmentController@linked')->name('patientappointment.linked');
-        Route::get('/patientappointment/linked/profile/{doctorProfile}', 'App\Http\Controllers\PatientAppointmentController@doctorProfile')->name('patientappointment.doctorprofile');
+                //Appointment
+            Route::get('/patientappointment/list', 'App\Http\Controllers\PatientAppointmentController@index')->name('patientappointment.show');
+            Route::get('/patientappointment/pending', 'App\Http\Controllers\PatientAppointmentController@pending')->name('patientappointment.pending');
+            Route::get('/patientappointment/linked', 'App\Http\Controllers\PatientAppointmentController@linked')->name('patientappointment.linked');
+            Route::get('/patientappointment/linked/profile/{doctorProfile}', 'App\Http\Controllers\PatientAppointmentController@doctorProfile')->name('patientappointment.doctorprofile');
+            Route::get('/patientappointment/history', 'App\Http\Controllers\PatientAppointmentController@history')->name('patientappointment.history');
+            Route::get('/patientappointment/{appointment}/edit', 'App\Http\Controllers\PatientAppointmentController@edit')->name('patientappointment.edit');
+            Route::get('/patientappointment', 'App\Http\Controllers\PatientAppointmentController@search')->name('patientappointment.search');
+            Route::get('/patientappointment/{doctorProfile}/book', 'App\Http\Controllers\PatientAppointmentController@book')->name('patientappointment.book');
+        });
+
         Route::patch('/patientappointment/inactive', 'App\Http\Controllers\PatientAppointmentController@inactive')->name('patientappointment.inactive');
-        Route::get('/patientappointment/history', 'App\Http\Controllers\PatientAppointmentController@history')->name('patientappointment.history');
-        Route::get('/patientappointment/{appointment}/edit', 'App\Http\Controllers\PatientAppointmentController@edit')->name('patientappointment.edit');
         Route::patch('/patientappointment/{appointment}/cancel', 'App\Http\Controllers\PatientAppointmentController@cancel')->name('patientappointment.cancel');
         Route::patch('/patientappointment/{appointment}/update', 'App\Http\Controllers\PatientAppointmentController@update')->name('patientappointment.update');
-        Route::get('/patientappointment', 'App\Http\Controllers\PatientAppointmentController@search')->name('patientappointment.search');
-        Route::get('/patientappointment/{doctorProfile}/book', 'App\Http\Controllers\PatientAppointmentController@book')->name('patientappointment.book');
 
-        //DOCTOR
-        Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');
-        Route::get('/doctorprofile/{user}/edit', 'App\Http\Controllers\DoctorProfileController@edit')->name('doctorprofile.edit');
+        Route::group(['middleware' => ['doctoraccess']], function () {
+            Route::group(['middleware' => ['doctorpendingmax']], function () {
+                //DOCTOR
+                Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');
+                Route::get('/doctorprofile/{user}/edit', 'App\Http\Controllers\DoctorProfileController@edit')->name('doctorprofile.edit');
 
-            //Manage Health Records
-        Route::get('/doctormanagehealthrecords', 'App\Http\Controllers\DoctorManageHealthRecordsController@index')->name('managehealthrecords.show');
-        Route::get('/doctormanagehealthrecords/profile/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@profile')->name('managehealthrecords.profile');
-        Route::get('/doctormanagehealthrecords/medicalhistory/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@medicalHistory')->name('managehealthrecords.medicalhistory');
-        Route::get('/doctormanagehealthrecords/immunization/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@immunization')->name('managehealthrecords.immunization');
-        Route::patch('/doctormanagehealthrecords/inactive', 'App\Http\Controllers\DoctorManageHealthRecordsController@inactive')->name('managehealthrecords.inactive');
+                //Manage Health Records
+                Route::get('/doctormanagehealthrecords', 'App\Http\Controllers\DoctorManageHealthRecordsController@index')->name('managehealthrecords.show');
+                Route::get('/doctormanagehealthrecords/profile/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@profile')->name('managehealthrecords.profile');
+                Route::get('/doctormanagehealthrecords/medicalhistory/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@medicalHistory')->name('managehealthrecords.medicalhistory');
+                Route::get('/doctormanagehealthrecords/immunization/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@immunization')->name('managehealthrecords.immunization');
+                Route::patch('/doctormanagehealthrecords/inactive', 'App\Http\Controllers\DoctorManageHealthRecordsController@inactive')->name('managehealthrecords.inactive');
 
-            //Appointment
-        Route::get('/doctorappointment/list', 'App\Http\Controllers\DoctorAppointmentController@index')->name('doctorappointment.show');
-        Route::get('/doctorappointment/pending', 'App\Http\Controllers\DoctorAppointmentController@pending')->name('doctorappointment.pending');
-        Route::get('/doctorappointment/upcoming', 'App\Http\Controllers\DoctorAppointmentController@upcoming')->name('doctorappointment.upcoming');
-        Route::get('/doctorappointment/{appointment}/edit', 'App\Http\Controllers\DoctorAppointmentController@edit')->name('doctorappointment.edit');
-        Route::patch('/doctorappointment/{appointment}/update', 'App\Http\Controllers\DoctorAppointmentController@update')->name('doctorappointment.update');
-        Route::get('/doctorappointment/history', 'App\Http\Controllers\DoctorAppointmentController@history')->name('doctorappointment.history');
-        Route::get('/doctorappointment/{appointment}/acceptedModal', 'App\Http\Controllers\DoctorAppointmentController@acceptedModal')->name('doctorappointment.acceptedModal');
-        Route::patch('/doctorappointment/{appointment}/accepted', 'App\Http\Controllers\DoctorAppointmentController@accepted')->name('doctorappointment.accepted');
-        Route::patch('/doctorappointment/{appointment}/declined', 'App\Http\Controllers\DoctorAppointmentController@declined')->name('doctorappointment.declined');
-        Route::patch('/doctorappointment/{appointment}/ongoing', 'App\Http\Controllers\DoctorAppointmentController@ongoing')->name('doctorappointment.ongoing');
-        Route::patch('/doctorappointment/{appointment}/done', 'App\Http\Controllers\DoctorAppointmentController@done')->name('doctorappointment.done');
+                //Appointment
 
+                Route::get('/doctorappointment/list', 'App\Http\Controllers\DoctorAppointmentController@index')->name('doctorappointment.show');
+                Route::get('/doctorappointment/upcoming', 'App\Http\Controllers\DoctorAppointmentController@upcoming')->name('doctorappointment.upcoming');
+                Route::get('/doctorappointment/{appointment}/edit', 'App\Http\Controllers\DoctorAppointmentController@edit')->name('doctorappointment.edit');
+                Route::get('/doctorappointment/history', 'App\Http\Controllers\DoctorAppointmentController@history')->name('doctorappointment.history');
+                Route::get('/doctorappointment/{appointment}/acceptedModal', 'App\Http\Controllers\DoctorAppointmentController@acceptedModal')->name('doctorappointment.acceptedModal');
+            });
+
+            Route::get('/doctorappointment/pending', 'App\Http\Controllers\DoctorAppointmentController@pending')->name('doctorappointment.pending');
+            Route::patch('/doctorappointment/{appointment}/update', 'App\Http\Controllers\DoctorAppointmentController@update')->name('doctorappointment.update');
+            Route::patch('/doctorappointment/{appointment}/accepted', 'App\Http\Controllers\DoctorAppointmentController@accepted')->name('doctorappointment.accepted');
+            Route::patch('/doctorappointment/{appointment}/declined', 'App\Http\Controllers\DoctorAppointmentController@declined')->name('doctorappointment.declined');
+            Route::patch('/doctorappointment/{appointment}/ongoing', 'App\Http\Controllers\DoctorAppointmentController@ongoing')->name('doctorappointment.ongoing');
+            Route::patch('/doctorappointment/{appointment}/done', 'App\Http\Controllers\DoctorAppointmentController@done')->name('doctorappointment.done');
+        });
     });
 
     Route::group(['middleware' => ['adminaccess']], function () {
@@ -230,6 +239,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/patientprofile/{user}/create', 'App\Http\Controllers\PatientProfileController@create')->name('patientprofile.create');
         Route::get('/doctorprofile/{user}/create', 'App\Http\Controllers\DoctorProfileController@create')->name('doctorprofile.create');
     });
+
     //Book Appointment
     Route::post('/patientappointment', 'App\Http\Controllers\PatientAppointmentController@store')->name('patientappointment.store');
 

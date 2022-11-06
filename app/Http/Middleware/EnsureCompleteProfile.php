@@ -28,9 +28,6 @@ class EnsureCompleteProfile
                 $request->user()->doctor_profile->licenseExpiryDate == '' || $request->user()->doctor_profile->prcImage == '' ||
                 $request->user()->doctor_profile->clinicName == '' || $request->user()->doctor_profile->clinicAddress == '')
             {
-                //dd($request->user()->doctor_profile);
-                //return redirect ('dashboard');
-                //return redirect('/doctorprofile/' . $request->user()->doctor_profile->id . '/create');
                 return redirect()->route('doctorprofile.create', Auth::user()->id)->with('Error', 'Please complete your profile first.');
             }
             elseif(Auth::user()->doctor_profile->isVerified == '')
@@ -53,9 +50,6 @@ class EnsureCompleteProfile
                 $request->user()->patient_profile->maritalStatus == '' || $request->user()->patient_profile->mobileNumber == '' ||
                 $request->user()->patient_profile->emergencyContact == '' || $request->user()->patient_profile->emergencyContactNumber == '')
             {
-                //dd($request->user()->patient_profile);
-                //return redirect ('dashboard');
-                //return redirect('/patientprofile/' . $request->user()->patient_profile->id . '/create');
                 return redirect()->route('patientprofile.create', Auth::user()->id)->with('Error', 'Please complete your profile first.');
             }
         }

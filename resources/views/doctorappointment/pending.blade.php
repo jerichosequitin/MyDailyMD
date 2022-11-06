@@ -147,8 +147,12 @@
                     <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
                     <td>{{ $app->status }}</td>
                     <td>
-                        <a href="#edit{{$app->id}}" data-bs-toggle="modal" class="btn btn-success btn-sm"> Accepted</a>
-                        @include('doctorappointment.accepted')
+                        <form action="{{ route('doctorappointment.declined', $app->appointment_id)}}" method="post" style="display: inline-block">
+                            @csrf
+                            @method('PATCH')
+                            <input type="text" name="status" value="Declined" required readonly hidden>
+                            <button class="btn btn-danger btn-sm" type="submit">Declined</button>
+                        </form>
                         {{--<form action="{{ route('doctorappointment.accepted', $app->appointment_id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('PATCH')
@@ -162,12 +166,8 @@
                         </form>--}}
                     </td>
                     <td>
-                        <form action="{{ route('doctorappointment.declined', $app->appointment_id)}}" method="post" style="display: inline-block">
-                            @csrf
-                            @method('PATCH')
-                            <input type="text" name="status" value="Declined" required readonly hidden>
-                            <button class="btn btn-danger btn-sm" type="submit">Declined</button>
-                        </form>
+                        <a href="#edit{{$app->id}}" data-bs-toggle="modal" class="btn btn-success btn-sm"> Accepted</a>
+                        @include('doctorappointment.accepted')
                     </td>
                 </tr>
             @endforeach

@@ -143,7 +143,7 @@ class DoctorAppointmentController extends Controller
                         'updated_at' => \Carbon\Carbon::now()
                     ]);
 
-                return redirect('/doctorappointment/list')->with('Completed', 'Appointment successfully accepted. You have regained access to the Patients Health Records.');
+                return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted. You have regained access to the Patients Health Records.');
             }
             else
             {
@@ -155,7 +155,7 @@ class DoctorAppointmentController extends Controller
                 ]);
                 $appointment->save();
 
-                return redirect('/doctorappointment/list')->with('Completed', 'Appointment successfully accepted.');
+                return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted.');
             }
         }
         else
@@ -178,7 +178,7 @@ class DoctorAppointmentController extends Controller
                     'created_at' => \Carbon\Carbon::now()
                 ]);
 
-            return redirect('/doctorappointment/list')->with('Completed', 'Appointment successfully accepted. You now have access to the Patients Health Records.');
+            return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted. You now have access to the Patients Health Records.');
         }
 
     }
@@ -188,7 +188,7 @@ class DoctorAppointmentController extends Controller
         $appointment = Appointment::findOrFail($id);
         $appointment->status = $request->status;
         $appointment->save();
-        return redirect('/doctorappointment/list')->with('Completed', 'Appointment successfully declined.');
+        return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully declined.');
     }
 
     public function ongoing(Request $request, $id)
