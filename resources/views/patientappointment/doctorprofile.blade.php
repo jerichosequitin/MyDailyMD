@@ -196,7 +196,7 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Date of Birth</span>
-                                    <input type="date" value="{{$doctorProfile->birthdate }}" class="form-control" name="birthdate" disabled>
+                                    <input type="text" class="form-control" value="{{ date('F j, Y', strtotime($doctorProfile->birthdate)) }}" name="birthdate" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Sex</span>

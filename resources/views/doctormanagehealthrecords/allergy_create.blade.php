@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Patient Immunization</title>
+    <title>MyDailyMD - Patient Allergy</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
@@ -12,7 +12,6 @@
     <style>
         a{
             text-decoration: none;
-
         }
         a.back{
             text-align: left;
@@ -53,7 +52,6 @@
         .user-details .input-box input:valid{
             border-color: #9b59b6;
         }
-
         img{
             filter: brightness(100%);
             filter: contrast(100%);
@@ -73,14 +71,13 @@
             text-align:center;
             color:#EFFCFF;
         }
-
         body{
             background-color:#EAFAFF;
             background-size:contain;
             background-position-y: top;
             background-position-x: right;
             background-repeat:round;
-            text-align:center;
+            text-align: center;
         }
         p{
             text-align: center;
@@ -122,7 +119,6 @@
         }
 
 
-
         /* Style inputs with type="text", select elements and textareas */
         input[type=text], select, textarea {
             width: 100%; /* Full width */
@@ -159,18 +155,6 @@
             background-color:#DEF1FD;
             border:1px solid black;
         }
-        table{
-            width: 100%;
-            text-align: center;
-            table-layout:auto;
-        }
-        td{
-            border-collapse: collapse;
-            color:black;
-        }
-        th{
-            color:white;
-        }
     </style>
 </head>
 <body>
@@ -179,87 +163,89 @@
     <div class="sidenav">
         <div class="left-half">
             <h3>
-                <b>
-                    {{Auth::user()->name}}
-                </b>
+                <b>{{$patientProfile->user->name}}</b>
             </h3>
 
             <br>
 
-            <input type="image" src="/img/patient2.png" height="120" width="150"/>
+            <image src="/img/patient2.png" height="120" width="150"/>
         </div>
 
         <br>
 
-        <a href="/patientprofile/{{Auth::user()->id}}">Profile</a>
+        <a href="{{ url('doctormanagehealthrecords/profile/'.$patientProfile->id) }}">Profile</a>
         <br>
-        <a href="{{ url('patientmedicalhistory/') }}">Medical History</a>
+        <a href="{{ url('doctormanagehealthrecords/medicalhistory/'.$patientProfile->id) }}">Medical History</a>
         <br>
-        <a href="{{ url('patientmedication/') }}">Medications</a>
+        <a href="{{ url('doctormanagehealthrecords/medication/'.$patientProfile->id) }}">Medications</a>
         <br>
-        <a href="{{ url('patientallergy/') }}">Allergies</a>
+        <a href="{{ url('doctormanagehealthrecords/allergy/'.$patientProfile->id) }}">Allergies</a>
         <br>
-        <a href="{{ url('patientprogressnote/') }}">Progress Notes</a>
+        <a href="{{ url('doctormanagehealthrecords/progressnote/'.$patientProfile->id) }}">Progress Notes</a>
         <br>
-        <a href="{{ url('patientimmunization/') }}">Immunization</a>
+        <a href="{{ url('doctormanagehealthrecords/immunization/'.$patientProfile->id) }}">Immunization</a>
         <br><br>
-        <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
+        <a href="{{ url('doctormanagehealthrecords') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
     </div>
 
     <div class="main">
-        <h1><b>Immunization</b></h1>
+        <h1>
+            <b>Add Allergy</b>
+        </h1>
         <div class="row">
             <div class="content">
-                <form action="patientprofile">
-                    <div class="column">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div><br />
+                @endif
+                <div class="column">
+                    <form method="post" action="{{ route('managehealthrecords.allergy_store') }}">
+                        @csrf
                         <div class="container">
                             <div class="user-details">
+                                <input type="text" class="form-control" name="user_id" value="{{$patientProfile->user_id}}" required readonly hidden>
+                                <input type="text" class="form-control" name="status" value="Active" required readonly hidden>
                                 <div class="input-box">
-                                    <span class="details">Patient Name</span>
-                                    <input type="text" class="form-control" value="{{ Auth::user()->name }}" name="patientName" disabled>
+                                    <span class="details">Type</span>
+                                    <select name="type" class="form-control" required>
+                                        <option value="" selected hidden disabled></option>
+                                        <option value="Drug">Drug Allergy</option>
+                                        <option value="Food">Food Allergy</option>
+                                        <option value="Insect">Insect Allergy</option>
+                                        <option value="Latex">Latex Allergy</option>
+                                        <option value="Mold">Mold Allergy</option>
+                                        <option value="Pet">Pet Allergy</option>
+                                        <option value="Pollen">Pollen Allergy</option>
+                                    </select>
                                 </div>
                                 <div class="input-box">
-                                    <span class="details">Date of Birth</span>
-                                    <input type="text" class="form-control" value="{{ date('F j, Y', strtotime(Auth::user()->patient_profile->birthdate)) }}" name="birthdate" disabled>
+                                    <span class="details">Trigger</span>
+                                    <input type="text" class="form-control" name="trigger" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Reaction</span>
+                                    <input type="text" class="form-control" name="reaction" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Treatment</span>
+                                    <input type="text" class="form-control" name="treatment" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Created By</span>
+                                    <input type="text" value="{{Auth::user()->id }}" class="form-control" name="createdBy_user_id" required readonly hidden>
+                                    <input type="text" value="{{Auth::user()->name }}" class="form-control" name="createdBy" required readonly>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <br>
-
-                    <div class="column">
-                        @if(session()->get('Completed'))
-                            <div class="alert alert-success">
-                                {{ session()->get('Completed') }}
-                            </div><br />
-                        @endif
-                        <div class="container">
-                            <table class="table">
-                                <thead>
-                                <tr style="background-color:#18A0FB;">
-                                    <th>Vaccines</th>
-                                    <th>Purpose</th>
-                                    <th>Date Taken</th>
-                                    <th colspan="2" style="width: 10%">Action</th>
-                                </tr>
-                                @foreach($immunization as $im)
-                                <tr style="background-color:whitesmoke">
-                                    <td>{{ $im->vaccines }}</td>
-                                    <td>{{ $im->purpose }}</td>
-                                    <td>{{ date('F j, Y', strtotime($im->dateTaken)) }}</td>
-                                    <td><a href="{{ route('patientimmunization.view', $im->id) }}" class="btn btn-info btn-sm">View</a></td>
-                                    <td><a href="{{ route('patientimmunization.edit', $im->id) }}" class="btn btn-success btn-sm">Edit</a></td>
-                                </tr>
-                                @endforeach
-                                </thead>
-                            </table>
-                            {{$immunization->links()}}
-                        </div>
                         <br>
-                    </div>
-                </form>
-                <a href="{{ route('patientimmunization.create') }}" class="btn btn-primary">Add</a>
+                        <button class="btn btn-primary">Save</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

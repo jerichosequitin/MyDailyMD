@@ -153,17 +153,6 @@
                             <input type="text" name="status" value="Declined" required readonly hidden>
                             <button class="btn btn-danger btn-sm" type="submit">Declined</button>
                         </form>
-                        {{--<form action="{{ route('doctorappointment.accepted', $app->appointment_id)}}" method="post" style="display: inline-block">
-                            @csrf
-                            @method('PATCH')
-                            <input type="text" name="status" value="Accepted" required readonly hidden>
-                            <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required readonly hidden>
-                            <input type="text" name="patient_id" value="{{$app->patient_id}}" required readonly hidden>
-                            <input type="text" name="doctor_user_id" value="{{$app->doctor_user_id}}" required readonly hidden>
-                            <input type="text" name="doctor_id" value="{{$app->doctor_id}}" required readonly hidden>
-                            <input type="text" name="linkStatus" value="Active" required readonly hidden>
-                            <button class="btn btn-success btn-sm" type="submit">Accepted</button>
-                        </form>--}}
                     </td>
                     <td>
                         <a href="#edit{{$app->id}}" data-bs-toggle="modal" class="btn btn-success btn-sm"> Accepted</a>

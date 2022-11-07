@@ -20,6 +20,7 @@ class CreateMedicalHistoriesTable extends Migration
             $table->string('hospital')->nullable();
             $table->date('surgeryDate')->nullable();
             $table->string('surgeryNotes')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
 
             $table->index('user_id');

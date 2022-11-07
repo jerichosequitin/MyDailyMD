@@ -147,7 +147,7 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <a href=" {{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
+        <a href="{{ url('doctorprofile/'.Auth::user()->id) }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
     </div>
     <img src="/img/logo.png" width="180" height="180" class="logo">
     <div style="width: 100%">

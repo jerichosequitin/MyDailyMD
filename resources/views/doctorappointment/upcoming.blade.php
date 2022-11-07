@@ -156,7 +156,7 @@
             @endforeach
         @else
             <tr style="background-color:whitesmoke">
-                <td colspan="8" class="text-center">You have no upcoming appointments.</td>
+                <td colspan="9" class="text-center">You have no upcoming appointments.</td>
             </tr>
         @endif
         </thead>

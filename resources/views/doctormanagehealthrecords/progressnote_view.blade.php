@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Patient Immunization</title>
+    <title>MyDailyMD - View Progress Note</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
@@ -12,7 +12,6 @@
     <style>
         a{
             text-decoration: none;
-
         }
         a.back{
             text-align: left;
@@ -53,7 +52,6 @@
         .user-details .input-box input:valid{
             border-color: #9b59b6;
         }
-
         img{
             filter: brightness(100%);
             filter: contrast(100%);
@@ -73,14 +71,13 @@
             text-align:center;
             color:#EFFCFF;
         }
-
         body{
             background-color:#EAFAFF;
             background-size:contain;
             background-position-y: top;
             background-position-x: right;
             background-repeat:round;
-            text-align:center;
+            text-align: center;
         }
         p{
             text-align: center;
@@ -122,7 +119,6 @@
         }
 
 
-
         /* Style inputs with type="text", select elements and textareas */
         input[type=text], select, textarea {
             width: 100%; /* Full width */
@@ -159,110 +155,87 @@
             background-color:#DEF1FD;
             border:1px solid black;
         }
-        table{
-            width: 100%;
-            text-align: center;
-            table-layout:auto;
-        }
-        td{
-            border-collapse: collapse;
-            color:black;
-        }
-        th{
-            color:white;
-        }
     </style>
 </head>
 <body>
-<div class="container-fluid p-5 text-black text-center">
-    <br>
-    <div class="sidenav">
-        <div class="left-half">
-            <h3>
-                <b>
-                    {{Auth::user()->name}}
-                </b>
-            </h3>
+    <div class="container-fluid p-5 text-black text-center">
+        <br>
+        <div class="sidenav">
+            <div class="left-half">
+                <h3>
+                    <b>{{$patientProfile->user->name}}</b>
+                </h3>
+
+                <br>
+
+                <image src="/img/patient2.png" height="120" width="150"/>
+            </div>
 
             <br>
 
-            <input type="image" src="/img/patient2.png" height="120" width="150"/>
+            <a href="{{ url('doctormanagehealthrecords/profile/'.$patientProfile->id) }}">Profile</a>
+            <br>
+            <a href="{{ url('doctormanagehealthrecords/medicalhistory/'.$patientProfile->id) }}">Medical History</a>
+            <br>
+            <a href="{{ url('doctormanagehealthrecords/medication/'.$patientProfile->id) }}">Medications</a>
+            <br>
+            <a href="{{ url('doctormanagehealthrecords/allergy/'.$patientProfile->id) }}">Allergies</a>
+            <br>
+            <a href="{{ url('doctormanagehealthrecords/progressnote/'.$patientProfile->id) }}">Progress Notes</a>
+            <br>
+            <a href="{{ url('doctormanagehealthrecords/immunization/'.$patientProfile->id) }}">Immunization</a>
+            <br><br>
+            <a href="{{ url('doctormanagehealthrecords') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
         </div>
 
-        <br>
-
-        <a href="/patientprofile/{{Auth::user()->id}}">Profile</a>
-        <br>
-        <a href="{{ url('patientmedicalhistory/') }}">Medical History</a>
-        <br>
-        <a href="{{ url('patientmedication/') }}">Medications</a>
-        <br>
-        <a href="{{ url('patientallergy/') }}">Allergies</a>
-        <br>
-        <a href="{{ url('patientprogressnote/') }}">Progress Notes</a>
-        <br>
-        <a href="{{ url('patientimmunization/') }}">Immunization</a>
-        <br><br>
-        <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
-    </div>
-
-    <div class="main">
-        <h1><b>Immunization</b></h1>
-        <div class="row">
-            <div class="content">
-                <form action="patientprofile">
+        <div class="main">
+            <h1>
+                <b>View Progress Note</b>
+            </h1>
+            <div class="row">
+                <div class="content">
                     <div class="column">
-                        <div class="container">
-                            <div class="user-details">
-                                <div class="input-box">
-                                    <span class="details">Patient Name</span>
-                                    <input type="text" class="form-control" value="{{ Auth::user()->name }}" name="patientName" disabled>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Date of Birth</span>
-                                    <input type="text" class="form-control" value="{{ date('F j, Y', strtotime(Auth::user()->patient_profile->birthdate)) }}" name="birthdate" disabled>
+                        <form>
+                            <div class="container">
+                                <div class="user-details">
+                                    <div class="input-box">
+                                        <span class="details">Date</span>
+                                        <input type="text" class="form-control" name="created_at" value="{{ date('F j, Y', strtotime($progressNote->created_at)) }}" required disabled>
+                                    </div>
+                                    <div class="input-box">
+                                        <span class="details">Primary Diagnosis</span>
+                                        <input type="text" class="form-control" name="primaryDiagnosis" value="{{$progressNote->primaryDiagnosis}} Allergy" required disabled>
+                                    </div>
+                                    <div class="input-box">
+                                        <span class="details">Findings</span>
+                                        <input type="text" class="form-control" name="findings" value="{{$progressNote->findings}}" required disabled>
+                                    </div>
+                                    <div class="input-box">
+                                        <span class="details">Treatment Plan</span>
+                                        <input type="text" class="form-control" name="treatmentPlan" value="{{$progressNote->treatmentPlan}}" required disabled>
+                                    </div>
+                                    @if($progressNote->modifiedBy == '')
+                                        <div class="input-box">
+                                            <span class="details">Created By</span>
+                                            <input type="text" value="Dr. {{$progressNote->createdBy}}" class="form-control" name="createdBy" required disabled>
+                                        </div>
+                                    @else
+                                        <div class="input-box">
+                                            <span class="details">Last Modified By</span>
+                                            <input type="text" value="Dr. {{$progressNote->modifiedBy}} - {{ date('F j, Y', strtotime($progressNote->updated_at)) }}" class="form-control" name="modifiedBy" required disabled>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <br>
-
-                    <div class="column">
-                        @if(session()->get('Completed'))
-                            <div class="alert alert-success">
-                                {{ session()->get('Completed') }}
-                            </div><br />
-                        @endif
-                        <div class="container">
-                            <table class="table">
-                                <thead>
-                                <tr style="background-color:#18A0FB;">
-                                    <th>Vaccines</th>
-                                    <th>Purpose</th>
-                                    <th>Date Taken</th>
-                                    <th colspan="2" style="width: 10%">Action</th>
-                                </tr>
-                                @foreach($immunization as $im)
-                                <tr style="background-color:whitesmoke">
-                                    <td>{{ $im->vaccines }}</td>
-                                    <td>{{ $im->purpose }}</td>
-                                    <td>{{ date('F j, Y', strtotime($im->dateTaken)) }}</td>
-                                    <td><a href="{{ route('patientimmunization.view', $im->id) }}" class="btn btn-info btn-sm">View</a></td>
-                                    <td><a href="{{ route('patientimmunization.edit', $im->id) }}" class="btn btn-success btn-sm">Edit</a></td>
-                                </tr>
-                                @endforeach
-                                </thead>
-                            </table>
-                            {{$immunization->links()}}
-                        </div>
+                        </form>
                         <br>
+                        <a href="{{ url('doctormanagehealthrecords/progressnote/'.$patientProfile->id) }}" class="btn btn-primary">Back</a>
+                        <a href="#edit{{$progressNote->id}}" data-bs-toggle="modal" class="btn btn-danger"> Delete</a>
+                        @include('doctormanagehealthrecords.progressnote_archived')
                     </div>
-                </form>
-                <a href="{{ route('patientimmunization.create') }}" class="btn btn-primary">Add</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Patient Immunization</title>
+    <title>MyDailyMD - Patient Medication</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
@@ -207,7 +207,8 @@
     </div>
 
     <div class="main">
-        <h1><b>Immunization</b></h1>
+        <h1><b>Medication</b></h1>
+        <p><i>Managed by Medical Professionals</i></p>
         <div class="row">
             <div class="content">
                 <form action="patientprofile">
@@ -238,28 +239,34 @@
                             <table class="table">
                                 <thead>
                                 <tr style="background-color:#18A0FB;">
-                                    <th>Vaccines</th>
+                                    <th>Name</th>
+                                    <th>Dosage</th>
+                                    <th>Frequency</th>
+                                    <th>Physician</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
                                     <th>Purpose</th>
-                                    <th>Date Taken</th>
-                                    <th colspan="2" style="width: 10%">Action</th>
+                                    <th>Created By</th>
                                 </tr>
-                                @foreach($immunization as $im)
+                                @foreach($medication as $med)
                                 <tr style="background-color:whitesmoke">
-                                    <td>{{ $im->vaccines }}</td>
-                                    <td>{{ $im->purpose }}</td>
-                                    <td>{{ date('F j, Y', strtotime($im->dateTaken)) }}</td>
-                                    <td><a href="{{ route('patientimmunization.view', $im->id) }}" class="btn btn-info btn-sm">View</a></td>
-                                    <td><a href="{{ route('patientimmunization.edit', $im->id) }}" class="btn btn-success btn-sm">Edit</a></td>
+                                    <td>{{ $med->name }}</td>
+                                    <td>{{ $med->dosage }}</td>
+                                    <td>{{ $med->frequency }}</td>
+                                    <td>{{ $med->physician }}</td>
+                                    <td>{{ date('F j, Y', strtotime($med->startDate)) }}</td>
+                                    <td>{{ date('F j, Y', strtotime($med->endDate)) }}</td>
+                                    <td>{{ $med->purpose }}</td>
+                                    <td>Dr. <b>{{ $med->createdBy }}</b> - <i>{{ date('F j, Y', strtotime($med->created_at)) }}</i></td>
                                 </tr>
                                 @endforeach
                                 </thead>
                             </table>
-                            {{$immunization->links()}}
+                            {{$medication->links()}}
                         </div>
                         <br>
                     </div>
                 </form>
-                <a href="{{ route('patientimmunization.create') }}" class="btn btn-primary">Add</a>
             </div>
         </div>
     </div>

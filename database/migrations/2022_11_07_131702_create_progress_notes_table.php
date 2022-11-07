@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImmunizationsTable extends Migration
+class CreateProgressNotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,16 @@ class CreateImmunizationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('immunizations', function (Blueprint $table) {
+        Schema::create('progress_notes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('vaccines')->nullable();
-            $table->string('purpose')->nullable();
-            $table->date('dateTaken')->nullable();
+            $table->string('primaryDiagnosis')->nullable();
+            $table->string('findings')->nullable();
+            $table->string('treatmentPlan')->nullable();
+            $table->string('createdBy_user_id')->nullable();
+            $table->string('createdBy')->nullable();
+            $table->string('modifiedBy_user_id')->nullable();
+            $table->string('modifiedBy')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
 
@@ -33,6 +37,6 @@ class CreateImmunizationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('immunizations');
+        Schema::dropIfExists('progress_notes');
     }
 }

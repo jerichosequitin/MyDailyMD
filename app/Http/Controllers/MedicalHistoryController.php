@@ -12,7 +12,9 @@ class MedicalHistoryController extends Controller
 {
     public function index()
     {
-        $medicalHistory = MedicalHistory::where('user_id','=',Auth::user()->id)->get();
+        $medicalHistory = MedicalHistory::where('user_id','=',Auth::user()->id)
+            ->where('status', '=', 'Active')
+            ->simplePaginate(3);
         return view('patientmedicalhistory.index', compact ('medicalHistory'));
     }
 
@@ -25,6 +27,7 @@ class MedicalHistoryController extends Controller
     {
         $storeData = $request->validate([
             'user_id' => 'required',
+            'status' => 'required',
             'surgicalProcedure'=>'required',
             'hospital'=>'required',
             'surgeryDate'=>'required|before:today',
@@ -56,10 +59,21 @@ class MedicalHistoryController extends Controller
         return redirect("/patientmedicalhistory")->with('Completed', 'Medical History successfully updated');
     }
 
-    public function destroy($id)
+    public function view($id)
     {
-        $medicalHistory = MedicalHistory::findOrFail($id);
-        $medicalHistory->delete();
+        $medicalHistory= MedicalHistory::findOrFail($id);
+
+        $this->authorize('update', $medicalHistory);
+        return view('patientmedicalhistory.view', compact('medicalHistory'));
+    }
+
+    public function archive(Request $request, $id)
+    {
+        $archiveData = $request->validate([
+            'status' => 'required',
+        ]);
+
+        MedicalHistory::whereId($id)->update($archiveData);
         return redirect("/patientmedicalhistory")->with('Completed', 'Medical History successfully deleted');
     }
 }

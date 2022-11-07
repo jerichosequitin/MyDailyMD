@@ -10,7 +10,9 @@ class ImmunizationController extends Controller
 {
     public function index()
     {
-        $immunization = Immunization::where('user_id','=',Auth::user()->id)->get();
+        $immunization = Immunization::where('user_id','=',Auth::user()->id)
+            ->where('status', '=', 'Active')
+            ->simplePaginate(3);
         return view('patientimmunization.index', compact ('immunization'));
     }
 
@@ -23,6 +25,7 @@ class ImmunizationController extends Controller
     {
         $storeData = $request->validate([
             'user_id' => 'required',
+            'status' => 'required',
             'vaccines'=>'required',
             'purpose'=>'required',
             'dateTaken'=>'required|before:today',
@@ -52,10 +55,21 @@ class ImmunizationController extends Controller
         return redirect("/patientimmunization")->with('Completed', 'Immunization successfully updated');
     }
 
-    public function destroy($id)
+    public function view($id)
     {
-        $immunization = Immunization::findOrFail($id);
-        $immunization->delete();
+        $immunization= Immunization::findOrFail($id);
+
+        $this->authorize('update', $immunization);
+        return view('patientimmunization.view', compact('immunization'));
+    }
+
+    public function archive(Request $request, $id)
+    {
+        $archiveData = $request->validate([
+            'status' => 'required',
+        ]);
+
+        Immunization::whereId($id)->update($archiveData);
         return redirect("/patientimmunization")->with('Completed', 'Immunization successfully deleted');
     }
 }

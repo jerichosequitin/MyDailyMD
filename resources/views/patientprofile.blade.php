@@ -177,13 +177,13 @@
         <br>
         <a href="{{ url('patientmedicalhistory/') }}">Medical History</a>
         <br>
-        <a href="{{ url('patientmedications') }}">Medications</a>
+        <a href="{{ url('patientmedication/') }}">Medications</a>
         <br>
-        <a href="{{ url('patientallergies') }}">Allergies</a>
+        <a href="{{ url('patientallergy/') }}">Allergies</a>
         <br>
-        <a href="{{ url('patientprogressnotes') }}">Progress Notes</a>
+        <a href="{{ url('patientprogressnote/') }}">Progress Notes</a>
         <br>
-        <a href="{{ url('patientimmunization') }}">Immunization</a>
+        <a href="{{ url('patientimmunization/') }}">Immunization</a>
         <br><br>
         <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
     </div>
@@ -208,7 +208,7 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Date of Birth</span>
-                                    <input type="date" value="{{$user->patient_profile->birthdate }}" class="form-control" name="birthdate" disabled>
+                                    <input type="text" class="form-control" value="{{ date('F j, Y', strtotime(Auth::user()->patient_profile->birthdate)) }}" name="birthdate" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Sex</span>

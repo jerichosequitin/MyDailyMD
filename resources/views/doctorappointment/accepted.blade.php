@@ -7,12 +7,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('doctorappointment.accepted', $app->id) }}">
+                <form method="post" action="{{ route('doctorappointment.accepted', $app->appointment_id) }}">
                     @csrf
                     @method('PATCH')
                     <div class="container">
                         <center>
                             <div class="user-details">
+                                <input type="text" name="id" value="{{$app->id}}" required readonly hidden>
                                 <input type="text" name="status" value="Accepted" required readonly hidden>
                                 <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required readonly hidden>
                                 <input type="text" name="patient_id" value="{{$app->patient_id}}" required readonly hidden>
