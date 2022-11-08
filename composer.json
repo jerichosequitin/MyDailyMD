@@ -12,7 +12,8 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.7",
         "phpmailer/phpmailer": "^6.6",
-        "santigarcor/laratrust": "^7.1"
+        "santigarcor/laratrust": "^7.1",
+        "twilio/sdk": "^6.43"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
