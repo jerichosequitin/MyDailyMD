@@ -129,7 +129,7 @@
                 <tr style="background-color:whitesmoke">
                     <td>{{ $app->name }}</td>
                     <td>{{ $app->email }}</td>
-                    <td>{{ $app->mobileNumber }}</td>
+                    <td>(+63) {{ $app->mobileNumber }}</td>
                     <td>{{ $app->sex }}</td>
                     <td>
                         {{--<form action="{{ route('managehealthrecords.profile', $app->patient_user_id)}}" style="display: inline-block">

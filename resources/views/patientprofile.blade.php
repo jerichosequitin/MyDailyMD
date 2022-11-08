@@ -242,7 +242,7 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Mobile Number</span>
-                                    <input type="text" value="{{$user->patient_profile->mobileNumber }}" class="form-control" name="mobileNumber" disabled>
+                                    <input type="text" value="(+63) {{$user->patient_profile->mobileNumber }}" class="form-control" name="mobileNumber" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Landline Number</span>
@@ -254,7 +254,7 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Emergency Contact No.</span>
-                                    <input type="text" value="{{$user->patient_profile->emergencyContactNumber }}" class="form-control" name="emergencyContactNumber" disabled>
+                                    <input type="text" value="(+63) {{$user->patient_profile->emergencyContactNumber }}" class="form-control" name="emergencyContactNumber" disabled>
                                 </div>
                             </div>
                         </div>

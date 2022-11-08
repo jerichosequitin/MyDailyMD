@@ -40,8 +40,7 @@ class Handler extends ExceptionHandler
         });
     }
 
-    /*
-    public function render($request, \Exception $e)
+    /*public function render($request, \Exception $e)
     {
         if ($e instanceof MethodNotAllowedHttpException) {
             return response()->json( [
@@ -51,6 +50,5 @@ class Handler extends ExceptionHandler
         }
 
         return parent::render($request, $e);
-    }
-    */
+    }*/
 }

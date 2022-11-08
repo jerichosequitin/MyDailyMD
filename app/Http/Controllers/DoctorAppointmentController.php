@@ -97,7 +97,6 @@ class DoctorAppointmentController extends Controller
         return redirect('/doctorappointment/upcoming')->with('Completed', 'Appointment Meeting Link successfully updated.');
     }
 
-
     public function history(User $user)
     {
         $list = DB::table('appointments')
@@ -206,4 +205,5 @@ class DoctorAppointmentController extends Controller
         $appointment->save();
         return redirect('/doctorappointment/list')->with('Completed', 'Appointment Status set to Done successfully.');
     }
+
 }

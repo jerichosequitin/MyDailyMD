@@ -141,7 +141,7 @@
                 <tr style="background-color:whitesmoke">
                     <td>{{ $app->name }}</td>
                     <td>{{ $app->email }}</td>
-                    <td>{{ $app->mobileNumber }}</td>
+                    <td>(+63) {{ $app->mobileNumber }}</td>
                     <td>{{ $app->sex }}</td>
                     <td>{{ date('F j, Y', strtotime($app->date)) }}</td>
                     <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>

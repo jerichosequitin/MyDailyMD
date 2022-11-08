@@ -227,7 +227,7 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Doctor Contact Number</span>
-                                <input type="text" class="form-control" value="{{$doctorProfile->contactNumber}}" name="doctorContactNumber" disabled>
+                                <input type="text" class="form-control" value="(+63) {{$doctorProfile->contactNumber}}" name="doctorContactNumber" disabled>
                             </div>
                             <div class="input-box">
                                 <span class="details">Doctor Working Hours</span>

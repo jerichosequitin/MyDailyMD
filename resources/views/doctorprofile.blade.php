@@ -159,7 +159,7 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Contact Number</span>
-                            <input type="text" value="{{$user->doctor_profile->contactNumber }} "class="form-control" name="contactNumber" disabled>
+                            <input type="text" value="(+63) {{$user->doctor_profile->contactNumber }} "class="form-control" name="contactNumber" disabled>
                         </div>
                         <div class="input-box">
                             <span class="details">Specialization</span>
@@ -194,7 +194,7 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Clinic Mobile Number</span>
-                        <input type="text" value="{{$user->doctor_profile->clinicMobileNumber }}" class="form-control" name="clinicMobileNumber" disabled>
+                        <input type="text" value="(+63) {{$user->doctor_profile->clinicMobileNumber }}" class="form-control" name="clinicMobileNumber" disabled>
                     </div>
                     <div class="input-box">
                         <span class="details">Clinic Telephone Number</span>

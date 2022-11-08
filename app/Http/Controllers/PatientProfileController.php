@@ -30,18 +30,20 @@ class PatientProfileController extends Controller
         $this->authorize('update', $user->patient_profile);
 
         $data = request()->validate([
-            'name'=>'',
-            'email'=>'',
             'birthdate'=>'date|before:-18 years',
             'sex'=>'',
             'address'=>'',
             'city'=>'',
-            'postalCode'=>'nullable|min:4|max:4',
+            'postalCode'=>'digits:4',
             'maritalStatus' =>'',
-            'mobileNumber'=>'min:11|max:11',
-            'landlineNumber'=>'nullable|min:8|max:8',
+            'mobileNumber'=>'unique:patient_profiles|digits:10|starts_with:9',
+            'landlineNumber'=>'nullable|digits:8',
             'emergencyContact'=>'',
-            'emergencyContactNumber'=>'min:11|max:11',
+            'emergencyContactNumber'=>'digits:10|starts_with:9',
+        ],
+        [
+            'mobileNumber.starts_with' => 'Mobile Number must be the last 10 digits when following the format (+63) 9XXXXXXXXX.',
+            'emergencyContactNumber.starts_with' => 'Mobile Number must be the last 10 digits when following the format (+63) 9XXXXXXXXX.'
         ]);
 
         $user->patient_profile->update($data);

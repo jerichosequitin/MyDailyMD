@@ -35,22 +35,24 @@ class DoctorProfileController extends Controller
             request()->validate([
                 'birthdate'=>'required|before:-18 years',
                 'sex'=>'required',
-                'contactNumber'=>'required',
+                'contactNumber'=>'required|unique:doctor_profiles|digits:10|starts_with:9',
                 'specialization'=>'required',
                 'workingHoursStart'=>'required|',
                 'workingHoursEnd'=>'required|after:workingHoursStart',
                 'digitalSignature'=>'required|image|mimes:jpeg,png,jpg,gif,svg',
-                'prcNumber'=>'required|min:7|max:7',
+                'prcNumber'=>'required|digits:7',
                 'licenseType'=>'required',
                 'licenseExpiryDate'=>'required|after:today',
                 'prcImage' =>'required|image|mimes:jpeg,png,jpg,gif,svg',
                 'clinicName'=>'required',
                 'clinicAddress'=>'required',
-                'clinicMobileNumber'=>'nullable|min:11|max:11',
-                'clinicTelephoneNumber'=>'nullable|min:8|max:8',
+                'clinicMobileNumber'=>'required|unique:doctor_profiles|digits:10|starts_with:9',
+                'clinicTelephoneNumber'=>'nullable|unique:doctor_profiles|digits:8',
             ],
                 [
-                    'workingHoursEnd.after' => 'Working Hours End should be after Working Hours Start'
+                    'workingHoursEnd.after' => 'Working Hours End should be after Working Hours Start',
+                    'contactNumber.starts_with' => 'Contact Number must be the last 10 digits when following the format (+63) 9XXXXXXXXX.',
+                    'clinicMobileNumber.starts_with' => 'Clinic Mobile Number must be the last 10 digits when following the format (+63) 9XXXXXXXXX.'
                 ]);
 
             $digitalSignature_name = time().'.'.request()->digitalSignature->extension();
@@ -86,7 +88,7 @@ class DoctorProfileController extends Controller
             $data = request()->validate([
                 'birthdate'=>'',
                 'sex'=>'',
-                'contactNumber'=>'min:11|max:11',
+                'contactNumber'=>'unique:doctor_profiles|required|digits:10|starts_with:9',
                 'specialization'=>'',
                 'workingHoursStart'=>'required',
                 'workingHoursEnd'=>'required|after:workingHoursStart',
@@ -97,11 +99,13 @@ class DoctorProfileController extends Controller
                 'prcImage' =>'',
                 'clinicName'=>'',
                 'clinicAddress'=>'',
-                'clinicMobileNumber'=>'nullable|min:11|max:11',
-                'clinicTelephoneNumber'=>'nullable|min:8|max:8',
+                'clinicMobileNumber'=>'required|unique:doctor_profiles|digits:10|starts_with:9',
+                'clinicTelephoneNumber'=>'nullable|unique:doctor_profiles|digits:8',
             ],
                 [
-                    'workingHoursEnd.after' => 'Working Hours End should be after Working Hours Start'
+                    'workingHoursEnd.after' => 'Working Hours End should be after Working Hours Start',
+                    'contactNumber.starts_with' => 'Contact Number must be the last 10 digits when following the format (+63) 9XXXXXXXXX.',
+                    'clinicMobileNumber.starts_with' => 'Contact Number must be the last 10 digits when following the format (+63) 9XXXXXXXXX.'
                 ]);
             $user->doctor_profile()->update($data);
         }

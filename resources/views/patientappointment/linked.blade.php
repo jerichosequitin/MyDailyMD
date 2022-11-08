@@ -129,7 +129,7 @@
                 <tr style="background-color:whitesmoke">
                     <td>{{ $app->name }}</td>
                     <td>{{ $app->email }}</td>
-                    <td>{{ $app->contactNumber }}</td>
+                    <td>(+63) {{ $app->contactNumber }}</td>
                     <td>{{ $app->sex }}</td>
                     <td>
                         <a href="{{ url('patientappointment/linked/profile/'.$app->doctor_id) }}">

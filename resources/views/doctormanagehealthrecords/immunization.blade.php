@@ -246,7 +246,7 @@
                                 <tr style="background-color:whitesmoke">
                                     <td>{{ $im->vaccines }}</td>
                                     <td>{{ $im->purpose }}</td>
-                                    <td>{{ $im->dateTaken }}</td>
+                                    <td>{{ date('F j, Y', strtotime($im->dateTaken)) }}</td>
                                 </tr>
                                 @endforeach
                                 </thead>

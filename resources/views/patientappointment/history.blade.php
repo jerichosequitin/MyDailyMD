@@ -134,7 +134,7 @@
                     <td>{{ $app->name }}</td>
                     <td>{{ $app->specialization }}</td>
                     <td>{{ $app->email }}</td>
-                    <td>{{ $app->contactNumber }}</td>
+                    <td>(+63) {{ $app->contactNumber }}</td>
                     <td>{{ date('F j, Y', strtotime($app->date)) }}</td>
                     <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
                     <td>{{ $app->status }}</td>

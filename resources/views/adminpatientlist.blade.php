@@ -88,7 +88,7 @@
             <tr style="background-color:whitesmoke">
                 <td>{{ $data->name }}</td>
                 <td>{{ $data->email }}</td>
-                <td>{{ $data->mobileNumber }}</td>
+                <td>(+63) {{ $data->mobileNumber }}</td>
                 <td>{{ $data->created_at }}</td>
         </tr>
         @endforeach

@@ -247,7 +247,7 @@
                                 <tr style="background-color:whitesmoke">
                                     <td>{{ $mh->surgicalProcedure }}</td>
                                     <td>{{ $mh->hospital }}</td>
-                                    <td>{{ $mh->surgeryDate }}</td>
+                                    <td>{{ date('F j, Y', strtotime($mh->surgeryDate)) }}</td>
                                     <td>{{ $mh->surgeryNotes }}</td>
                                 </tr>
                                 @endforeach
