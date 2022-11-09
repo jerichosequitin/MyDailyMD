@@ -9,6 +9,8 @@ use App\Http\Controllers\ProgressNoteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MedicalHistoryController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PrescriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,8 @@ Route::post("send-email", [PHPMailerController::class, "composeEmail"])->name("s
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/prescription','App\Http\Controllers\PrescriptionController@index')->name('prescription.show');
 
 Route::get('aboutus', function (){
     return view('aboutus');
@@ -115,6 +119,23 @@ Route::get('email', function (){
     return view('email');
 });
 
+Route::get('patientlistofdoctor', function (){
+    return view('patientlistofdoctor');
+});
+//subscription
+Route::get('payment', 'App\Http\Controllers\PaymentController@index');
+Route::get('subscriptionbillingdoctor','App\Http\Controllers\PaymentController@index1');
+Route::post('charge', 'App\Http\Controllers\PaymentController@charge');
+Route::get('success', 'App\Http\Controllers\PaymentController@success');
+Route::get('error', 'App\Http\Controllers\PaymentController@error');
+
+//patient list of doctor
+Route::get('/patientlistofdoctor','App\Http\Controllers\AppointmentController@index')->name('patientlistofdoctor');
+
+//patient my appointment
+
+//Route::post('/patientbookappointment/{doctorProfile}/save', 'App\Http\Controllers\AppointmentController@save')->name('patientappointment.save');
+Route::get('/patientbookappointment/{doctorProfile}/book', 'App\Http\Controllers\AppointmentController@book')->name('patientappointment.book');
 
 //Auth route for Register & Login
 Route::group(['middleware' => ['auth', 'verified']], function () {
