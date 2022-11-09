@@ -18,19 +18,19 @@ class CreateDoctorProfilesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->date('birthdate')->nullable();
             $table->string('sex')->nullable();
-            $table->string('contactNumber')->nullable();
+            $table->text('contactNumber')->nullable();
             $table->string('specialization')->nullable();
             $table->time('workingHoursStart')->nullable();
             $table->time('workingHoursEnd')->nullable();
-            $table->string('digitalSignature')->nullable();
-            $table->integer('prcNumber')->nullable();
+            $table->text('digitalSignature')->nullable();
+            $table->text('prcNumber')->nullable();
             $table->string('licenseType')->nullable();
             $table->date('licenseExpiryDate')->nullable();
-            $table->string('prcImage')->nullable();
-            $table->string('clinicName')->nullable();
-            $table->string('clinicAddress')->nullable();
-            $table->string('clinicMobileNumber')->nullable();
-            $table->string('clinicTelephoneNumber')->nullable();
+            $table->text('prcImage')->nullable();
+            $table->text('clinicName')->nullable();
+            $table->text('clinicAddress')->nullable();
+            $table->text('clinicMobileNumber')->nullable();
+            $table->text('clinicTelephoneNumber')->nullable();
             $table->string('isVerified')->nullable();
             $table->timestamps();
 

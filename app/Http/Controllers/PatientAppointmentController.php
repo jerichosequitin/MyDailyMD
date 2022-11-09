@@ -46,6 +46,7 @@ class PatientAppointmentController extends Controller
             ->where('appointments.status', '=', 'Pending')
             ->select('*', 'appointments.id as appointment_id')
             ->get();
+
         return view('patientappointment.pending', compact('user'))->with('list', $list);
     }
 
@@ -242,6 +243,7 @@ class PatientAppointmentController extends Controller
             ->orderBy('doctor_profiles.specialization', 'ASC')
             ->orderBy('doctor_profiles.workingHoursStart', 'ASC')
             ->simplePaginate(5);
+
         return view ('patientappointment.search')->with('doc', $doc);
     }
 

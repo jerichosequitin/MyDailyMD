@@ -8,6 +8,17 @@ class PatientProfile extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'maritalStatus' => 'encrypted',
+        'address' => 'encrypted',
+        'city' => 'encrypted',
+        'postalCode' => 'encrypted',
+        'mobileNumber' => 'encrypted',
+        'landlineNumber' => 'encrypted',
+        'emergencyContact' => 'encrypted',
+        'emergencyContactNumber' => 'encrypted',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

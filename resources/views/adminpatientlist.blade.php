@@ -86,9 +86,9 @@
         </tr>
         @foreach($patient as $data)
             <tr style="background-color:whitesmoke">
-                <td>{{ $data->name }}</td>
+                <td>{{ Crypt::decryptString($data->name) }}</td>
                 <td>{{ $data->email }}</td>
-                <td>(+63) {{ $data->mobileNumber }}</td>
+                <td>(+63) {{ Crypt::decryptString($data->mobileNumber) }}</td>
                 <td>{{ $data->created_at }}</td>
         </tr>
         @endforeach

@@ -205,7 +205,7 @@
                             <input type="text" class="form-control" name="doctor_id" value="{{$doc->doctor_id}}" required readonly hidden>
                                 <div class="input-box">
                                     <span class="details">Doctor Name</span>
-                                    <input type="text" value="{{$doc->name}}" class="form-control" name="date" disabled>
+                                    <input type="text" value="{{ Crypt::decryptString($doc->name) }}" class="form-control" name="date" disabled>
                                 </div>
                             <div class="input-box">
                                 <span class="details">Doctor Working Hours</span>

@@ -8,6 +8,17 @@ class DoctorProfile extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'contactNumber' => 'encrypted',
+        'digitalSignature' => 'encrypted',
+        'prcNumber' => 'encrypted',
+        'prcImage' => 'encrypted',
+        'clinicName' => 'encrypted',
+        'clinicAddress' => 'encrypted',
+        'clinicMobileNumber' => 'encrypted',
+        'clinicTelephoneNumber' => 'encrypted',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

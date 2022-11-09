@@ -121,7 +121,7 @@
         </tr>
         @foreach($doc as $doctor)
             <tr style="background-color:whitesmoke">
-                <td>{{ $doctor->name }}</td>
+                <td>{{ Crypt::decryptString($doctor->name) }}</td>
                 <td>{{ $doctor->sex }}</td>
                 <td>{{ $doctor->specialization }}</td>
                 <td>{{ date('h:i A', strtotime($doctor->workingHoursStart)) }} - {{ date('h:i A', strtotime($doctor->workingHoursEnd)) }}</td>

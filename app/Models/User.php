@@ -45,6 +45,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'name' => 'encrypted',
     ];
 
     protected static function boot()

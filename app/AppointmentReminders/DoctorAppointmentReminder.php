@@ -59,21 +59,15 @@ class DoctorAppointmentReminder
     private function _remindAbout($appointment)
     {
         //Get Patient
-        $patient = DB::table('appointments')
-            ->where('appointments.patient_user_id', '=', $appointment->patient_user_id)
+        $patientCredential = User::where('id', '=', $appointment->patient_user_id)
             ->first();
-        $patientCredential = User::where('id', '=', $patient->patient_user_id)
-            ->first();
-        $patientInfo = PatientProfile::where('user_id', '=', $patient->patient_user_id)
+        $patientInfo = PatientProfile::where('user_id', '=', $appointment->patient_user_id)
             ->first();
 
         //Get Doctor
-        $doctor = DB::table('appointments')
-            ->where('doctor_user_id', '=', $appointment->doctor_user_id)
+        $doctorCredential = User::where('id', '=', $appointment->doctor_user_id)
             ->first();
-        $doctorCredential = User::where('id', '=', $doctor->doctor_user_id)
-            ->first();
-        $doctorInfo = DoctorProfile::where('user_id', '=', $doctor->doctor_user_id)
+        $doctorInfo = DoctorProfile::where('user_id', '=', $appointment->doctor_user_id)
             ->first();
 
         $patientName = $patientCredential->name;

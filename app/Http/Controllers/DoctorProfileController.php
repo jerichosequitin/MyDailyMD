@@ -40,7 +40,7 @@ class DoctorProfileController extends Controller
                 'workingHoursStart'=>'required|',
                 'workingHoursEnd'=>'required|after:workingHoursStart',
                 'digitalSignature'=>'required|image|mimes:jpeg,png,jpg,gif,svg',
-                'prcNumber'=>'required|digits:7',
+                'prcNumber'=>'required|unique:doctor_profiles|digits:7',
                 'licenseType'=>'required',
                 'licenseExpiryDate'=>'required|after:today',
                 'prcImage' =>'required|image|mimes:jpeg,png,jpg,gif,svg',

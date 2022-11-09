@@ -127,13 +127,13 @@
         @foreach($doc as $data)
             <tr style="background-color:whitesmoke">
                 <td>{{ $data->id }}</td>
-                <td>{{ $data->name }}</td>
+                <td>{{ Crypt::decryptString($data->name) }}</td>
                 <td>{{ $data->email }}</td>
                 <td>{{ $data->created_at }}</td>
                 <td>{{ $data->licenseType }}</td>
-                <td>{{ $data->prcNumber }}</td>
+                <td>{{ Crypt::decryptString($data->prcNumber) }}</td>
                 <td>{{ $data->licenseExpiryDate }}</td>
-                <td><img src="{{ $data->prcImage }}" width="100" height="50"></td>
+                <td><img src="{{ Crypt::decryptString($data->prcImage) }}" width="100" height="50"></td>
                 <td>{{ $data->isVerified }}</td>
                 <td>
                     <a href="{{ route('doctorlist.verify', $data->id) }}" class="btn btn-success btn-sm">Verify License</a>

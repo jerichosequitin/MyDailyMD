@@ -127,9 +127,9 @@
         @if(count($list) > 0)
             @foreach($list as $app)
                 <tr style="background-color:whitesmoke">
-                    <td>{{ $app->name }}</td>
+                    <td>{{ Crypt::decryptString($app->name) }}</td>
                     <td>{{ $app->email }}</td>
-                    <td>(+63) {{ $app->mobileNumber }}</td>
+                    <td>(+63) {{ Crypt::decryptString($app->mobileNumber) }}</td>
                     <td>{{ $app->sex }}</td>
                     <td>
                         {{--<form action="{{ route('managehealthrecords.profile', $app->patient_user_id)}}" style="display: inline-block">
