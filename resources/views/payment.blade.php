@@ -4,12 +4,10 @@
     <title>MyDailyMD - Subscription Billing (Patient)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="navbar.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-
     <!-- Internal CSS -->
     <style>
         a{
@@ -103,7 +101,7 @@
         .container {
             border-radius: 15px;
             padding: 20px;
-            width: 40%;
+            width: 30%;
             height: 15%;
             background-color:#DEF1FD;
             border:1px solid black;
@@ -129,35 +127,36 @@
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <a href="signuppagepatient"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
+    <a href=""><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
 </div>
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
-
 <div class="container">
-    <h1>Patient Plan</h1>
+    <div class="card-body">
+        @if(Session::has('success'))
+            <div class="alert alert-success">
+                {{ Session::get('success') }}
+            </div>
+        @endif
 
+    <h1><b>Patient Plan</b></h1>
     <br>
+    <form action="{{ url('charge') }}" method="post">
+        <h2>Amount to Pay: Php <b>750.00</b></h2>
+        <br>
+        <input type="text" name="amount" value="750.00" readonly required/>
+        <br>
+        <br>
+        {{ csrf_field() }}
+        <br>
+        <input type="submit" name="submit" value="Pay Now">
 
-    <h2>Mode of Payment</h2>
-    <input type="radio" id="gcash" name="payment" value ="Gcash">
-    <label for="Gcash">GCash</label>
+    </form>
 
-    <br>
 
-    <input type="radio" id="bpi" name="payment" value ="BPI">
-    <label for="Bpi">BPI</label>
-
-    <br><br>
-
-    <h2>Amount to Pay: Php <b>750.00</b></h2>
-
-    <br>
-
-    <input type="amount" id="enterAmount" name="enterAmount" placeholder="Enter Amount">
-    <a href="patientsubscriptionbillingsuccess">
-        <button class="btn btn-primary" name="sendBtn" class="sendBtn">Pay</button>
-    </a>
+</div>
 </div>
 </body>
+
+
 </html>
