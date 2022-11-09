@@ -16,14 +16,14 @@ class CreateAllergiesTable extends Migration
         Schema::create('allergies', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('type')->nullable();
-            $table->string('trigger')->nullable();
-            $table->string('treatment')->nullable();
-            $table->string('reaction')->nullable();
+            $table->text('type')->nullable();
+            $table->text('trigger')->nullable();
+            $table->text('treatment')->nullable();
+            $table->text('reaction')->nullable();
             $table->string('createdBy_user_id')->nullable();
-            $table->string('createdBy')->nullable();
+            $table->text('createdBy')->nullable();
             $table->string('modifiedBy_user_id')->nullable();
-            $table->string('modifiedBy')->nullable();
+            $table->text('modifiedBy')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
 

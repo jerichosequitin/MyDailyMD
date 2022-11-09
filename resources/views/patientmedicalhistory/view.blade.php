@@ -211,7 +211,7 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Hospital</span>
-                                <input type="text" value="{{$medicalHistory->surgicalProcedure }}" class="form-control" name="hospital" disabled>
+                                <input type="text" value="{{$medicalHistory->hospital }}" class="form-control" name="hospital" disabled>
                             </div>
                             <div class="input-box">
                                 <span class="details">Surgery Date</span>

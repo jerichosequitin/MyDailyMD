@@ -9,6 +9,15 @@ class Allergy extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'type' => 'encrypted',
+        'trigger' => 'encrypted',
+        'reaction' => 'encrypted',
+        'treatment' => 'encrypted',
+        'createdBy' => 'encrypted',
+        'modifiedBy' => 'encrypted',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -16,8 +16,8 @@ class CreateImmunizationsTable extends Migration
         Schema::create('immunizations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('vaccines')->nullable();
-            $table->string('purpose')->nullable();
+            $table->text('vaccines')->nullable();
+            $table->text('purpose')->nullable();
             $table->date('dateTaken')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

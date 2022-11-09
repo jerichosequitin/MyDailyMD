@@ -16,13 +16,13 @@ class CreateProgressNotesTable extends Migration
         Schema::create('progress_notes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('primaryDiagnosis')->nullable();
-            $table->string('findings')->nullable();
-            $table->string('treatmentPlan')->nullable();
+            $table->text('primaryDiagnosis')->nullable();
+            $table->text('findings')->nullable();
+            $table->text('treatmentPlan')->nullable();
             $table->string('createdBy_user_id')->nullable();
-            $table->string('createdBy')->nullable();
+            $table->text('createdBy')->nullable();
             $table->string('modifiedBy_user_id')->nullable();
-            $table->string('modifiedBy')->nullable();
+            $table->text('modifiedBy')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
 

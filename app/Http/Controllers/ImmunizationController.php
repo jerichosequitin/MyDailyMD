@@ -45,13 +45,17 @@ class ImmunizationController extends Controller
 
     public function update(Request $request, $id)
     {
-        $updateData = request()->validate([
+        request()->validate([
             'vaccines'=>'required',
             'purpose'=>'required',
             'dateTaken'=>'required|before:today',
         ]);
 
-        Immunization::whereId($id)->update($updateData);
+        $immunization = Immunization::findOrFail($id);
+        $immunization->vaccines = $request->vaccines;
+        $immunization->purpose = $request->purpose;
+        $immunization->dateTaken = $request->dateTaken;
+        $immunization->save();
         return redirect("/patientimmunization")->with('Completed', 'Immunization successfully updated');
     }
 

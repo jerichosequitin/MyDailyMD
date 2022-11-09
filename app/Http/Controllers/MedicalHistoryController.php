@@ -48,14 +48,19 @@ class MedicalHistoryController extends Controller
 
     public function update(Request $request, $id)
     {
-        $updateData = request()->validate([
+        request()->validate([
             'surgicalProcedure'=>'required',
             'hospital'=>'required',
             'surgeryDate'=>'required|before:today',
             'surgeryNotes'=>'required',
         ]);
 
-        MedicalHistory::whereId($id)->update($updateData);
+        $medicalHistory = MedicalHistory::findOrFail($id);
+        $medicalHistory->surgicalProcedure = $request->surgicalProcedure;
+        $medicalHistory->hospital = $request->hospital;
+        $medicalHistory->surgeryDate = $request->surgeryDate;
+        $medicalHistory->surgeryNotes = $request->surgeryNotes;
+        $medicalHistory->save();
         return redirect("/patientmedicalhistory")->with('Completed', 'Medical History successfully updated');
     }
 

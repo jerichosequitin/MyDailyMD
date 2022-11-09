@@ -112,7 +112,9 @@ class DoctorManageHealthRecordsController extends Controller
             {
                 $patientProfile = PatientProfile::findOrFail($id);
 
-                $medicalHistory = MedicalHistory::where('user_id','=',$patientProfile->user_id)->simplePaginate(3);
+                $medicalHistory = MedicalHistory::where('user_id','=',$patientProfile->user_id)
+                    ->where('status', '=', 'Active')
+                    ->simplePaginate(3);
                 return view('doctormanagehealthrecords.medicalhistory', compact ('patientProfile','medicalHistory'));
             }
             else
@@ -303,7 +305,7 @@ class DoctorManageHealthRecordsController extends Controller
 
     public function medicationUpdate(Request $request, $id)
     {
-        $updateData = request()->validate([
+        request()->validate([
             'name'=>'required',
             'dosage'=>'required',
             'frequency' => 'required',
@@ -316,28 +318,41 @@ class DoctorManageHealthRecordsController extends Controller
         ]);
 
         $medication = Medication::findOrFail($id);
+        $medication->name = $request->name;
+        $medication->dosage = $request->dosage;
+        $medication->frequency = $request->frequency;
+        $medication->physician = $request->physician;
+        $medication->startDate = $request->startDate;
+        $medication->endDate = $request->endDate;
+        $medication->purpose = $request->purpose;
+        $medication->modifiedBy_user_id = $request->modifiedBy_user_id;
+        $medication->modifiedBy = $request->modifiedBy;
+        $medication->save();
+
         $patientUserID = $medication->user_id;
         $patient = PatientProfile::where('user_id', $patientUserID)
-                ->first();
+            ->first();
 
-        Medication::whereId($id)->update($updateData);
         return redirect("/doctormanagehealthrecords/medication/".$patient->id)->with('Completed', 'Medication successfully updated');
     }
 
     public function medicationArchive(Request $request, $id)
     {
-        $archiveData = $request->validate([
+        $request->validate([
             'modifiedBy_user_id'=>'required',
             'modifiedBy'=>'required',
             'status' => 'required',
         ]);
 
         $medication = Medication::findOrFail($id);
+        $medication->modifiedBy_user_id = $request->modifiedBy_user_id;
+        $medication->modifiedBy = $request->modifiedBy;
+        $medication->status = $request->status;
+        $medication->save();
+
         $patientUserID = $medication->user_id;
         $patient = PatientProfile::where('user_id', $patientUserID)
             ->first();
-
-        Medication::whereId($id)->update($archiveData);
         return redirect("/doctormanagehealthrecords/medication/".$patient->id)->with('Completed', 'Medication successfully deleted');
     }
 
@@ -515,7 +530,7 @@ class DoctorManageHealthRecordsController extends Controller
 
     public function allergyUpdate(Request $request, $id)
     {
-        $updateData = request()->validate([
+        request()->validate([
             'type'=>'required',
             'trigger'=>'required',
             'reaction' => 'required',
@@ -525,28 +540,38 @@ class DoctorManageHealthRecordsController extends Controller
         ]);
 
         $allergy = Allergy::findOrFail($id);
+        $allergy->type = $request->type;
+        $allergy->trigger = $request->trigger;
+        $allergy->reaction = $request->reaction;
+        $allergy->treatment = $request->treatment;
+        $allergy->modifiedBy_user_id = $request->modifiedBy_user_id;
+        $allergy->modifiedBy = $request->modifiedBy;
+        $allergy->save();
+
         $patientUserID = $allergy->user_id;
         $patient = PatientProfile::where('user_id', $patientUserID)
             ->first();
 
-        Allergy::whereId($id)->update($updateData);
         return redirect("/doctormanagehealthrecords/allergy/".$patient->id)->with('Completed', 'Allergy successfully updated');
     }
 
     public function allergyArchive(Request $request, $id)
     {
-        $archiveData = $request->validate([
+        $request->validate([
             'modifiedBy_user_id'=>'required',
             'modifiedBy'=>'required',
             'status' => 'required',
         ]);
 
         $allergy = Allergy::findOrFail($id);
+        $allergy->modifiedBy_user_id = $request->modifiedBy_user_id;
+        $allergy->modifiedBy = $request->modifiedBy;
+        $allergy->status = $request->status;
+        $allergy->save();
+
         $patientUserID = $allergy->user_id;
         $patient = PatientProfile::where('user_id', $patientUserID)
             ->first();
-
-        Allergy::whereId($id)->update($archiveData);
         return redirect("/doctormanagehealthrecords/allergy/".$patient->id)->with('Completed', 'Allergy successfully deleted');
     }
 
@@ -723,7 +748,7 @@ class DoctorManageHealthRecordsController extends Controller
 
     public function progressNoteUpdate(Request $request, $id)
     {
-        $updateData = request()->validate([
+        request()->validate([
             'primaryDiagnosis'=>'required',
             'findings'=>'required',
             'treatmentPlan' => 'required',
@@ -732,28 +757,38 @@ class DoctorManageHealthRecordsController extends Controller
         ]);
 
         $progressNote = ProgressNote::findOrFail($id);
+        $progressNote->primaryDiagnosis = $request->primaryDiagnosis;
+        $progressNote->findings = $request->findings;
+        $progressNote->treatmentPlan = $request->treatmentPlan;
+        $progressNote->modifiedBy_user_id = $request->modifiedBy_user_id;
+        $progressNote->modifiedBy = $request->modifiedBy;
+        $progressNote->save();
+
         $patientUserID = $progressNote->user_id;
         $patient = PatientProfile::where('user_id', $patientUserID)
             ->first();
 
-        ProgressNote::whereId($id)->update($updateData);
         return redirect("/doctormanagehealthrecords/progressnote/".$patient->id)->with('Completed', 'Progress Note successfully updated');
     }
 
     public function progressNoteArchive(Request $request, $id)
     {
-        $archiveData = $request->validate([
+        $request->validate([
             'modifiedBy_user_id'=>'required',
             'modifiedBy'=>'required',
             'status' => 'required',
         ]);
 
         $progressNote = ProgressNote::findOrFail($id);
+        $progressNote->modifiedBy_user_id = $request->modifiedBy_user_id;
+        $progressNote->modifiedBy = $request->modifiedBy;
+        $progressNote->status = $request->status;
+        $progressNote->save();
+
         $patientUserID = $progressNote->user_id;
         $patient = PatientProfile::where('user_id', $patientUserID)
             ->first();
 
-        ProgressNote::whereId($id)->update($archiveData);
         return redirect("/doctormanagehealthrecords/progressnote/".$patient->id)->with('Completed', 'Progress Note successfully deleted');
     }
 
@@ -776,7 +811,9 @@ class DoctorManageHealthRecordsController extends Controller
             {
                 $patientProfile = PatientProfile::findOrFail($id);
 
-                $immunization = Immunization::where('user_id','=',$patientProfile->user_id)->simplePaginate(3);
+                $immunization = Immunization::where('user_id','=',$patientProfile->user_id)
+                    ->where('status', '=', 'Active')
+                    ->simplePaginate(3);
                 return view('doctormanagehealthrecords.immunization', compact ('patientProfile','immunization'));
             }
             else

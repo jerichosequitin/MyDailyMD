@@ -16,17 +16,17 @@ class CreateMedicationsTable extends Migration
         Schema::create('medications', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('name')->nullable();
-            $table->string('dosage')->nullable();
-            $table->string('frequency')->nullable();
-            $table->string('physician')->nullable();
+            $table->text('name')->nullable();
+            $table->text('dosage')->nullable();
+            $table->text('frequency')->nullable();
+            $table->text('physician')->nullable();
             $table->date('startDate')->nullable();
             $table->date('endDate')->nullable();
-            $table->string('purpose')->nullable();
+            $table->text('purpose')->nullable();
             $table->string('createdBy_user_id')->nullable();
-            $table->string('createdBy')->nullable();
+            $table->text('createdBy')->nullable();
             $table->string('modifiedBy_user_id')->nullable();
-            $table->string('modifiedBy')->nullable();
+            $table->text('modifiedBy')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
 

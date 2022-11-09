@@ -16,10 +16,10 @@ class CreateMedicalHistoriesTable extends Migration
         Schema::create('medical_histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('surgicalProcedure')->nullable();
-            $table->string('hospital')->nullable();
+            $table->text('surgicalProcedure')->nullable();
+            $table->text('hospital')->nullable();
             $table->date('surgeryDate')->nullable();
-            $table->string('surgeryNotes')->nullable();
+            $table->text('surgeryNotes')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
 

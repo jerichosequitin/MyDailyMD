@@ -9,6 +9,14 @@ class ProgressNote extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'primaryDiagnosis' => 'encrypted',
+        'findings' => 'encrypted',
+        'treatmentPlan' => 'encrypted',
+        'createdBy' => 'encrypted',
+        'modifiedBy' => 'encrypted',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

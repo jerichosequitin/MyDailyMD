@@ -9,6 +9,11 @@ class Immunization extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'vaccines' => 'encrypted',
+        'purpose' => 'encrypted',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
