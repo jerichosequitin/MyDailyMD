@@ -200,6 +200,10 @@
         background-color: #45a049;
     }
     @media print {
+        body{
+            background-image: none;
+        }
+
         #printPageButton {
             display: none;
             border: 1px solid black;
@@ -228,15 +232,14 @@
 <body>
     <img src="./img/logo.png" width="130" height="130" class="logo">
         <h1>MyDailyMD E-Prescription</h1>
-    @foreach($doc as $data)
         <div class="form-group">
                 @csrf
                 @method('PATCH')
                 <b><span class="details">Clinic Name:</span></b>
-                <input type="text" id="clinicName" value="{{ $data->clinicName }}" name="clinicName" readonly required>
+                <input type="text" id="clinicName" value="{{ Auth::user()->doctor_profile->clinicName }}" name="clinicName" readonly required>
 
                 <b><span class="details" >Clinic Address:</span></b>
-                <input type="text" id="clinicAddress" value="{{ $data->clinicAddress }}"name="clinicAddress" readonly required>
+                <input type="text" id="clinicAddress" value="{{ Auth::user()->doctor_profile->clinicAddress }}"name="clinicAddress" readonly required>
 
                 <b><span class="details" >Date:</span></b>
                 <input type="date" id="clinicDate" name="clinicDate" required>
@@ -247,11 +250,11 @@
                 <img src="./img/rx.png" width="50" height="50" class="rx"> <br>
                 <textarea id="prescription" class="form-control" name="prescription" style="resize: none; height:100px";></textarea>
 
-            <img src="{{ $data->digitalSignature }}" width="150" height="100" class="signature">
-            <b><input type="text" id="doctorName" name="doctorName" value="{{ $data->name }}" readonly required>
-            <input type="text" id="prcNumber" name="prcNumber" value="{{ $data->prcNumber }}" readonly required>
+            <img src="{{ Auth::user()->doctor_profile->digitalSignature }}" width="150" height="100" class="signature">
 
-            @endforeach
+            <b><input type="text" id="doctorName" name="doctorName" value="{{ Auth::user()->name }}" readonly required>
+            <input type="text" id="prcNumber" name="prcNumber" value="{{ Auth::user()->doctor_profile->prcNumber }}" readonly required>
+
     </div>
         <center>
         <button id="printPageButton" type="button" class="btn btn-primary" onClick="window.print()">Print</button>
