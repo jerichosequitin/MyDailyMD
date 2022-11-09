@@ -46,6 +46,20 @@
             border-bottom-width: 2px;
             transition: all 0.3s ease;
         }
+
+        .user-details .input-box input[name="workingHoursStart"],
+        .user-details .input-box input[name="workingHoursEnd"]{
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+
         .user-details .input-box input:focus,
         .user-details .input-box input:valid,
         .user-details .input-box select:valid{
@@ -87,7 +101,7 @@
         }
 
         /* Style inputs with type="text", select elements and textareas */
-        input[type=text], input[type=number], input[type=time], select, textarea {
+        input[type=text], input[type=number], select, textarea {
             width: 100%; /* Full width */
             padding: 12px; /* Some padding */
             border: 1px solid #ccc; /* Gray border */
@@ -198,12 +212,13 @@
                             </select>
                         </div>
                         <div class="input-box">
-                            <span class="details">Contact Number</span>
-                            <input type="number" value="{{$user->doctor_profile->contactNumber }} "
-                                   min="0"
-                                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                   maxlength = "11"
-                                   class="form-control" placeholder="09XXXXXXXXX" name="contactNumber" required>
+                            <span class="details">Contact Number
+                                <i class="fa fa-exclamation-circle" style="color: red" aria-hidden="true" title="MyDailyMD uses the Philippine Mobile Number format (+63) 9XXXXXXXX."></i>
+                            </span>
+                            <input type="text" value="{{$user->doctor_profile->contactNumber }}"
+                                   placeholder="9XXXXXXXXX"
+                                   maxlength = "10"
+                                   title="Format: 9XXXXXXXXX" class="form-control" name="contactNumber" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Specialization</span>
@@ -218,7 +233,9 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Working Hours</span>
-                            <input type="time" value="{{$user->doctor_profile->workingHours }} "class="form-control" name="workingHours" required>
+                            <input type="time" value="{{$user->doctor_profile->workingHoursStart }}" step="3600" class="form-control" name="workingHoursStart" required>
+                            <span class="details">to</span>
+                            <input type="time" value="{{$user->doctor_profile->workingHoursEnd }}" step="3600" class="form-control" name="workingHoursEnd" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Digital Signature
@@ -246,18 +263,17 @@
                             <input type="text" value="{{$user->doctor_profile->clinicAddress }}" class="form-control" placeholder="Unit #, Street Name, Barangay, City" name="clinicAddress" required>
                         </div>
                         <div class="input-box">
-                            <span class="details">Clinic Mobile Number</span>
-                            <input type="number" value="{{$user->doctor_profile->clinicMobileNumber }}"
-                                   min="0"
-                                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                   maxlength = "11"
-                                   title="Format: 09XXXXXXXXX" class="form-control" placeholder="09XXXXXXXXX" name="clinicMobileNumber" >
+                            <span class="details">Clinic Mobile Number
+                                <i class="fa fa-exclamation-circle" style="color: red" aria-hidden="true" title="MyDailyMD uses the Philippine Mobile Number format (+63) 9XXXXXXXX."></i>
+                            </span>
+                            <input type="text" value="{{$user->doctor_profile->clinicMobileNumber }}"
+                                   placeholder="9XXXXXXXXX"
+                                   maxlength = "10"
+                                   title="Format: 9XXXXXXXXX" class="form-control" name="clinicMobileNumber" >
                         </div>
                         <div class="input-box">
                             <span class="details">Clinic Telephone Number</span>
-                            <input type="number" value="{{$user->doctor_profile->clinicTelephoneNumber }}"
-                                   min="0"
-                                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            <input type="text" value="{{$user->doctor_profile->clinicTelephoneNumber }}"
                                    maxlength = "8"
                                    title="Format: XXXXXXXX" class="form-control" placeholder="XXXXXXXX" name="clinicTelephoneNumber" >
                         </div>
@@ -269,10 +285,7 @@
                         </div>
                         <div class="input-box">
                             <span class="details">PRC Number</span>
-                            <input type="number" value="{{$user->doctor_profile->prcNumber }}"
-                                   min="0"
-                                   placeholder="XXXXXXX"
-                                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            <input type="text" value="{{$user->doctor_profile->prcNumber }}"
                                    maxlength = "7"
                                    title="Format: XXXXXXX" class="form-control" placeholder="XXXXXXX" name="prcNumber" required>
                         </div>

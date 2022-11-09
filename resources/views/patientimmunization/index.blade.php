@@ -195,11 +195,11 @@
         <br>
         <a href="{{ url('patientmedicalhistory/') }}">Medical History</a>
         <br>
-        <a href="patientmedications">Medications</a>
+        <a href="{{ url('patientmedication/') }}">Medications</a>
         <br>
-        <a href="patientallergies">Allergies</a>
+        <a href="{{ url('patientallergy/') }}">Allergies</a>
         <br>
-        <a href="patientprogressnotes">Progress Notes</a>
+        <a href="{{ url('patientprogressnote/') }}">Progress Notes</a>
         <br>
         <a href="{{ url('patientimmunization/') }}">Immunization</a>
         <br><br>
@@ -220,7 +220,7 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Date of Birth</span>
-                                    <input type="text" class="form-control" value="{{ Auth::user()->patient_profile->birthdate }}"name="birthdate" disabled>
+                                    <input type="text" class="form-control" value="{{ date('F j, Y', strtotime(Auth::user()->patient_profile->birthdate)) }}" name="birthdate" disabled>
                                 </div>
                             </div>
                         </div>
@@ -247,23 +247,16 @@
                                 <tr style="background-color:whitesmoke">
                                     <td>{{ $im->vaccines }}</td>
                                     <td>{{ $im->purpose }}</td>
-                                    <td>{{ $im->dateTaken }}</td>
-                                    <td><a href="{{ route('patientimmunization.edit', $im->id) }}" class="btn btn-primary btn-sm">Edit</a></td>
-                                    <td>
-                                        <form action="{{ route('patientimmunization.destroy', $im->id)}}" method="post" style="display: inline-block">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm" type="submit">Delete</button>
-                                        </form>
-                                    </td>
+                                    <td>{{ date('F j, Y', strtotime($im->dateTaken)) }}</td>
+                                    <td><a href="{{ route('patientimmunization.view', $im->id) }}" class="btn btn-info btn-sm">View</a></td>
+                                    <td><a href="{{ route('patientimmunization.edit', $im->id) }}" class="btn btn-success btn-sm">Edit</a></td>
                                 </tr>
                                 @endforeach
                                 </thead>
                             </table>
+                            {{$immunization->links()}}
                         </div>
-
                         <br>
-
                     </div>
                 </form>
                 <a href="{{ route('patientimmunization.create') }}" class="btn btn-primary">Add</a>

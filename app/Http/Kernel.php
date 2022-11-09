@@ -66,5 +66,8 @@ class Kernel extends HttpKernel
         'profile' => \App\Http\Middleware\EnsureCompleteProfile::class,
         'createprofileonce' => \App\Http\Middleware\VisitCreateProfileOnce::class,
         'adminaccess' => \App\Http\Middleware\AdminAccessRestriction::class,
+        'doctoraccess' => \App\Http\Middleware\DoctorAccessRestriction::class,
+        'patientaccess' => \App\Http\Middleware\PatientAccessRestriction::class,
+        'doctorpendingmax' => \App\Http\Middleware\DoctorPendingMax::class,
     ];
 }

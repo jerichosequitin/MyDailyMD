@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Admin Client List</title>
+    <title>MyDailyMD - List of Patients</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -27,6 +27,7 @@
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
             margin:0;
             padding:0;
+            text-align: center;
         }
         p{
             text-align: center;
@@ -82,18 +83,18 @@
             <th>Email</th>
             <th>Mobile Number</th>
             <th>Created At</th>
-            <th>Updated At</th>
         </tr>
         @foreach($patient as $data)
             <tr style="background-color:whitesmoke">
-                <td>{{ $data->name }}</td>
+                <td>{{ Crypt::decryptString($data->name) }}</td>
                 <td>{{ $data->email }}</td>
-                <td>{{ $data->mobileNumber }}</td>
+                <td>(+63) {{ Crypt::decryptString($data->mobileNumber) }}</td>
                 <td>{{ $data->created_at }}</td>
-                <td>{{ $data->updated_at }}</td>
         </tr>
         @endforeach
         </thead>
     </table>
+    {{$patient->links()}}
+</div>
 </body>
 </html>

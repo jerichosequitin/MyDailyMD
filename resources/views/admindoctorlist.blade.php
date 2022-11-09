@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Admin Doctor List</title>
+    <title>MyDailyMD - List of Doctors</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -117,8 +117,8 @@
             <th>Full Name</th>
             <th>Email</th>
             <th>Created At</th>
-            <th>PRC Number</th>
             <th>License Type</th>
+            <th>PRC Number</th>
             <th>License Expiry Date</th>
             <th>PRC Image</th>
             <th>Account Status</th>
@@ -127,13 +127,13 @@
         @foreach($doc as $data)
             <tr style="background-color:whitesmoke">
                 <td>{{ $data->id }}</td>
-                <td>{{ $data->name }}</td>
+                <td>{{ Crypt::decryptString($data->name) }}</td>
                 <td>{{ $data->email }}</td>
                 <td>{{ $data->created_at }}</td>
-                <td>{{ $data->prcNumber }}</td>
                 <td>{{ $data->licenseType }}</td>
+                <td>{{ Crypt::decryptString($data->prcNumber) }}</td>
                 <td>{{ $data->licenseExpiryDate }}</td>
-                <td><img src="{{ $data->prcImage }}" width="100" height="50"></td>
+                <td><img src="{{ Crypt::decryptString($data->prcImage) }}" width="100" height="50"></td>
                 <td>{{ $data->isVerified }}</td>
                 <td>
                     <a href="{{ route('doctorlist.verify', $data->id) }}" class="btn btn-success btn-sm">Verify License</a>
@@ -142,6 +142,7 @@
         @endforeach
         </thead>
     </table>
+    {{$doc->links()}}
 </div>
 </body>
 </html>

@@ -176,11 +176,11 @@
         <br>
         <a href="{{ url('patientmedicalhistory/') }}">Medical History</a>
         <br>
-        <a href="patientmedications">Medications</a>
+        <a href="{{ url('patientmedication/') }}">Medications</a>
         <br>
-        <a href="patientallergies">Allergies</a>
+        <a href="{{ url('patientallergy/') }}">Allergies</a>
         <br>
-        <a href="patientprogressnotes">Progress Notes</a>
+        <a href="{{ url('patientprogressnote/') }}">Progress Notes</a>
         <br>
         <a href="{{ url('patientimmunization/') }}">Immunization</a>
         <br><br>
@@ -189,7 +189,7 @@
 
     <div class="main">
         <h1>
-            <b>Edit Medical History</b>
+            <b>Edit Immunization</b>
         </h1>
         <div class="content">
             @if ($errors->any())

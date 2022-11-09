@@ -159,7 +159,7 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Contact Number</span>
-                            <input type="text" value="{{$user->doctor_profile->contactNumber }} "class="form-control" name="contactNumber" disabled>
+                            <input type="text" value="(+63) {{$user->doctor_profile->contactNumber }} "class="form-control" name="contactNumber" disabled>
                         </div>
                         <div class="input-box">
                             <span class="details">Specialization</span>
@@ -169,7 +169,7 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Working Hours</span>
-                            <input type="text" value="{{$user->doctor_profile->workingHours }} "class="form-control" name="workingHours" disabled>
+                            <input type="text" value="{{ date('h:i A', strtotime($user->doctor_profile->workingHoursStart)) }} - {{ date('h:i A', strtotime($user->doctor_profile->workingHoursEnd)) }}" class="form-control" name="workingHours" disabled>
                         </div>
                         <div class="input-box">
                             <span class="details">Digital Signature</span>
@@ -194,7 +194,7 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Clinic Mobile Number</span>
-                        <input type="text" value="{{$user->doctor_profile->clinicMobileNumber }}" class="form-control" name="clinicMobileNumber" disabled>
+                        <input type="text" value="(+63) {{$user->doctor_profile->clinicMobileNumber }}" class="form-control" name="clinicMobileNumber" disabled>
                     </div>
                     <div class="input-box">
                         <span class="details">Clinic Telephone Number</span>

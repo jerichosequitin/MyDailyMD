@@ -45,6 +45,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'name' => 'encrypted',
     ];
 
     protected static function boot()
@@ -71,6 +72,21 @@ class User extends Authenticatable implements MustVerifyEmail
     public function medical_histories()
     {
         return $this->hasMany(MedicalHistory::class);
+    }
+
+    public function medications()
+    {
+        return $this->hasMany(Medication::class);
+    }
+
+    public function allergies()
+    {
+        return $this->hasMany(Allergy::class);
+    }
+
+    public function progress_notes()
+    {
+        return $this->hasMany(ProgressNote::class);
     }
 
     public function immunizations()

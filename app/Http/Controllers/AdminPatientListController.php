@@ -14,7 +14,7 @@ class AdminPatientListController extends Controller
         $patient = DB::table('users')
             ->join('patient_profiles','users.id','=','patient_profiles.user_id')
             ->where('type', '=', 'patient')
-            ->get();
+            ->simplePaginate(4);
         return view ('adminpatientlist')->with('patient', $patient);
     }
 }

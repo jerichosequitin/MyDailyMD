@@ -163,7 +163,7 @@
         </div>
         <section class="container">
             <div class="right-half">
-                <a href="patientmyappointment">
+                <a href="patientappointment/list">
                     <input type="image" src="./img/myappoinmtent_img.png" height="180" width="180"/>
                 </a>
                 <p><b>My Appointment</b></p>

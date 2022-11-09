@@ -192,7 +192,7 @@
 
     <section class="container">
         <div class="left">
-            <a href="doctorhealthrecords">
+            <a href="doctormanagehealthrecords">
                 <input type="image" src="./img/myprofile_img.png" height="180" width="180"/>
             </a>
             <p><b>Health Records</b></p>
@@ -209,7 +209,7 @@
 
         <section class="container">
             <div class="right">
-                <a href="doctorappointments">
+                <a href="doctorappointment/list">
                     <input type="image" src="./img/myappoinmtent_img.png" height="180" width="180"/>
                 </a>
                 <p><b>Appointments</b></p>

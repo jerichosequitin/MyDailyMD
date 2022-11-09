@@ -174,11 +174,11 @@
         <br>
         <a href="{{ url('patientmedicalhistory/') }}">Medical History</a>
         <br>
-        <a href="patientmedications">Medications</a>
+        <a href="{{ url('patientmedication/') }}">Medications</a>
         <br>
-        <a href="patientallergies">Allergies</a>
+        <a href="{{ url('patientallergy/') }}">Allergies</a>
         <br>
-        <a href="patientprogressnotes">Progress Notes</a>
+        <a href="{{ url('patientprogressnote/') }}">Progress Notes</a>
         <br>
         <a href="{{ url('patientimmunization/') }}">Immunization</a>
         <br><br>
@@ -204,7 +204,8 @@
                 <div class="container">
                     <center>
                         <div class="user-details">
-                            <input type="text" class="form-control" name="user_id" value="{{Auth::user()->id}}" required hidden>
+                            <input type="text" class="form-control" name="user_id" value="{{Auth::user()->id}}" required readonly hidden>
+                            <input type="text" class="form-control" name="status" value="Active" required readonly hidden>
 
                             <div class="input-box">
                                 <span class="details">Surgical Procedure</span>
