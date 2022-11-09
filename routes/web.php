@@ -5,6 +5,7 @@ use App\Http\Controllers\PHPMailerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MedicalHistoryController;
+use App\Http\Controllers\PrescriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,8 @@ Route::post("send-email", [PHPMailerController::class, "composeEmail"])->name("s
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/prescription','App\Http\Controllers\PrescriptionController@index')->name('prescription.show');
 
 Route::get('aboutus', function (){
     return view('aboutus');
