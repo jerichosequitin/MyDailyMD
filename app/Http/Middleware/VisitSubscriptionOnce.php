@@ -19,12 +19,9 @@ class VisitSubscriptionOnce
      */
     public function handle(Request $request, Closure $next)
     {
-        $dateNow = Carbon::now();
-        $dateToday = $dateNow->toDateString();
-
         $isSubscribed = DB::table('payments')
             ->where('user_id', '=', Auth::user()->id)
-            ->where('created_at', '>', Carbon::now()->subDays(30))
+            ->whereDate('created_at', '>=', Carbon::now()->subDays(30)->toDateString())
             ->exists();
 
         if($isSubscribed)

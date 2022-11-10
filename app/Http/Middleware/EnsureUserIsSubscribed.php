@@ -21,12 +21,9 @@ class EnsureUserIsSubscribed
     {
         if($request->user()->type == 'doctor')
         {
-            $dateNow = Carbon::now();
-            $dateToday = $dateNow->toDateString();
-
             $isSubscribed = DB::table('payments')
                 ->where('user_id', '=', Auth::user()->id)
-                ->where('created_at', '>', Carbon::now()->subDays(30))
+                ->whereDate('created_at', '>=', Carbon::now()->subDays(30)->toDateString())
                 ->exists();
 
             if(!$isSubscribed)
@@ -36,12 +33,9 @@ class EnsureUserIsSubscribed
         }
         elseif($request->user()->type == 'patient')
         {
-            $dateNow = Carbon::now();
-            $dateToday = $dateNow->toDateString();
-
             $isSubscribed = DB::table('payments')
                 ->where('user_id', '=', Auth::user()->id)
-                ->where('created_at', '>', Carbon::now()->subDays(30))
+                ->whereDate('created_at', '>=', Carbon::now()->subDays(30)->toDateString())
                 ->exists();
 
             if(!$isSubscribed)
