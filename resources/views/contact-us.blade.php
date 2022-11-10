@@ -96,13 +96,16 @@
     }
 </style>
 <body>
-<img src="./img/logo.png" width="180" height="180" class="logo">
 <div class="topnav" id="myTopnav">
     <a href="/">Home</a>
     <a href="aboutus">About Us</a>
     <a href="subscriptionplan">Subscription</a>
     <a href="contact-us" class="active">Contact Us</a>
-</div><br>
+</div>
+<img src="./img/logo.png" width="180" height="180" class="logo">
+
+<br>
+
 <center>
     <div class="container">
         <div class="content">
@@ -126,7 +129,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label><b>Name</b> </label>
-                                            <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="e.g. (Juan Dela Cruz)" name="name">
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Juan Dela Cruz" name="name" required>
                                             @error('name')
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -137,7 +140,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label><b>Email</b></label>
-                                            <input type="text" class="form-control @error('email') is-invalid @enderror" placeholder="e.g. juandelacruz@gmail.com" name="email">
+                                            <input type="text" class="form-control @error('email') is-invalid @enderror" placeholder="juandelacruz@gmail.com" name="email" required>
                                             @error('email')
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -148,7 +151,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label><b>Phone Number</b></label>
-                                            <input type="text" class="form-control @error('phone_number') is-invalid @enderror" placeholder="eg. xxxx - xxx - xxxx" name="phone_number">
+                                            <input type="text" class="form-control @error('phone_number') is-invalid @enderror" placeholder="9XXXXXXXXX" maxlength="10" name="phone_number" required>
                                             @error('phone_number')
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -159,7 +162,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label><b>Subject</b></label>
-                                            <input type="text" class="form-control @error('subject') is-invalid @enderror" placeholder="e.g. Issue regarding ..." name="subject">
+                                            <input type="text" class="form-control @error('subject') is-invalid @enderror" placeholder="Issue regarding ..." name="subject" required>
                                             @error('subject')
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -170,7 +173,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label><b>Message</b></label>
-                                            <textarea class="form-control textarea @error('message') is-invalid @enderror" placeholder="Compose message..." name="message"></textarea>
+                                            <textarea class="form-control textarea @error('message') is-invalid @enderror" placeholder="Compose message..." name="message" required></textarea>
                                             @error('message')
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
