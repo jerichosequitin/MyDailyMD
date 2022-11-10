@@ -239,11 +239,11 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Start Time</span>
-                                <input type="time" step="3600" class="form-control" name="start" required>
+                                <input type="time" step="1800" class="form-control" name="start" required>
                             </div>
                             <div class="input-box">
                                 <span class="details">End Time</span>
-                                <input type="time" step="3600" class="form-control" name="end" required>
+                                <input type="time" step="1800" class="form-control" name="end" required>
                             </div>
 
                             <input type="text" class="form-control" name="status" value="Pending" hidden>

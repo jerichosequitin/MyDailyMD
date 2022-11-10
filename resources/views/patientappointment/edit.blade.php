@@ -218,11 +218,11 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Appointment Start</span>
-                                <input type="time" step="3600" value="{{ $appointment->start }}" class="form-control" name="start" required>
+                                <input type="time" step="1800" value="{{ $appointment->start }}" class="form-control" name="start" required>
                             </div>
                             <div class="input-box">
                                 <span class="details">Appointment End</span>
-                                <input type="time" step="3600" value="{{ $appointment->end }}" class="form-control" name="end" required>
+                                <input type="time" step="1800" value="{{ $appointment->end }}" class="form-control" name="end" required>
                             </div>
                         </div>
                         <button class="btn btn-primary">Save</button>
