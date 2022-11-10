@@ -69,5 +69,7 @@ class Kernel extends HttpKernel
         'doctoraccess' => \App\Http\Middleware\DoctorAccessRestriction::class,
         'patientaccess' => \App\Http\Middleware\PatientAccessRestriction::class,
         'doctorpendingmax' => \App\Http\Middleware\DoctorPendingMax::class,
+        'subscribed' => \App\Http\Middleware\EnsureUserIsSubscribed::class,
+        'subscribeonce' => \App\Http\Middleware\VisitSubscriptionOnce::class,
     ];
 }

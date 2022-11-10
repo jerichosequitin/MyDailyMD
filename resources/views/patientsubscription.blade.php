@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Code Verification</title>
+    <title>MyDailyMD - Subscription Billing (Patient)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="navbar.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-
-
     <!-- Internal CSS -->
     <style>
         a{
@@ -24,7 +21,7 @@
         .container-fluid{
             background-size: 100% 100%;
             background-attachment: fixed;
-            background-image: url("./img/bg01.png");
+            background-image: url("./img/bg.png");
         }
         img{
             filter: brightness(100%);
@@ -38,14 +35,14 @@
         }
         h2{
             font-size:medium;
-            text-align:justify;
+            text-align:center;
         }
         h3{
             font-size:20px;
             text-align:center;
         }
         body{
-            background-image: linear-gradient(to right, white, rgb(180, 230, 255));
+            background-image: linear-gradient(to left, white, rgb(180, 230, 255));
             margin:0;
             padding:0;
             text-align: center;
@@ -53,6 +50,7 @@
         p{
             text-align: justify;
             font-size: medium;
+
         }
         .button1{
             background-color: none;
@@ -72,9 +70,8 @@
             display: inline-block;
             font-size: 16px;
         }
-
         /* Style inputs with type="text", select elements and textareas */
-        input[type=text], select, textarea {
+        input[type=amount], select, textarea {
             width: 100%; /* Full width */
             padding: 12px; /* Some padding */
             border: 1px solid #ccc; /* Gray border */
@@ -101,10 +98,10 @@
         }
 
         /* Add a background color and some padding around the form */
-        .container{
-            border-radius: 5px;
+        .container {
+            border-radius: 15px;
             padding: 20px;
-            width: 25%;
+            width: 30%;
             height: 15%;
             background-color:#DEF1FD;
             border:1px solid black;
@@ -124,33 +121,50 @@
             position: relative;
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
             overflow: hidden;
-            text-align: left;
+            text-align: right;
         }
     </style>
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <a href="forgotpassword"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    </a>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <a :href="route('logout')"
+           onclick="event.preventDefault();
+                     this.closest('form').submit();">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            {{ __('Log Out') }}
+        </a>
+    </form>
 </div>
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
-
 <div class="container">
-    <h1>Code Verification</h1>
-    <h2>To verify if it is really you, kindly enter the code that we have sent to your email to successfully reset your password.</h2>
+    <div class="card-body">
+        @if(Session::has('success'))
+            <div class="alert alert-success">
+                {{ Session::get('success') }}
+            </div>
+        @endif
 
+    <h1><b>Patient Plan</b></h1>
     <br>
+    <form action="{{ url('charge') }}" method="post">
+        <h2>Amount to Pay: Php <b>750.00</b></h2>
+        <br>
+        <input type="text" name="amount" value="750.00" readonly required/>
+        <br>
+        <br>
+        {{ csrf_field() }}
+        <br>
+        <input type="submit" name="submit" value="Pay Now">
 
-    <label for="code">Enter Code</label>
-    <input type="text" id="code" name="code">
+    </form>
 
-    <br>
 
-    <a href="newpasswordpt1">
-        <button class="btn btn-primary" name="sendBtn" class="sendBtn">Send</button>
-    </a>
+</div>
 </div>
 </body>
+
+
 </html>

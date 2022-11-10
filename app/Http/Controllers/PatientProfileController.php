@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Rules\UniqueContactNumber;
 use Illuminate\Http\Request;
 
 class PatientProfileController extends Controller
@@ -36,7 +37,7 @@ class PatientProfileController extends Controller
             'city'=>'',
             'postalCode'=>'digits:4',
             'maritalStatus' =>'',
-            'mobileNumber'=>'unique:patient_profiles|digits:10|starts_with:9',
+            'mobileNumber'=>'digits:10|starts_with:9',
             'landlineNumber'=>'nullable|digits:8',
             'emergencyContact'=>'',
             'emergencyContactNumber'=>'digits:10|starts_with:9',

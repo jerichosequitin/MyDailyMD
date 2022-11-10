@@ -2,10 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-class PatientAccessRestriction
+class VisitSubscriptionOnce
 {
     /**
      * Handle an incoming request.
@@ -16,9 +19,17 @@ class PatientAccessRestriction
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->user()->type != 'patient')
+        $dateNow = Carbon::now();
+        $dateToday = $dateNow->toDateString();
+
+        $isSubscribed = DB::table('payments')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('created_at', '>', Carbon::now()->subDays(30))
+            ->exists();
+
+        if($isSubscribed)
         {
-            return redirect()->back();
+            return redirect()->back()->with('Error', 'User is already subscribed.');
         }
 
         return $next($request);

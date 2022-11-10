@@ -138,7 +138,10 @@
             </div>
 
             <div class="input-box">
-                    <input id="name" type="text" name="name" :value="old('name')" placeholder="Full Name" title="Please Enter Full Name including Middle Initial" required autofocus />
+                <input id="firstName" type="text" name="firstName" placeholder="First Name" title="Please Enter your First Name." required autofocus />
+            </div>
+            <div class="input-box">
+                <input id="lastName" type="text" name="lastName" placeholder="Last Name" title="Please Enter your Last Name." required autofocus />
             </div>
             <div class="input-box">
                 <input id="email" type="email" name="email" :value="old('email')" placeholder="Email Address" required />

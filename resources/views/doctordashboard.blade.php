@@ -184,8 +184,14 @@
 </div>
 <img src="./img/logo.png" width="180" height="180" class="logo">
 <div class="container">
+
     <br><br>
 
+    @if(Session::has('success'))
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+    @endif
     <h2>Hello, Dr. <b>{{ Auth::user()->name }}</b>! What's your agenda for today?</h2>
 
     <br>
@@ -200,7 +206,7 @@
 
         <section class="container">
             <div class="center">
-                <a href="">
+                <a href="prescription">
                     <input type="image" src="./img/eprescription_img.png" height="180" width="180"/>
                 </a>
                 <p><b>E-Prescription</b></p>

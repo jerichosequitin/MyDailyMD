@@ -23,14 +23,14 @@ class PaymentController extends Controller
     /**
      * Call a view.
      */
-    public function index()
+    public function patient()
     {
-        return view('payment');
+        return view('patientsubscription');
     }
 
-    public function index1()
+    public function doctor()
     {
-        return view('subscriptionbillingdoctor');
+        return view('doctorsubscription');
     }
 
 

@@ -150,6 +150,11 @@
 
     <br><br>
 
+    @if(Session::has('success'))
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+    @endif
     <h2>Hello, <b>{{ Auth::user()->name }}</b>! What's your agenda for today?</h2>
 
     <br>

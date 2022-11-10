@@ -33,8 +33,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/prescription','App\Http\Controllers\PrescriptionController@index')->name('prescription.show');
-
 Route::get('aboutus', function (){
     return view('aboutus');
 });
@@ -51,14 +49,6 @@ Route::get('termsandconditions', function (){
     return view('termsandconditions');
 });
 
-Route::get('subscriptionbillingpatient', function (){
-    return view('subscriptionbillingpatient');
-});
-
-Route::get('subscriptionbillingdoctor', function (){
-    return view('subscriptionbillingdoctor');
-});
-
 Route::get('userregistration', function (){
     return view('userregistration');
 });
@@ -67,81 +57,30 @@ Route::get('privacypolicy', function (){
     return view('privacypolicy');
 });
 
-Route::get('pendingapproval', function (){
-    return view('pendingapproval');
-});
-
-Route::get('patientsubscriptionbillingsuccess', function (){
-    return view('patientsubscriptionbillingsuccess');
-});
-
-Route::get('patientprofile', function (){
-    return view('patientprofile');
-});
-
-Route::get('newpasswordpt2', function (){
-    return view('newpasswordpt2');
-});
-
-Route::get('newpasswordpt1', function (){
-    return view('newpasswordpt1');
-});
-
-Route::get('mainsignuppage', function (){
-    return view('mainsignuppage');
-});
-
-Route::get('mainpatientdashboard', function (){
-    return view('mainpatientdashboard');
-});
-
-Route::get('maindoctordashboard', function (){
-    return view('maindoctordashboard');
-});
-
-Route::get('forgotpassword', function (){
-    return view('forgotpassword');
-});
-
-Route::get('editpatientprofile', function (){
-    return view('editpatientprofile');
-});
-
-Route::get('doctorsubscriptionbillingsuccess', function (){
-    return view('doctorsubscriptionbillingsuccess');
-});
-
-Route::get('codeverification', function (){
-    return view('codeverification');
-});
-
 Route::get('email', function (){
     return view('email');
 });
 
-Route::get('patientlistofdoctor', function (){
-    return view('patientlistofdoctor');
-});
-//subscription
-Route::get('payment', 'App\Http\Controllers\PaymentController@index');
-Route::get('subscriptionbillingdoctor','App\Http\Controllers\PaymentController@index1');
 Route::post('charge', 'App\Http\Controllers\PaymentController@charge');
 Route::get('success', 'App\Http\Controllers\PaymentController@success');
 Route::get('error', 'App\Http\Controllers\PaymentController@error');
 
-//patient list of doctor
-Route::get('/patientlistofdoctor','App\Http\Controllers\AppointmentController@index')->name('patientlistofdoctor');
-
-//patient my appointment
-
-//Route::post('/patientbookappointment/{doctorProfile}/save', 'App\Http\Controllers\AppointmentController@save')->name('patientappointment.save');
-Route::get('/patientbookappointment/{doctorProfile}/book', 'App\Http\Controllers\AppointmentController@book')->name('patientappointment.book');
 
 //Auth route for Register & Login
 Route::group(['middleware' => ['auth', 'verified']], function () {
 
-    //Complete Profile First then Verify Doctor Profile
-    Route::group(['middleware' => ['profile']], function () {
+    //Subscription can only be visited when not subscribed
+    Route::group(['middleware' => ['subscribeonce']], function () {
+        Route::group(['middleware' => ['patientaccess']], function () {
+            Route::get('patientsubscription', 'App\Http\Controllers\PaymentController@patient')->name('patient.subscription');
+        });
+        Route::group(['middleware' => ['doctoraccess']], function () {
+            Route::get('doctorsubscription', 'App\Http\Controllers\PaymentController@doctor')->name('doctor.subscription');
+        });
+    });
+
+    //Subscribe first then Complete Profile
+    Route::group(['middleware' => ['subscribed','profile']], function () {
 
         //DASHBOARD
         Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name
@@ -152,7 +91,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::get('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@index')->name('patientprofile.show');
             Route::get('/patientprofile/{user}/edit', 'App\Http\Controllers\PatientProfileController@edit')->name('patientprofile.edit');
 
-                //Health Records
+            //Health Records
             Route::resource('patientmedicalhistory', MedicalHistoryController::class);
             Route::get('/patientmedicalhistory/{medicalHistory}/view', 'App\Http\Controllers\MedicalHistoryController@view')->name('patientmedicalhistory.view');
             Route::patch('/patientmedicalhistory/{medicalHistory}/archive', 'App\Http\Controllers\MedicalHistoryController@archive')->name('patientmedicalhistory.archive');
@@ -162,7 +101,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::resource('patientimmunization', ImmunizationController::class);
             Route::get('/patientimmunization/{immunization}/view', 'App\Http\Controllers\ImmunizationController@view')->name('patientimmunization.view');
             Route::patch('/patientimmunization/{immunization}/archive', 'App\Http\Controllers\ImmunizationController@archive')->name('patientimmunization.archive');
-
 
             //Appointment
             Route::get('/patientappointment/list', 'App\Http\Controllers\PatientAppointmentController@index')->name('patientappointment.show');
@@ -181,6 +119,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::group(['middleware' => ['doctoraccess']], function () {
             Route::group(['middleware' => ['doctorpendingmax']], function () {
                 //DOCTOR
+                Route::get('/prescription', 'App\Http\Controllers\PrescriptionController@index')->name('prescription.show');
+
                 Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');
                 Route::get('/doctorprofile/{user}/edit', 'App\Http\Controllers\DoctorProfileController@edit')->name('doctorprofile.edit');
 
@@ -189,7 +129,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
                 Route::get('/doctormanagehealthrecords/profile/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@profile')->name('managehealthrecords.profile');
                 Route::get('/doctormanagehealthrecords/medicalhistory/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@medicalHistory')->name('managehealthrecords.medicalhistory');
 
-                    //Medication
+                //Medication
                 Route::get('/doctormanagehealthrecords/medication/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@medication')->name('managehealthrecords.medication');
                 Route::get('/doctormanagehealthrecords/medication/{patientProfile}/create', 'App\Http\Controllers\DoctorManageHealthRecordsController@medicationCreate')->name('managehealthrecords.medication_create');
                 Route::post('/doctormanagehealthrecords/medication', 'App\Http\Controllers\DoctorManageHealthRecordsController@medicationStore')->name('managehealthrecords.medication_store');
@@ -198,7 +138,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
                 Route::patch('/doctormanagehealthrecords/medication/{medication}', 'App\Http\Controllers\DoctorManageHealthRecordsController@medicationUpdate')->name('managehealthrecords.medication_update');
                 Route::patch('/doctormanagehealthrecords/medication/{medication}/archive', 'App\Http\Controllers\DoctorManageHealthRecordsController@medicationArchive')->name('managehealthrecords.medication_archive');
 
-                    //Allergy
+                //Allergy
                 Route::get('/doctormanagehealthrecords/allergy/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@allergy')->name('managehealthrecords.allergy');
                 Route::get('/doctormanagehealthrecords/allergy/{patientProfile}/create', 'App\Http\Controllers\DoctorManageHealthRecordsController@allergyCreate')->name('managehealthrecords.allergy_create');
                 Route::post('/doctormanagehealthrecords/allergy', 'App\Http\Controllers\DoctorManageHealthRecordsController@allergyStore')->name('managehealthrecords.allergy_store');
@@ -207,7 +147,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
                 Route::patch('/doctormanagehealthrecords/allergy/{allergy}', 'App\Http\Controllers\DoctorManageHealthRecordsController@allergyUpdate')->name('managehealthrecords.allergy_update');
                 Route::patch('/doctormanagehealthrecords/allergy/{allergy}/archive', 'App\Http\Controllers\DoctorManageHealthRecordsController@allergyArchive')->name('managehealthrecords.allergy_archive');
 
-                    //Progress Notes
+                //Progress Notes
                 Route::get('/doctormanagehealthrecords/progressnote/{patientProfile}', 'App\Http\Controllers\DoctorManageHealthRecordsController@progressNote')->name('managehealthrecords.progressnote');
                 Route::get('/doctormanagehealthrecords/progressnote/{patientProfile}/create', 'App\Http\Controllers\DoctorManageHealthRecordsController@progressNoteCreate')->name('managehealthrecords.progressnote_create');
                 Route::post('/doctormanagehealthrecords/progressnote', 'App\Http\Controllers\DoctorManageHealthRecordsController@progressNoteStore')->name('managehealthrecords.progressnote_store');

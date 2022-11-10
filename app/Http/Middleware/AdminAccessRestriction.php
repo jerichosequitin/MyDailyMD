@@ -19,7 +19,7 @@ class AdminAccessRestriction
     {
         if($request->user()->type != 'admin')
         {
-            return redirect()->route('dashboard');
+            return redirect()->back();
         }
         return $next($request);
     }

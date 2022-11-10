@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Doctor Subscription Success</title>
+    <title>MyDailyMD - Subscription Billing (Doctor)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="navbar.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Internal CSS -->
     <style>
@@ -32,7 +31,7 @@
         }
         h1{
             text-align:center;
-            font-size:large;
+            font-size:x-large;
         }
         h2{
             font-size:medium;
@@ -43,7 +42,7 @@
             text-align:center;
         }
         body{
-            background-image: linear-gradient(to right, white, rgb(180, 230, 255));
+            background-image: linear-gradient(to left, white, rgb(180, 230, 255));
             margin:0;
             padding:0;
             text-align: center;
@@ -71,9 +70,8 @@
             display: inline-block;
             font-size: 16px;
         }
-
         /* Style inputs with type="text", select elements and textareas */
-        input[type=text], select, textarea {
+        input[type=amount], select, textarea {
             width: 100%; /* Full width */
             padding: 12px; /* Some padding */
             border: 1px solid #ccc; /* Gray border */
@@ -103,8 +101,8 @@
         .container {
             border-radius: 15px;
             padding: 20px;
-            width: 30%;
-            height: 20%;
+            width: 20%;
+            height: 30%;
             background-color:#DEF1FD;
             border:1px solid black;
         }
@@ -123,29 +121,49 @@
             position: relative;
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
             overflow: hidden;
-            text-align: left;
+            text-align: right;
         }
     </style>
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <a href="subscriptionbillingdoctor"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <a :href="route('logout')"
+           onclick="event.preventDefault();
+                     this.closest('form').submit();">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            {{ __('Log Out') }}
+        </a>
+    </form>
 </div>
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
-
 <div class="container">
-    <h1>You have successfully paid for your subscription! <i style="color:#028adf;"> We, the MyDailyMD family welcomes you to our community!</i></h1>
-
+    <div class="card-body">
+        @if(Session::has('success'))
+            <div class="alert alert-success">
+                {{ Session::get('success') }}
+            </div>
+        @endif
+    <h1><b>Doctor Plan</b></h1>
     <br>
+    <form action="{{ url('charge') }}" method="post">
+        <h2>Amount to Pay: Php <b>1,500.00</b></h2>
+        <br>
+        <input type="text" name="amount" value="1500.00" readonly required/>
+        <br>
+        <br>
+        {{ csrf_field() }}
+        <br>
+        <input type="submit" name="submit" value="Pay Now">
 
-    <h2> Kindly sign in using your valid email and password.
+    </form>
 
-        <br><br>
 
-        <a href="/">
-            <button class="btn btn-primary" name="signInBtn" class="signInBtn">Sign In</button>
-        </a>
+</div>
 </div>
 </body>
+
+
 </html>

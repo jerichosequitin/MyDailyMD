@@ -31,6 +31,7 @@ class PatientAppointmentController extends Controller
             ->where('appointments.status', '=', 'Accepted')
 
             ->select('*', 'users.id as doctor_user_id')
+            ->orderBy("date", "ASC")
             ->orderBy("start", "ASC")
 
             ->simplePaginate(4);

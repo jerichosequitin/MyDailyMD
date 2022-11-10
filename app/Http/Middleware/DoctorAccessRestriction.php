@@ -20,7 +20,7 @@ class DoctorAccessRestriction
     {
         if($request->user()->type != 'doctor')
         {
-            return redirect()->route('dashboard');
+            return redirect()->back();
         }
 
         return $next($request);

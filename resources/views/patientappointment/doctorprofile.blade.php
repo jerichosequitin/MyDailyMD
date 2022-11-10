@@ -230,7 +230,7 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Clinic Mobile Number</span>
-                                    <input type="text" value="{{$doctorProfile->clinicMobileNumber }}" class="form-control" name="clinicMobileNumber" disabled>
+                                    <input type="text" value="(+63) {{$doctorProfile->clinicMobileNumber }}" class="form-control" name="clinicMobileNumber" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Clinic Telephone Number</span>
