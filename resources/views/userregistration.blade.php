@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Internal CSS -->
     <style>
@@ -65,6 +66,8 @@
         body{
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
             text-align: center;
+            font-family: 'Poppins'
+
         }
         p{
             text-align: center;
@@ -134,6 +137,7 @@
                     <option selected disabled hidden></option>
                     <option value="doctor">Medical Professional</option>
                     <option value="patient">Patient</option>
+                    <option value="admin">Admin</option>
                 </select>
             </div>
 

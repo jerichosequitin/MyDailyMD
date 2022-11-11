@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="navbar.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -46,6 +47,8 @@
             background-position-y: top;
             background-position-x: right;
             background-repeat:round;
+            font-family: 'Poppins'
+
         }
         p{
             text-align: center;
@@ -90,7 +93,7 @@
     <a href="/">Home</a>
     <a href="aboutus">About Us</a>
     <a href="subscriptionplan" class="active">Subscription</a>
-    <a href="email">Contact Us</a>
+    <a href="contact-us">Contact Us</a>
 </div>
 <br>
 <div class="container">

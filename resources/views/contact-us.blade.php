@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MyDailyMD - Contact Us</title>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
 </head>
@@ -40,6 +41,8 @@
         background-position-y: top;
         background-position-x: right;
         background-repeat:round;
+        font-family: 'Poppins'
+
     }
     p{
         text-align: justify;
@@ -114,7 +117,7 @@
                     <div class="card card-user">
                         <div class="card-header" style="background-color:royalblue">
                             <h5 class="card-title" style="color:white"><b>How can we help you?</b></h5>
-                            <h2 class="card-body" style="color: white; text-align: justify">Fill out the form, and we will be in touch as soon as possible!</h2>
+                            <h2 class="card-body" style="color: white; text-align: center">Fill out the form, and we will be in touch as soon as possible!</h2>
                         </div>
                         <div class="card-body">
                             @if(Session::has('success'))
@@ -186,6 +189,7 @@
                                     <div class="update ml-auto mr-auto">
                                         <button type="submit" class="btn btn-primary btn-round">Send</button>
                                     </div>
+                                </div>
 </center>
 </div>
 </form>
