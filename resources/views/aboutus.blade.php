@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="./styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="navbar.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Internal CSS -->
@@ -42,10 +44,13 @@
             background-position-x: right;
             background-repeat:round;
             text-align: center;
+            font-family: 'Poppins'
+
         }
         p{
-            text-align: center;
+            text-align: justify;
             font-size: medium;
+            max-width: 600px;
 
         }
         .button1{
@@ -76,32 +81,30 @@
     </style>
 </head>
 <body>
-<div class="topnav">
+<img src="./img/logo.png" width="180" height="180" class="logo">
+<div class="topnav" id="myTopNav">
     <a href="/">Home</a>
     <a href="aboutus" class="active">About Us</a>
     <a href="subscriptionplan">Subscription</a>
-    <a href="contactus">Contact Us</a>
+    <a href="contact-us">Contact Us</a>
 </div>
-<img src="./img/logo.png" width="180" height="180" class="logo">
+<br>
 <div class="container">
     <br>
 
-    <h1>What you need to know about <i style="color: #028adf">MyDailyMD!</i></h1>
+    <h1>What you need to know about <i style="color: #028adf"><b>MyDailyMD!</b></i></h1>
 
     <br>
-
+<center>
     <p>MyDailyMD is a web-based application made by three students from De La Salle-College of Saint Benilde (DLS-CSB) that focuses on catering the needs of Medical Professionals when it comes to organizing their Health Records.
         As we are slowly embracing the world of technology, the need to protect and provide the needs of Medical Professionals must be prioritized.
         And from that, MyDailyMD was made with love. MyDailyMD offers different features such as: Create, Retrieve, Update and Delete of Health Records, SMS Appointment Reminders, Doctor Dashboard, and Patient Dashboard. </p>
-
+</center>
     <br>
 
-    <h3>What are you waiting for? <i style="color: #028adf">Join the growing family of MyDailyMD!</i></h3>
+    <h3>What are you waiting for? <br><br> <i style="color: #028adf"><a href="mainsignuppage"><b>Join the growing family of MyDailyMD now!</b></a></i></h3>
 
     <br>
 </div>
-<a href="mainsignuppage">
-    <button class="btn btn-primary" name="signUp" class="signUpBtn">Sign Up</button>
-</a>
 </body>
 </html>

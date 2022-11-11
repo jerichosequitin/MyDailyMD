@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
 </head>
 <!-- Internal CSS -->
@@ -41,6 +42,8 @@
         background-position-y: top;
         background-position-x: right;
         background-repeat:round;
+        font-family: 'Poppins'
+
     }
     p{
         text-align: justify;
