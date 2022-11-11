@@ -80,7 +80,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
 
     //Subscribe first then Complete Profile
-    Route::group(['middleware' => ['subscribed','profile']], function () {
+    Route::group(['middleware' => ['profile','subscribed']], function () {
 
         //DASHBOARD
         Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name

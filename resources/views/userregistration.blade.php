@@ -137,7 +137,6 @@
                     <option selected disabled hidden></option>
                     <option value="doctor">Medical Professional</option>
                     <option value="patient">Patient</option>
-                    <option value="admin">Admin</option>
                 </select>
             </div>
 

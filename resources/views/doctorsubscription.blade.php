@@ -154,9 +154,7 @@
     <form action="{{ url('charge') }}" method="post">
         <h2>Amount to Pay: Php <b>1,500.00</b></h2>
         <br>
-        <input type="text" name="amount" value="1500.00" readonly required/>
-        <br>
-        <br>
+        <input type="text" name="amount" value="1500.00" readonly required hidden/>
         {{ csrf_field() }}
         <br>
         <input type="submit" name="submit" value="Pay Now">
