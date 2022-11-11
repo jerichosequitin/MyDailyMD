@@ -107,7 +107,14 @@ class DoctorProfileController extends Controller
                     'contactNumber.starts_with' => 'Contact Number must be the last 10 digits when following the format (+63) 9XXXXXXXXX.',
                     'clinicMobileNumber.starts_with' => 'Contact Number must be the last 10 digits when following the format (+63) 9XXXXXXXXX.'
                 ]);
-            $user->doctor_profile()->update($data);
+
+            $user->doctor_profile->contactNumber = request()->contactNumber;
+            $user->doctor_profile->workingHoursStart = request()->workingHoursStart;
+            $user->doctor_profile->workingHoursEnd = request()->workingHoursEnd;
+            $user->doctor_profile->clinicMobileNumber = request()->clinicMobileNumber;
+            $user->doctor_profile->clinicTelephoneNumber = request()->clinicTelephoneNumber;
+            //$user->doctor_profile()->update($data);
+            $user->doctor_profile->save();
         }
 
         return redirect("/doctorprofile/{$user->id}");
