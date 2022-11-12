@@ -78,10 +78,11 @@
     <a href="/" class="active">Home</a>
     <a href="aboutus">About Us</a>
     <a href="subscriptionplan">Subscription</a>
-    <a href="contactus">Contact Us</a>
+    <a href="contact-us">Contact Us</a>
 </div>
 <div class="container">
     <img src="./img/logo.png" width="180" height="180" class="logo">
+
     <div style="width: 100%">
         <!-- LEFT SIDE OF SCREEN -->
         <div style="width: 60%; height: 100%; float: left;">

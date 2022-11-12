@@ -4,8 +4,10 @@
     <title>MyDailyMD - Verify Email</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="navbar.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Internal CSS -->
@@ -65,9 +67,9 @@
         }
         h2{
             color:black;
-            font-family:helvetica;
+            font-family:Poppins;
             font-size:20px;
-            text-align:center
+            text-align:center;
         }
         i{
             color:black;
@@ -79,11 +81,15 @@
         *       {
             box-sizing: border-box;
         }
-        body {
-            font-size: 1.25rem;
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 150%;
+        body{
+            background-color:#EAFAFF;
+            background-size:contain;
+            background-position-y: top;
+            background-position-x: right;
+            background-repeat:round;
             text-align: center;
+            font-family: 'Poppins'
+
         }
         section {
             color: black;
@@ -98,8 +104,8 @@
             width: 100%;
         }
         .topnav {
-            text-align: right;
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
+            text-align: right;
         }
         .dropdown-content {
             height: 80%;
@@ -107,27 +113,29 @@
     </style>
 </head>
 <body>
-<div class="topnav" id="myTopnav">
-    <div class="dropdown">
-        <button class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i></button>
-        <div class="dropdown-content">
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
+{{--<div class="topnav" id="myTopnav">--}}
+{{--    <div class="dropdown">--}}
+{{--        <button class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i></button>--}}
+{{--        <div class="dropdown-content">--}}
+{{--            <form method="POST" action="{{ route('logout') }}">--}}
+{{--                @csrf--}}
 
-                <a :href="route('logout')"
-                   onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    {{ __('Log Out') }}
-                </a>
-            </form>
-        </div>
-    </div>
-</div>
+{{--                <a :href="route('logout')"--}}
+{{--                   onclick="event.preventDefault();--}}
+{{--                                        this.closest('form').submit();">--}}
+{{--                    <i class="fa fa-sign-out" aria-hidden="true"></i>--}}
+{{--                    {{ __('Log Out') }}--}}
+{{--                </a>--}}
+{{--            </form>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 <img src="./img/logo.png" width="180" height="180" class="logo">
+<br>
 <div class="container">
     <br><br>
-
+    <h2><b><i>Time to verify your email!</i></b></h2>
+    <br>
     <h2>Hello, <b>{{Auth::user()->name}}</b>! Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.</h2>
 
     <br>

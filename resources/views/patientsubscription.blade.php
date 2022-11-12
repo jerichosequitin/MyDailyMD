@@ -121,25 +121,23 @@
             position:relative;
         }
         .topnav {
-            position: relative;
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
-            overflow: hidden;
             text-align: right;
         }
     </style>
 </head>
 <body>
-<div class="topnav" id="myTopnav">
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <a :href="route('logout')"
-           onclick="event.preventDefault();
-                     this.closest('form').submit();">
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
-            {{ __('Log Out') }}
-        </a>
-    </form>
-</div>
+{{--<div class="topnav" id="myTopnav">--}}
+{{--    <form method="POST" action="{{ route('logout') }}">--}}
+{{--        @csrf--}}
+{{--        <a :href="route('logout')"--}}
+{{--           onclick="event.preventDefault();--}}
+{{--                     this.closest('form').submit();">--}}
+{{--            <i class="fa fa-sign-out" aria-hidden="true"></i>--}}
+{{--            {{ __('Log Out') }}--}}
+{{--        </a>--}}
+{{--    </form>--}}
+{{--</div>--}}
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
 <div class="container">
@@ -159,7 +157,6 @@
         {{ csrf_field() }}
         <br>
         <input type="submit" name="submit" value="Pay Now">
-
     </form>
 
 

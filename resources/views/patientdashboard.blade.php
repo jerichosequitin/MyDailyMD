@@ -4,11 +4,13 @@
     <title>MyDailyMD - Patient Dashboard</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Internal CSS -->
     <style>
         a{
@@ -58,14 +60,14 @@
         }
         h1{
             color:black;
-            font-family:helvetica;
+            font-family:Poppins;
             font-size:35px;
             text-align:center;
             right:8;
         }
         h2{
             color:black;
-            font-family:helvetica;
+            font-family:Poppins;
             font-size:20px;
             text-align:center
         }
@@ -81,7 +83,7 @@
         }
         body {
             font-size: 1.25rem;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Poppins';
             line-height: 150%;
             text-align: center;
         }
@@ -115,7 +117,7 @@
             padding: 20px;
             height: 35%;
             background-color:white;
-            border:3px solid black;
+
         }
         .right-half {
             position: absolute;
@@ -125,7 +127,7 @@
             padding: 20px;
             height: 35%;
             background-color:white;
-            border:3px solid black;
+
         }
         .topnav {
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
@@ -162,20 +164,22 @@
 
     <br>
 
-    <section class="container">
+
         <div class="left-half">
             <a href="patientprofile/{{Auth::user()->id}}">
-                <input type="image" src="./img/myprofile_img.png" height="180" width="180"/>
+                <input type="image" src="./img/avatar.png" height="180" width="180"/>
             </a>
             <p><b>My Profile</b></p>
         </div>
-        <section class="container">
+
             <div class="right-half">
                 <a href="patientappointment/list">
-                    <input type="image" src="./img/myappoinmtent_img.png" height="180" width="180"/>
+                    <input type="image" src="./img/appointment.png" height="180" width="180"/>
                 </a>
                 <p><b>My Appointment</b></p>
             </div>
-        </section>
+
+</div>
 </body>
+
 </html>

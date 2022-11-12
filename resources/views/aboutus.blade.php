@@ -81,13 +81,14 @@
     </style>
 </head>
 <body>
-<img src="./img/logo.png" width="180" height="180" class="logo">
 <div class="topnav" id="myTopNav">
     <a href="/">Home</a>
     <a href="aboutus" class="active">About Us</a>
     <a href="subscriptionplan">Subscription</a>
     <a href="contact-us">Contact Us</a>
 </div>
+<img src="./img/logo.png" width="180" height="180" class="logo">
+
 <br>
 <div class="container">
     <br>

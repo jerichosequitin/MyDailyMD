@@ -4,9 +4,10 @@
     <title>MyDailyMD - Patient Allergy</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Internal CSS -->
     <style>
@@ -69,15 +70,16 @@
         h3{
             font-size:20px;
             text-align:center;
-            color:#EFFCFF;
+            color:black;
         }
-        body{
-            background-color:#EAFAFF;
-            background-size:contain;
+        body {
+            background-color: white;
+            background-size: contain;
             background-position-y: top;
             background-position-x: right;
-            background-repeat:round;
+            background-repeat: round;
             text-align: center;
+            font-family: 'Poppins'
         }
         p{
             text-align: center;
@@ -91,7 +93,7 @@
             z-index: 1;
             top: 0;
             left: 0;
-            background-color: #0184DF;
+            background-color: #DEF1FD;
             overflow-x: hidden;
             padding-top: 20px;
         }
@@ -100,13 +102,14 @@
             padding: 6px 8px 6px 16px;
             text-decoration: none;
             font-size: 20px;
-            color: #EFFCFF;
+            color: #0184DF;
             display: block;
         }
 
         .sidenav a:hover {
-            color: #f1f1f1;
+            color: #359DD9;
         }
+
         .main {
             margin-left: 250px; /* Same as the width of the sidenav */
             font-size: 14px; /* Increased text to enable scrolling */
@@ -162,13 +165,14 @@
     <br>
     <div class="sidenav">
         <div class="left-half">
-            <h3>
-                <b>{{$patientProfile->user->name}}</b>
-            </h3>
-
+            <input type="image" src="/img/logo.png" height="140" width="150"/>
             <br>
 
-            <image src="/img/patient2.png" height="120" width="150"/>
+            <h3>
+                <b>
+                    {{$patientProfile->user->name}}
+                </b>
+            </h3>
         </div>
 
         <br>
@@ -185,7 +189,7 @@
         <br>
         <a href="{{ url('doctormanagehealthrecords/immunization/'.$patientProfile->id) }}">Immunization</a>
         <br><br>
-        <a href="{{ url('doctormanagehealthrecords') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
+        <a href="{{ url('doctormanagehealthrecords') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Main Dashboard</a>
     </div>
 
     <div class="main">
