@@ -120,6 +120,7 @@
             <th>Full Name</th>
             <th>Email</th>
             <th>Created At</th>
+            <th>Specialization</th>
             <th>License Type</th>
             <th>PRC Number</th>
             <th>License Expiry Date</th>
@@ -132,10 +133,11 @@
                 <td>{{ $data->id }}</td>
                 <td>{{ Crypt::decryptString($data->name) }}</td>
                 <td>{{ $data->email }}</td>
-                <td>{{ $data->created_at }}</td>
+                <td>{{ date('F j, Y', strtotime($data->created_at)) }}</td>
+                <td>{{ $data->specialization }}</td>
                 <td>{{ $data->licenseType }}</td>
                 <td>{{ Crypt::decryptString($data->prcNumber) }}</td>
-                <td>{{ $data->licenseExpiryDate }}</td>
+                <td>{{ date('F j, Y', strtotime($data->licenseExpiryDate)) }}</td>
                 <td><img src="{{ Crypt::decryptString($data->prcImage) }}" width="100" height="50"></td>
                 <td>{{ $data->isVerified }}</td>
                 <td>

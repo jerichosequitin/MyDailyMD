@@ -152,7 +152,7 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Date of Birth</span>
-                            <input type="date" value="{{$user->doctor_profile->birthdate }}" class="form-control" name="birthdate" disabled>
+                            <input type="text" value="{{ date('F j, Y', strtotime(Auth::user()->doctor_profile->birthdate)) }}" class="form-control" name="birthdate" disabled>
                         </div>
                         <div class="input-box">
                             <span class="details">Sex</span>
