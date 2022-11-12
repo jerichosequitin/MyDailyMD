@@ -14,6 +14,7 @@ class AdminDoctorListController extends Controller
     {
         $doc = DB::table('users')
                         ->join('doctor_profiles', 'users.id', '=', 'doctor_profiles.user_id')
+                        ->where('doctor_profiles.birthdate', '!=', '')
                         ->where('type', '=', 'doctor')
                         ->orderBy('doctor_profiles.isVerified', 'ASC')
                         ->simplePaginate(3);
