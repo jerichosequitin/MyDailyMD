@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Doctor Dashboard</title>
+    <title>MyDailyMD - Verify License</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Internal CSS -->
     <style>
@@ -61,20 +62,20 @@
         }
         h1{
             color:black;
-            font-family:helvetica;
+            font-family:Poppins;
             font-size:35px;
             text-align:center;
             right:8;
         }
         h2{
             color:black;
-            font-family:helvetica;
+            font-family:Poppins;
             font-size:20px;
             text-align:center
         }
         i{
             color:black;
-            font-family:helvetica;
+            font-family:Poppins;
             font-size:15px;
             text-align:justify
         }
@@ -82,11 +83,16 @@
         *       {
             box-sizing: border-box;
         }
+
         body {
-            font-size: 1.25rem;
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 150%;
+            background-color: #EAFAFF;
+            background-size: contain;
+            background-position-y: top;
+            background-position-x: right;
+            background-repeat: round;
             text-align: center;
+            font-family: 'Poppins'
+        }
         }
         section {
             color: black;

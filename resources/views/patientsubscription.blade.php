@@ -121,45 +121,39 @@
             position:relative;
         }
         .topnav {
-            position: relative;
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
-            overflow: hidden;
             text-align: right;
         }
     </style>
 </head>
 <body>
-<div class="topnav" id="myTopnav">
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <a :href="route('logout')"
-           onclick="event.preventDefault();
-                     this.closest('form').submit();">
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
-            {{ __('Log Out') }}
-        </a>
-    </form>
-</div>
+{{--<div class="topnav" id="myTopnav">--}}
+{{--    <form method="POST" action="{{ route('logout') }}">--}}
+{{--        @csrf--}}
+{{--        <a :href="route('logout')"--}}
+{{--           onclick="event.preventDefault();--}}
+{{--                     this.closest('form').submit();">--}}
+{{--            <i class="fa fa-sign-out" aria-hidden="true"></i>--}}
+{{--            {{ __('Log Out') }}--}}
+{{--        </a>--}}
+{{--    </form>--}}
+{{--</div>--}}
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
+<h3>Gain access to features such as Health Records, Appointments, and SMS Reminders.</h3>
+<br>
 <div class="container">
     <div class="card-body">
-        @if(Session::has('success'))
-            <div class="alert alert-success">
-                {{ Session::get('success') }}
-            </div>
-        @endif
 
     <h1><b>Patient Plan</b></h1>
     <br>
     <form action="{{ url('charge') }}" method="post">
-        <h2>Amount to Pay: Php <b>750.00</b></h2>
+        <h2>Amount to Pay: Php <b>750.00</b> (One-Time)</h2>
         <br>
         <input type="text" name="amount" value="750.00" readonly required hidden/>
         {{ csrf_field() }}
         <br>
         <input type="submit" name="submit" value="Pay Now">
-
     </form>
 
 

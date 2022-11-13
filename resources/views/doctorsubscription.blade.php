@@ -43,9 +43,7 @@
             text-align:center;
         }
         body{
-            background-image: linear-gradient(to left, white, rgb(180, 230, 255));
-            margin:0;
-            padding:0;
+            background-image: linear-gradient(to right, white, rgb(180, 230, 255));
             text-align: center;
             font-family: 'Poppins'
 
@@ -129,26 +127,22 @@
     </style>
 </head>
 <body>
-<div class="topnav" id="myTopnav">
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <a :href="route('logout')"
-           onclick="event.preventDefault();
-                     this.closest('form').submit();">
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
-            {{ __('Log Out') }}
-        </a>
-    </form>
-</div>
+{{--<div class="topnav" id="myTopnav">--}}
+{{--    <form method="POST" action="{{ route('logout') }}">--}}
+{{--        @csrf--}}
+{{--        <a :href="route('logout')"--}}
+{{--           onclick="event.preventDefault();--}}
+{{--                     this.closest('form').submit();">--}}
+{{--            <i class="fa fa-sign-out" aria-hidden="true"></i>--}}
+{{--            {{ __('Log Out') }}--}}
+{{--        </a>--}}
+{{--    </form>--}}
+{{--</div>--}}
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
+<h3>Gain access to features such as Health Records, E-Prescription,Appointments, and SMS Reminders.</h3>
 <div class="container">
     <div class="card-body">
-        @if(Session::has('success'))
-            <div class="alert alert-success">
-                {{ Session::get('success') }}
-            </div>
-        @endif
     <h1><b>Doctor Plan</b></h1>
     <br>
     <form action="{{ url('charge') }}" method="post">

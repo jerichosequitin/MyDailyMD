@@ -76,14 +76,14 @@
         }
         h1{
             color:black;
-            font-family:helvetica;
+            font-family:Poppins;
             font-size:35px;
             text-align:center;
             right:8;
         }
         h2{
             color:black;
-            font-family:helvetica;
+            font-family:Poppins;
             font-size:20px;
             text-align:center
         }
@@ -109,10 +109,12 @@
             box-sizing: border-box;
         }
         body {
-            font-size: 1.25rem;
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 150%;
+            background-image: linear-gradient(to right, white, rgb(180, 230, 255));
+            margin:0;
+            padding:0;
             text-align: center;
+            font-family: 'Poppins'
+
         }
         section {
             color: black;
@@ -134,7 +136,7 @@
             padding: 20px;
             height: 35%;
             background-color:white;
-            border:3px solid black;
+
         }
         .center {
             position: absolute;
@@ -144,7 +146,7 @@
             padding: 20px;
             height: 35%;
             background-color:white;
-            border:3px solid black;
+
         }
         .right {
             position: absolute;
@@ -154,7 +156,7 @@
             padding: 20px;
             height: 35%;
             background-color:white;
-            border:3px solid black;
+
         }
         .p{
             text-align: center;
@@ -198,30 +200,30 @@
 
     <br>
 
-    <section class="container">
+
         <div class="left">
             <a href="doctormanagehealthrecords">
-                <input type="image" src="./img/myprofile_img.png" height="180" width="180"/>
+                <input type="image" src="./img/avatar.png" height="180" width="180"/>
             </a>
             <p><b>Health Records</b></p>
         </div>
 
-        <section class="container">
+
             <div class="center">
                 <a href="prescription">
-                    <input type="image" src="./img/eprescription_img.png" height="180" width="180"/>
+                    <input type="image" src="./img/medical-prescription.png" height="180" width="180"/>
                 </a>
                 <p><b>E-Prescription</b></p>
             </div>
-        </section>
 
-        <section class="container">
+
+
             <div class="right">
                 <a href="doctorappointment/list">
-                    <input type="image" src="./img/myappoinmtent_img.png" height="180" width="180"/>
+                    <input type="image" src="./img/appointment.png" height="180" width="180"/>
                 </a>
                 <p><b>Appointments</b></p>
             </div>
-        </section>
+</div>
 </body>
 </html>

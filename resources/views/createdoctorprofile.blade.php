@@ -87,10 +87,13 @@
         }
         body{
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
+            margin:0;
+            padding:0;
             text-align: center;
             font-family: 'Poppins'
-
         }
+
+
         p{
             text-align: center;
             font-size: medium;

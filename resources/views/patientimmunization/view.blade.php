@@ -4,23 +4,30 @@
     <title>MyDailyMD - View Immunization</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Internal CSS -->
     <style>
         a{
             text-decoration: none;
+
         }
         a.back{
             text-align: left;
             display: block;
         }
+        .container-fluid{
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            background-color: white;
+        }
         .content form .user-details{
-            display:inline;
+            display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-between;
             margin: 20px 0 12px 0;
         }
         form .user-details .input-box{
@@ -65,16 +72,17 @@
         h3{
             font-size:20px;
             text-align:center;
-            color:#EFFCFF;
+            color:black;
         }
 
-        body{
-            background-color:#EAFAFF;
-            background-size:contain;
+        body {
+            background-color: white;
+            background-size: contain;
             background-position-y: top;
             background-position-x: right;
-            background-repeat:round;
+            background-repeat: round;
             text-align: center;
+            font-family: 'Poppins'
         }
         p{
             text-align: center;
@@ -88,7 +96,7 @@
             z-index: 1;
             top: 0;
             left: 0;
-            background-color: #0184DF;
+            background-color: #DEF1FD;
             overflow-x: hidden;
             padding-top: 20px;
         }
@@ -97,13 +105,14 @@
             padding: 6px 8px 6px 16px;
             text-decoration: none;
             font-size: 20px;
-            color: #EFFCFF;
+            color: #0184DF;
             display: block;
         }
 
         .sidenav a:hover {
-            color: #f1f1f1;
+            color: #359DD9;
         }
+
         .main {
             margin-left: 250px; /* Same as the width of the sidenav */
             font-size: 14px; /* Increased text to enable scrolling */
@@ -114,6 +123,8 @@
             .sidenav {padding-top: 15px;}
             .sidenav a {font-size: 18px;}
         }
+
+
 
         /* Style inputs with type="text", select elements and textareas */
         input[type=text], select, textarea {
@@ -146,11 +157,22 @@
         .container {
             border-radius: 15px;
             padding: 20px;
-            width: 50%;
-            height: 15%;
+            width: 100%;
+            height: 50%;
             background-color:#DEF1FD;
             border:1px solid black;
+        }
+        table{
+            width: 100%;
             text-align: center;
+            table-layout:auto;
+        }
+        td{
+            border-collapse: collapse;
+            color:black;
+        }
+        th{
+            color:white;
         }
     </style>
 </head>
@@ -159,15 +181,16 @@
     <br>
     <div class="sidenav">
         <div class="left-half">
+            <input type="image" src="/img/logo.png" height="140" width="150"/>
+
+            <br>
+
+
             <h3>
                 <b>
                     {{Auth::user()->name}}
                 </b>
             </h3>
-
-            <br>
-
-            <input type="image" src="/img/patient2.png" height="120" width="150"/>
         </div>
 
         <br>
@@ -184,7 +207,7 @@
         <br>
         <a href="{{ url('patientimmunization/') }}">Immunization</a>
         <br><br>
-        <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return to Dashboard</a>
+        <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Main Dashboard</a>
     </div>
 
     <div class="main">

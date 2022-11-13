@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-
 
     <!-- Internal CSS -->
     <style>
@@ -45,13 +45,14 @@
             text-align:center;
         }
 
-        body{
-            background-color:#EAFAFF;
-            background-size:contain;
+        body {
+            background-color: #EAFAFF;
+            background-size: contain;
             background-position-y: top;
             background-position-x: right;
-            background-repeat:round;
+            background-repeat: round;
             text-align: center;
+            font-family: 'Poppins'
         }
         p{
             text-align: justify;
@@ -124,9 +125,7 @@
             position:relative;
         }
         .topnav {
-            position: relative;
-            background-image: linear-gradient(to right, white, rgb(180, 230, 255));
-            overflow: hidden;
+            background-image: linear-gradient(to left, white, rgb(180, 230, 255));
             text-align: left;
         }
     </style>
@@ -135,19 +134,18 @@
 
 <div class="topnav" id="myTopnav">
     <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     </a>
 </div>
+
 
 
 <img src="/img/logo.png" width="180" height="180" class="logo">
 <div class="container">
     <!-- Validation Errors -->
     <x-auth-validation-errors class="mb-4" :errors="$errors" />
-    <h1>Reset Password</h1>
+    <h1><b>Reset Password</b></h1>
     <br>
     <h2><center>Please create a new password that you don’t use on any other site.</center></h2>
-    <br>
     <br>
     <form method="POST" action="{{ route('password.update') }}">
         @csrf
@@ -157,21 +155,21 @@
 
         <!-- Email Address -->
         <div>
-            <x-label for="email" :value="__('Email')" />
+            <b><span class="details">Email<br></span></b>
 
             <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-label for="password" :value="__('Password')" />
+            <b><span class="details">Password<br></span></b>
 
             <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
         </div>
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-label for="password_confirmation" :value="__('Confirm Password')" />
+            <b><span class="details">Confirm Password<br></span></b>
 
             <x-input id="password_confirmation" class="block mt-1 w-full"
                      type="password"

@@ -165,7 +165,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label><b>Subject</b></label>
-                                            <input type="text" class="form-control @error('subject') is-invalid @enderror" placeholder="Issue regarding ..." name="subject" required>
+                                            <input type="text" class="form-control @error('subject') is-invalid @enderror" placeholder="Issue regarding..." name="subject" required>
                                             @error('subject')
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-
 
     <!-- Internal CSS -->
     <style>
@@ -45,13 +45,14 @@
             text-align:center;
         }
 
-        body{
-            background-color:#EAFAFF;
-            background-size:contain;
+        body {
+            background-color: #EAFAFF;
+            background-size: contain;
             background-position-y: top;
             background-position-x: right;
-            background-repeat:round;
+            background-repeat: round;
             text-align: center;
+            font-family: 'Poppins'
         }
         p{
             text-align: justify;
@@ -124,9 +125,7 @@
             position:relative;
         }
         .topnav {
-            position: relative;
-            background-image: linear-gradient(to right, white, rgb(180, 230, 255));
-            overflow: hidden;
+            background-image: linear-gradient(to left, white, rgb(180, 230, 255));
             text-align: left;
         }
     </style>
@@ -135,7 +134,6 @@
 
 <div class="topnav" id="myTopnav">
     <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     </a>
 </div>
 
@@ -148,7 +146,7 @@
 
     <!-- Validation Errors -->
     <x-auth-validation-errors class="mb-4" :errors="$errors" />
-    <h1>Forgot Password?</h1>
+    <h1><b>Forgot Password?</b></h1>
     <br>
     <h2>Enter the email address you used when you joined us and we will send you instructions to reset your password.
     </h2>
@@ -158,7 +156,7 @@
 
         <!-- Email Address -->
         <div class="input-box">
-            <x-label for="email" :value="__('Email')" />
+            <b><span class="details">Email<br></span></b>
 
             <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
         </div>

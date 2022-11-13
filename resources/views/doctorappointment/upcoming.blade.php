@@ -4,6 +4,7 @@
     <title>MyDailyMD - Doctor Upcoming Appointments</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
@@ -23,10 +24,14 @@
             text-align:center;
         }
         body{
-            background-image: linear-gradient(to right, white, rgb(180, 230, 255));
-            margin:0;
-            padding:0;
-            text-align:center;
+            background-color:#EAFAFF;
+            background-size:contain;
+            background-position-y: top;
+            background-position-x: right;
+            background-repeat:round;
+            text-align: center;
+            font-family: 'Poppins'
+
         }
         p{
             font-size: medium;

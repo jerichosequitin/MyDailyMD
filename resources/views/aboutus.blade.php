@@ -81,13 +81,14 @@
     </style>
 </head>
 <body>
-<img src="./img/logo.png" width="180" height="180" class="logo">
 <div class="topnav" id="myTopNav">
     <a href="/">Home</a>
     <a href="aboutus" class="active">About Us</a>
     <a href="subscriptionplan">Subscription</a>
     <a href="contact-us">Contact Us</a>
 </div>
+<img src="./img/logo.png" width="180" height="180" class="logo">
+
 <br>
 <div class="container">
     <br>
@@ -102,7 +103,7 @@
 </center>
     <br>
 
-    <h3>What are you waiting for? <br><br> <i style="color: #028adf"><a href="mainsignuppage"><b>Join the growing family of MyDailyMD now!</b></a></i></h3>
+    <h3>What are you waiting for? <br><br> <i style="color: #028adf"><a href="userregistration"><b>Join the growing family of MyDailyMD now!</b></a></i></h3>
 
     <br>
 </div>
