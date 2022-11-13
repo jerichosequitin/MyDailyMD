@@ -103,7 +103,7 @@
 </center>
     <br>
 
-    <h3>What are you waiting for? <br><br> <i style="color: #028adf"><a href="mainsignuppage"><b>Join the growing family of MyDailyMD now!</b></a></i></h3>
+    <h3>What are you waiting for? <br><br> <i style="color: #028adf"><a href="userregistration"><b>Join the growing family of MyDailyMD now!</b></a></i></h3>
 
     <br>
 </div>

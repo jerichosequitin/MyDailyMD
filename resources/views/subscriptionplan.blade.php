@@ -107,57 +107,57 @@
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#DEF1FD">
-            <td style= text-align:justify>Create, retrieve, update health records</td>
+            <td style= text-align:justify>Create, Retrieve, Update Health Records</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#FFFFFF">
-            <td style= text-align:justify>Create an e-prescription</td>
+            <td style= text-align:justify>Create an E-Prescription</td>
             <td><img src="./img/redcross.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#DEF1FD">
-            <td style= text-align:justify>Schedule an appointment</td>
+            <td style= text-align:justify>Schedule an Appointment</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#DEF1FD">
-            <td style= text-align:justify>Access to medical history record</td>
+            <td style= text-align:justify>Access to Medical History Record</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#FFFFFF">
-            <td style= text-align:justify>Access to medications record</td>
+            <td style= text-align:justify>Access to Medications Record</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#DEF1FD">
-            <td style= text-align:justify>Access to allergies record</td>
+            <td style= text-align:justify>Access to Allergies Record</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#FFFFFF">
-            <td style= text-align:justify>Take track of progress notes</td>
+            <td style= text-align:justify>Take track of Progress Notes</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#DEF1FD">
-            <td style= text-align:justify>Access to immunization record</td>
+            <td style= text-align:justify>Access to Immunization Record</td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <td><img src="./img/greencheck.png" width="20" padding="10px" height="20" float:left></td>
             <th colspan='2'></th>
         </tr>
         <tr style="background-color:#FFFFFF">
             <td style= text-align:justify><b>Subscription price</b></td>
-            <td><b>Php 750.00 (one time payment)</b></td>
-            <td><b>Php 1,500.00 (monthly)</b></td>
+            <td><b>Php 750.00 (One-Time Payment)</b></td>
+            <td><b>Php 1,500.00 (Monthly Payment)</b></td>
             <th colspan='2'></th>
         </tr>
         </thead>

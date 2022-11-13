@@ -140,13 +140,9 @@
 {{--</div>--}}
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
+<h3>Gain access to features such as Health Records, E-Prescription,Appointments, and SMS Reminders.</h3>
 <div class="container">
     <div class="card-body">
-        @if(Session::has('success'))
-            <div class="alert alert-success">
-                {{ Session::get('success') }}
-            </div>
-        @endif
     <h1><b>Doctor Plan</b></h1>
     <br>
     <form action="{{ url('charge') }}" method="post">

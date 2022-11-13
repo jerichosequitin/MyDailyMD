@@ -35,7 +35,6 @@ class EnsureUserIsSubscribed
         {
             $isSubscribed = DB::table('payments')
                 ->where('user_id', '=', Auth::user()->id)
-                ->whereDate('created_at', '>=', Carbon::now()->subDays(30)->toDateString())
                 ->exists();
 
             if(!$isSubscribed)
