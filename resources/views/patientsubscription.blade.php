@@ -148,7 +148,7 @@
     <h1><b>Patient Plan</b></h1>
     <br>
     <form action="{{ url('charge') }}" method="post">
-        <h2>Amount to Pay: Php <b>750.00</b> (One-Time)</h2>
+        <h2>Amount to Pay: Php <b>750.00</b> <br><br>(One-Time)</h2>
         <br>
         <input type="text" name="amount" value="750.00" readonly required hidden/>
         {{ csrf_field() }}

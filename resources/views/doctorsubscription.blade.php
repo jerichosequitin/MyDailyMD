@@ -102,8 +102,8 @@
         .container {
             border-radius: 15px;
             padding: 20px;
-            width: 20%;
-            height: 30%;
+            width: 30%;
+            height: 15%;
             background-color:#DEF1FD;
             border:1px solid black;
         }
@@ -140,14 +140,15 @@
 {{--</div>--}}
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
-<h3>Gain access to features such as Health Records, E-Prescription,Appointments, and SMS Reminders.</h3>
-<br><br>
+<h3>Gain access to features such as Health Records, E-Prescription, Appointments, and SMS Reminders.</h3>
+<br>
 <div class="container">
     <div class="card-body">
+
     <h1><b>Doctor Plan</b></h1>
     <br>
     <form action="{{ url('charge') }}" method="post">
-        <h2>Amount to Pay: Php <b>1,500.00</b></h2>
+        <h2>Amount to Pay: Php <b>1,500.00</b> <br><br>(Monthly)</h2>
         <br>
         <input type="text" name="amount" value="1500.00" readonly required hidden/>
         {{ csrf_field() }}
