@@ -237,12 +237,12 @@ class PatientAppointmentController extends Controller
             }
             else
             {
-                return redirect()->back()->with('Error', 'Link Status with Patient is Inactive. Cannot access Health Records.');
+                return redirect()->back()->with('Error', 'Link Status with Doctor is Inactive. Cannot access Doctor Profile.');
             }
         }
         else
         {
-            return redirect()->back()->with('Error', 'You are not linked to the Patient. Cannot access Health Records.');
+            return redirect()->back()->with('Error', 'You are not linked to the Doctor. Cannot access Doctor Profile.');
         }
     }
 

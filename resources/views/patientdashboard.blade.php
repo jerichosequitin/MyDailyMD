@@ -82,9 +82,7 @@
             box-sizing: border-box;
         }
         body {
-            font-size: 1.25rem;
             font-family: 'Poppins';
-            line-height: 150%;
             text-align: center;
         }
 
@@ -149,9 +147,8 @@
         </a>
     </form>
 </div>
-
+<img src="./img/logo.png" width="180" height="180" class="logo">
 <div class="container">
-    <img src="./img/logo.png" width="180" height="180" class="logo">
 
     <br><br>
 

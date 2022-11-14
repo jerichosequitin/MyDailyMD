@@ -19,14 +19,28 @@ class VisitSubscriptionOnce
      */
     public function handle(Request $request, Closure $next)
     {
-        $isSubscribed = DB::table('payments')
-            ->where('user_id', '=', Auth::user()->id)
-            ->whereDate('created_at', '>=', Carbon::now()->subDays(30)->toDateString())
-            ->exists();
-
-        if($isSubscribed)
+        if($request->user()->type == 'doctor')
         {
-            return redirect()->back()->with('Error', 'User is already subscribed.');
+            $isSubscribed = DB::table('payments')
+                ->where('user_id', '=', Auth::user()->id)
+                ->whereDate('created_at', '>=', Carbon::now()->subDays(30)->toDateString())
+                ->exists();
+
+            if ($isSubscribed)
+            {
+                return redirect()->back()->with('Error', 'User is already subscribed.');
+            }
+        }
+        elseif($request->user()->type == 'patient')
+        {
+            $isSubscribed = DB::table('payments')
+                ->where('user_id', '=', Auth::user()->id)
+                ->exists();
+
+            if ($isSubscribed)
+            {
+                return redirect()->back()->with('Error', 'User is already subscribed.');
+            }
         }
 
         return $next($request);

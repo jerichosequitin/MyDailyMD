@@ -127,17 +127,17 @@
     </style>
 </head>
 <body>
-{{--<div class="topnav" id="myTopnav">--}}
-{{--    <form method="POST" action="{{ route('logout') }}">--}}
-{{--        @csrf--}}
-{{--        <a :href="route('logout')"--}}
-{{--           onclick="event.preventDefault();--}}
-{{--                     this.closest('form').submit();">--}}
-{{--            <i class="fa fa-sign-out" aria-hidden="true"></i>--}}
-{{--            {{ __('Log Out') }}--}}
-{{--        </a>--}}
-{{--    </form>--}}
-{{--</div>--}}
+<div class="topnav" id="myTopnav">
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <a :href="route('logout')"
+           onclick="event.preventDefault();
+                     this.closest('form').submit();">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            {{ __('Log Out') }}
+        </a>
+    </form>
+</div>
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
 <h3>Gain access to features such as Health Records, E-Prescription, Appointments, and SMS Reminders.</h3>

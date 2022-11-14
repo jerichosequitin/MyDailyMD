@@ -63,14 +63,12 @@
         }
 
         body{
-            background-color:#EAFAFF;
             background-size:contain;
             background-position-y: top;
             background-position-x: right;
             background-repeat:round;
             text-align: center;
             font-family: 'Poppins'
-
         }
         p{
             text-align: center;
@@ -84,7 +82,7 @@
             z-index: 1;
             top: 0;
             left: 0;
-            background-color: #0184DF;
+            background-color: #DEF1FD;
             overflow-x: hidden;
             padding-top: 20px;
         }
@@ -93,12 +91,12 @@
             padding: 6px 8px 6px 16px;
             text-decoration: none;
             font-size: 20px;
-            color: #EFFCFF;
+            color: #0184DF;
             display: block;
         }
 
         .sidenav a:hover {
-            color: #f1f1f1;
+            color: #359DD9;
         }
         .main {
             margin-left: 250px; /* Same as the width of the sidenav */
