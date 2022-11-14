@@ -106,7 +106,7 @@
 <br><br>
 
 <div class="container-fluid">
-    <h1>Good day, <b>{{ Auth::user()->name }}</b>!</h1>
+    <h1>Good day, Dr. <b>{{ Auth::user()->name }}</b>!</h1>
     <h2><i>Below is the list of your pending appointments</i></h2>
 
     <br>

@@ -16,7 +16,7 @@ class ContactController extends Controller {
             'name' => 'required',
             'email' => 'required|email',
             'subject' => 'required|max:40',
-            'phone_number' => 'required|numeric|digits:11',
+            'phone_number' => 'required|numeric|digits:10',
             'message' => 'required|max:150'
         ]);
 
