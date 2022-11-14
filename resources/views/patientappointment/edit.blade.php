@@ -18,10 +18,15 @@
             text-align: left;
             display: block;
         }
+        .container-fluid{
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            background-color: white;
+        }
         .content form .user-details{
-            display:inline;
+            display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-between;
             margin: 20px 0 12px 0;
         }
         form .user-details .input-box{
@@ -48,7 +53,6 @@
         .user-details .input-box input:valid{
             border-color: #9b59b6;
         }
-
         img{
             filter: brightness(100%);
             filter: contrast(100%);
@@ -66,18 +70,16 @@
         h3{
             font-size:20px;
             text-align:center;
-            color:#EFFCFF;
+            color:black;
         }
-
-        body{
-            background-color:#EAFAFF;
-            background-size:contain;
+        body {
+            background-image: url("./img/white-background.png");
+            background-size: contain;
             background-position-y: top;
             background-position-x: right;
-            background-repeat:round;
+            background-repeat: round;
             text-align: center;
             font-family: 'Poppins'
-
         }
         p{
             text-align: center;
@@ -91,7 +93,7 @@
             z-index: 1;
             top: 0;
             left: 0;
-            background-color: #0184DF;
+            background-color: #DEF1FD;
             overflow-x: hidden;
             padding-top: 20px;
         }
@@ -100,13 +102,14 @@
             padding: 6px 8px 6px 16px;
             text-decoration: none;
             font-size: 20px;
-            color: #EFFCFF;
+            color: #0184DF;
             display: block;
         }
 
         .sidenav a:hover {
-            color: #f1f1f1;
+            color: #359DD9;
         }
+
         .main {
             margin-left: 250px; /* Same as the width of the sidenav */
             font-size: 14px; /* Increased text to enable scrolling */
@@ -117,6 +120,7 @@
             .sidenav {padding-top: 15px;}
             .sidenav a {font-size: 18px;}
         }
+
 
         /* Style inputs with type="text", select elements and textareas */
         input[type=text], select, textarea {
@@ -149,11 +153,10 @@
         .container {
             border-radius: 15px;
             padding: 20px;
-            width: 50%;
-            height: 15%;
+            width: 100%;
+            height: 50%;
             background-color:#DEF1FD;
             border:1px solid black;
-            text-align: center;
         }
     </style>
 </head>
@@ -162,16 +165,18 @@
     <br>
     <div class="sidenav">
         <div class="left-half">
+            <input type="image" src="/img/logo.png" height="140" width="150"/>
+
+            <br>
+
             <h3>
                 <b>
                     {{Auth::user()->name}}
                 </b>
             </h3>
-
-            <br>
-
-            <input type="image" src="/img/patient2.png" height="120" width="150"/>
         </div>
+
+        <br>
 
         <br><br><br><br><br><br><br><br>
 

@@ -141,6 +141,7 @@
 
 <img src="./img/logo.png" width="180" height="180" class="logo">
 <h3>Gain access to features such as Health Records, E-Prescription,Appointments, and SMS Reminders.</h3>
+<br><br>
 <div class="container">
     <div class="card-body">
     <h1><b>Doctor Plan</b></h1>
