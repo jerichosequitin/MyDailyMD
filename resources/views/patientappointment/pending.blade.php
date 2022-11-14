@@ -128,7 +128,6 @@
             <th>Doctor Contact Number</th>
             <th>Appointment Date</th>
             <th>Appointment Time</th>
-            <th>Appointment Status</th>
             <th colspan="2" style="width: 10%"></th>
         </tr>
         @if(count($list) > 0)
@@ -139,7 +138,6 @@
                     <td>(+63) {{ Crypt::decryptString($app->contactNumber) }}</td>
                     <td>{{ date('F j, Y', strtotime($app->date)) }}</td>
                     <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
-                    <td>{{ $app->status }}</td>
                     <td><a href="{{ route('patientappointment.edit', $app->appointment_id) }}" class="btn btn-primary btn-sm">Edit</a></td>
                     <td>
                         <form action="{{ route('patientappointment.cancel', $app->appointment_id)}}" method="post" style="display: inline-block">
@@ -153,7 +151,7 @@
             @endforeach
         @else
             <tr style="background-color:whitesmoke">
-                <td colspan="7" class="text-center">You have no pending appointment requests.</td>
+                <td colspan="6" class="text-center">You have no pending appointment requests.</td>
             </tr>
         @endif
         </thead>

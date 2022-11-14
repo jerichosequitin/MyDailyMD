@@ -158,6 +158,18 @@
             background-color:#DEF1FD;
             border:1px solid black;
         }
+        table{
+            width: 100%;
+            text-align: center;
+            table-layout:auto;
+        }
+        td{
+            border-collapse: collapse;
+            color:black;
+        }
+        th{
+            color:white;
+        }
     </style>
 </head>
 <body>

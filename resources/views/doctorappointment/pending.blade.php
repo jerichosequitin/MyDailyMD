@@ -138,8 +138,7 @@
             <th>Gender</th>
             <th>Appointment Date</th>
             <th>Appointment Time</th>
-            <th>Appointment Status</th>
-            <th colspan="2">Mark As</th>
+            <th colspan="2">Action</th>
         </tr>
         @if(count($list) > 0)
             @foreach($list as $app)
@@ -150,24 +149,23 @@
                     <td>{{ $app->sex }}</td>
                     <td>{{ date('F j, Y', strtotime($app->date)) }}</td>
                     <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
-                    <td>{{ $app->status }}</td>
                     <td>
                         <form action="{{ route('doctorappointment.declined', $app->appointment_id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('PATCH')
                             <input type="text" name="status" value="Declined" required readonly hidden>
-                            <button class="btn btn-danger btn-sm" type="submit">Declined</button>
+                            <button class="btn btn-danger btn-sm" type="submit">Decline</button>
                         </form>
                     </td>
                     <td>
-                        <a href="#edit{{$app->id}}" data-bs-toggle="modal" class="btn btn-success btn-sm"> Accepted</a>
+                        <a href="#edit{{$app->id}}" data-bs-toggle="modal" class="btn btn-success btn-sm"> Accept</a>
                         @include('doctorappointment.accepted')
                     </td>
                 </tr>
             @endforeach
         @else
             <tr style="background-color:whitesmoke">
-                <td colspan="8" class="text-center">You have no pending appointment requests.</td>
+                <td colspan="7" class="text-center">You have no pending appointment requests.</td>
             </tr>
         @endif
         </thead>

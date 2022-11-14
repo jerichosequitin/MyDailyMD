@@ -123,7 +123,6 @@
     <table class="table">
         <thead>
         <tr style="background-color:#18A0FB;">
-            <th>Appointment ID</th>
             <th>Doctor Name</th>
             <th>Specialization</th>
             <th>Email</th>
@@ -135,7 +134,6 @@
         @if(count($list) > 0)
             @foreach($list as $app)
                 <tr style="background-color:whitesmoke">
-                    <td>{{ $app->appointment_id }}</td>
                     <td>{{ Crypt::decryptString($app->name) }}</td>
                     <td>{{ $app->specialization }}</td>
                     <td>{{ $app->email }}</td>
@@ -147,7 +145,7 @@
             @endforeach
         @else
         <tr style="background-color:whitesmoke">
-            <td colspan="8" class="text-center">You have no appointment history.</td>
+            <td colspan="7" class="text-center">You have no appointment history.</td>
         </tr>
         @endif
         </thead>

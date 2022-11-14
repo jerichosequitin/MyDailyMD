@@ -123,7 +123,6 @@
     <table class="table">
         <thead>
         <tr style="background-color:#18A0FB;">
-            <th>Appointment ID</th>
             <th>Patient Name</th>
             <th>Email</th>
             <th>Mobile Number</th>
@@ -135,11 +134,10 @@
         @if(count($list) > 0)
             @foreach($list as $app)
                 <tr style="background-color:whitesmoke">
-                    <td>{{ $app->appointment_id }}</td>
                     <td>{{ Crypt::decryptString($app->name) }}</td>
                     <td>{{ $app->email }}</td>
-                    <td>{{ $app->sex }}</td>
                     <td>(+63) {{ Crypt::decryptString($app->mobileNumber) }}</td>
+                    <td>{{ $app->sex }}</td>
                     <td>{{ date('F j, Y', strtotime($app->date)) }}</td>
                     <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
                     <td>{{ $app->status }}</td>
@@ -147,7 +145,7 @@
             @endforeach
         @else
             <tr style="background-color:whitesmoke">
-                <td colspan="8" class="text-center">You have no appointment history.</td>
+                <td colspan="7" class="text-center">You have no appointment history.</td>
             </tr>
         @endif
         </thead>

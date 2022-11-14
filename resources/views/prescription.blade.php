@@ -22,7 +22,6 @@
     img{
         filter: brightness(100%);
         filter: contrast(100%);
-        filter: drop-shadow(1px 1px 1px gray);
         align-items: center;
     }
     h1{
@@ -244,7 +243,7 @@
             <input type="text" id="clinicAddress" value="{{ Auth::user()->doctor_profile->clinicAddress }}"name="clinicAddress" readonly required>
 
             <b><span class="details" >Date:</span></b>
-            <input type="date" id="clinicDate" name="clinicDate" required>
+            <input type="text" id="clinicDate" name="clinicDate" value="{{ date('F j, Y', strtotime(Carbon::now()->toDateString())) }}" readonly required>
 
             <b><span class="details" >Patient Name:</span></b>
             <input type="text" id="patientName" name="patientName" required>
@@ -254,12 +253,13 @@
 
             <center>
                 <img src="{{ Auth::user()->doctor_profile->digitalSignature }}" width="150" height="100" class="signature">
+                <br>
+                <input type="text" id="doctorName" name="doctorName" value="{{ Auth::user()->name }}" style="text-align: center; width: 50%" readonly required>
+                <br>
+                <input type="text" id="prcNumber" name="prcNumber" value="{{ Auth::user()->doctor_profile->prcNumber }}" style="text-align: center; width: 50%" readonly required>
             </center>
-
-            <input type="text" id="doctorName" name="doctorName" value="{{ Auth::user()->name }}" readonly required>
-            <input type="text" id="prcNumber" name="prcNumber" value="{{ Auth::user()->doctor_profile->prcNumber }}" readonly required>
-
         </div>
+    <br>
         <center>
             <button id="printPageButton" type="button" class="btn btn-primary" onClick="window.print()">Print</button>
         </center>
