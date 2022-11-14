@@ -8,7 +8,7 @@ Here are the details:
 <br>
 <b>Email:</b> {{ $email }}
 <br>
-<b>Phone Number:</b> {{ $phone_number }}
+<b>Phone Number:</b> +63{{ $phone_number }}
 <br>
 <b>Subject:</b> {{ $subject }}
 <br>
