@@ -43,9 +43,31 @@ class DoctorManageHealthRecordsController extends Controller
             ['status', '!=', 'Pending']
         ])->exists();
 
+        $unattendedAppointment = Appointment::where([
+            ['doctor_user_id', '=', $request->doctor_user_id],
+            ['patient_user_id', '=', $request->patient_user_id],
+            ['status', '=', 'Accepted'],
+            ['date', '<', \Carbon\Carbon::now()->toDateString()],
+        ])->exists();
+
         if($existingAppointment)
         {
-            return redirect('/doctormanagehealthrecords')->with('Error', 'You have an upcoming appointment with the Patient. Cannot set Link Status to Inactive.');
+            if ($unattendedAppointment)
+            {
+                DB::table('doctor_patient')
+                    ->where('doctor_user_id', Auth::user()->id)
+                    ->where('patient_user_id', '=', $request->patient_user_id)
+                    ->update([
+                        'linkStatus' => 'Inactive',
+                        'updated_at' => \Carbon\Carbon::now()
+                    ]);
+
+                return redirect('/doctormanagehealthrecords')->with('Completed', 'Link Status with Patient set to Inactive. You can no longer access their Health Records.');
+            }
+            else
+            {
+                return redirect('/doctormanagehealthrecords')->with('Error', 'You have an upcoming appointment with the Patient. Cannot set Link Status to Inactive.');
+            }
         }
         else
         {
