@@ -30,6 +30,8 @@ class PatientAppointmentController extends Controller
             //Where Appointments Status is Accepted
             ->where('appointments.status', '=', 'Accepted')
 
+            ->where('appointments.date', '>=', now()->toDateString())
+
             ->select('*', 'users.id as doctor_user_id')
             ->orderBy("date", "ASC")
             ->orderBy("start", "ASC")
