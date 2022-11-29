@@ -129,6 +129,8 @@
         <div class="container">
             <center>
                 <div class="user-details">
+                    <input type="text" value="{{ Auth::user()->id }}" class="form-control" name="admin_user_id" required readonly hidden>
+                    <input type="text" value="{{ $doctorProfile->id }}" class="form-control" name="doctor_id" required readonly hidden>
                     <div class="input-box">
                         <span class="details">PRC Number</span>
                         <input type="text" value="{{ $doctorProfile->prcNumber }}" class="form-control" name="prcNumber" required disabled>

@@ -181,6 +181,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/adminpatientlist', 'App\Http\Controllers\AdminPatientListController@index')->name('patientlist.show');
         Route::get('/admindoctorlist/{doctorProfile}/verify', 'App\Http\Controllers\AdminDoctorListController@verify')->name('doctorlist.verify');
         Route::patch('/admindoctorlist/{doctorProfile}', 'App\Http\Controllers\AdminDoctorListController@update')->name('doctorlist.update');
+        Route::get('/admindoctorlist/logs', 'App\Http\Controllers\DoctorVerificationLogController@index')->name('doctorverification.logs');
     });
 
     //Create Profile can only be visited once

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - List of Doctors</title>
+    <title>MyDailyMD - Doctor Verification Logs</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -97,15 +97,12 @@
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
+    <a href="{{ url('admindoctorlist') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
 </div>
-<img src="./img/logo.png" width="180" height="180" class="logo">
-
-<br><br>
-
 <div class="container-fluid">
-    <h1>Doctors</h1>
-    <h2><i>Below is the list of Doctors registered to MyDailyMD</i></h2>
+    <br>
+
+    <h1>Doctor Verification Logs</h1>
 
     <br>
     @if(session()->get('Completed'))
@@ -116,41 +113,22 @@
     <table class="table">
         <thead>
         <tr style="background-color:#18A0FB;">
+            <th>Updated At</th>
             <th>Doctor ID</th>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Created At</th>
-            <th>Specialization</th>
-            <th>License Type</th>
-            <th>PRC Number</th>
-            <th>License Expiry Date</th>
-            <th>PRC Image</th>
-            <th>Account Status</th>
             <th>Action</th>
+            <th>By Admin</th>
         </tr>
-        @foreach($doc as $data)
+        @foreach($logs as $log)
             <tr style="background-color:whitesmoke">
-                <td>{{ $data->id }}</td>
-                <td>{{ Crypt::decryptString($data->name) }}</td>
-                <td>{{ $data->email }}</td>
-                <td>{{ date('F j, Y', strtotime($data->created_at)) }}</td>
-                <td>{{ $data->specialization }}</td>
-                <td>{{ $data->licenseType }}</td>
-                <td>{{ Crypt::decryptString($data->prcNumber) }}</td>
-                <td>{{ date('F j, Y', strtotime($data->licenseExpiryDate)) }}</td>
-                <td><img src="{{ Crypt::decryptString($data->prcImage) }}" width="100" height="50"></td>
-                <td>{{ $data->isVerified }}</td>
-                <td>
-                    <a href="{{ route('doctorlist.verify', $data->id) }}" class="btn btn-success btn-sm">Verify License</a>
-                </td>
+                <td>{{ $log->created_at }}</td>
+                <td>{{ $log->doctor_id }}</td>
+                <td>{{ $log->action }}</td>
+                <td>{{ Crypt::decryptString($log->name) }}</td>
             </tr>
         @endforeach
         </thead>
     </table>
-    {{$doc->links()}}
-    <a href="admindoctorlist/logs">
-        <button class="btn btn-primary">Logs</button>
-    </a>
+    {{$logs->links()}}
 </div>
 </body>
 </html>
