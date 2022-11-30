@@ -65,7 +65,6 @@ Route::post('charge', 'App\Http\Controllers\PaymentController@charge');
 Route::get('success', 'App\Http\Controllers\PaymentController@success');
 Route::get('error', 'App\Http\Controllers\PaymentController@error');
 
-
 //Auth route for Register & Login
 Route::group(['middleware' => ['auth', 'verified']], function () {
 
@@ -79,15 +78,15 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         });
     });
 
-    //Subscribe first then Complete Profile
+    //Complete Profile then Subscribe
     Route::group(['middleware' => ['profile','subscribed']], function () {
 
-        //DASHBOARD
+        //--DASHBOARD--
         Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name
         ('dashboard');
 
+        //--PATIENT--
         Route::group(['middleware' => ['patientaccess']], function () {
-            //PATIENT
             Route::get('/patientprofile/{user}', 'App\Http\Controllers\PatientProfileController@index')->name('patientprofile.show');
             Route::get('/patientprofile/{user}/edit', 'App\Http\Controllers\PatientProfileController@edit')->name('patientprofile.edit');
 
@@ -116,9 +115,14 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::patch('/patientappointment/{appointment}/update', 'App\Http\Controllers\PatientAppointmentController@update')->name('patientappointment.update');
         });
 
-        Route::group(['middleware' => ['doctoraccess']], function () {
+        //--DOCTOR--
+        //Can only update license when it expires
+        Route::group(['middleware' => ['doctoraccess', 'updatelicenseonce']], function () {
+            Route::get('doctorupdatelicense/{user}', 'App\Http\Controllers\DoctorProfileController@expiredLicense')->name('doctor.updatelicense');
+        });
+
+        Route::group(['middleware' => ['doctoraccess', 'validlicense']], function () {
             Route::group(['middleware' => ['doctorpendingmax']], function () {
-                //DOCTOR
                 Route::get('/prescription', 'App\Http\Controllers\PrescriptionController@index')->name('prescription.show');
 
                 Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');
