@@ -112,30 +112,33 @@ class DoctorAppointmentController extends Controller
 
     public function accepted(Request $request, $id)
     {
-        $linkExists = DB::table('doctor_patient')
-            ->where('doctor_user_id', $request->doctor_user_id)
-            ->where('patient_user_id', '=', $request->patient_user_id)->exists();
-
-        $linkExistsInactive = DB::table('doctor_patient')
-            ->where('doctor_user_id', $request->doctor_user_id)
-            ->where('patient_user_id', '=', $request->patient_user_id)
-            ->where('linkStatus', '=', 'Inactive')->exists();
-
         $dateUnavailable = Appointment::where('doctor_user_id', Auth::user()->id)
             ->where('status', '=', 'Accepted')
             ->where('date', '=', $request->date)
             ->where('start', '<=', $request->end)
-            ->where('end', '>=', $request->start)->exists();
+            ->where('end', '>=', $request->start)
+            ->exists();
 
-        if($linkExists)
+        $linkExists = DB::table('doctor_patient')
+            ->where('doctor_user_id', $request->doctor_user_id)
+            ->where('patient_user_id', '=', $request->patient_user_id)
+            ->exists();
+
+        $linkInactive = DB::table('doctor_patient')
+            ->where('doctor_user_id', $request->doctor_user_id)
+            ->where('patient_user_id', '=', $request->patient_user_id)
+            ->where('linkStatus', '=', 'Inactive')
+            ->exists();
+
+        if($dateUnavailable)
         {
-            if($linkExistsInactive)
+            return redirect('/doctorappointment/pending')->with('Error', 'You already have an appointment set for the chosen date.');
+        }
+        else
+        {
+            if($linkExists)
             {
-                if($dateUnavailable)
-                {
-                    return redirect('/doctorappointment/pending')->with('Error', 'You already have an appointment set for the chosen date.');
-                }
-                else
+                if($linkInactive)
                 {
                     $appointment = Appointment::findOrFail($id);
                     $appointment->status = $request->status;
@@ -155,13 +158,6 @@ class DoctorAppointmentController extends Controller
 
                     return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted. You have regained access to the Patients Health Records.');
                 }
-            }
-            else
-            {
-                if($dateUnavailable)
-                {
-                    return redirect('/doctorappointment/pending')->with('Error', 'You already have an appointment set for the chosen date.');
-                }
                 else
                 {
                     $appointment = Appointment::findOrFail($id);
@@ -174,13 +170,6 @@ class DoctorAppointmentController extends Controller
 
                     return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted.');
                 }
-            }
-        }
-        else
-        {
-            if($dateUnavailable)
-            {
-                return redirect('/doctorappointment/pending')->with('Error', 'You already have an appointment set for the chosen date.');
             }
             else
             {
@@ -205,7 +194,6 @@ class DoctorAppointmentController extends Controller
                 return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted. You now have access to the Patients Health Records.');
             }
         }
-
     }
 
     public function declined(Request $request, $id)
