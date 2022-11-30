@@ -13,16 +13,24 @@
                     <div class="container">
                         <center>
                             <div class="user-details">
+
+                                {{-- Appointments Table --}}
                                 <input type="text" name="id" value="{{$app->id}}" required readonly hidden>
                                 <input type="text" name="status" value="Accepted" required readonly hidden>
                                 <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required readonly hidden>
                                 <input type="text" name="patient_id" value="{{$app->patient_id}}" required readonly hidden>
                                 <input type="text" name="doctor_user_id" value="{{$app->doctor_user_id}}" required readonly hidden>
                                 <input type="text" name="doctor_id" value="{{$app->doctor_id}}" required readonly hidden>
+                                <input type="text" value="{{ $app->date }}" class="form-control" name="date" required readonly hidden>
+                                <input type="text" value="{{ $app->start }}" class="form-control" name="start" required readonly hidden>
+                                <input type="text" value="{{ $app->end }}" class="form-control" name="end"  required readonly hidden>
+
+                                {{-- Doctor_Patient Table --}}
                                 <input type="text" name="linkStatus" value="Active" required readonly hidden>
+
                                 <div class="input-box">
                                     <span class="details">Appointment Date</span>
-                                    <input type="text" value="{{ date('F j, Y', strtotime($app->date)) }}" class="form-control" name="date" disabled>
+                                    <input type="text" value="{{ date('F j, Y', strtotime($app->date)) }}" class="form-control" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Appointment Time</span>
