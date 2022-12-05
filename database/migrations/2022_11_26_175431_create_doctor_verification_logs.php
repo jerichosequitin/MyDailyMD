@@ -17,7 +17,8 @@ class CreateDoctorVerificationLogs extends Migration
             $table->id();
             $table->unsignedBigInteger('admin_user_id');
             $table->unsignedBigInteger('doctor_id');
-            $table->string('action')->nullable();
+            $table->string('action');
+            $table->string('reason')->nullable();
             $table->timestamps();
         });
     }

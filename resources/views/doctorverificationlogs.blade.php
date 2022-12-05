@@ -116,6 +116,7 @@
             <th>Updated At</th>
             <th>Doctor ID</th>
             <th>Action</th>
+            <th>Reason</th>
             <th>By Admin</th>
         </tr>
         @foreach($logs as $log)
@@ -123,6 +124,11 @@
                 <td>{{ $log->created_at }}</td>
                 <td>{{ $log->doctor_id }}</td>
                 <td>{{ $log->action }}</td>
+                @if($log->reason == '')
+                    <td>-</td>
+                @else
+                    <td>{{ $log->reason }}</td>
+                @endif
                 <td>{{ Crypt::decryptString($log->name) }}</td>
             </tr>
         @endforeach

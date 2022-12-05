@@ -6,6 +6,7 @@ use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EnsureCompleteProfile
 {
@@ -36,7 +37,13 @@ class EnsureCompleteProfile
             }
             elseif(Auth::user()->doctor_profile->isVerified == 'Disabled')
             {
-                return redirect()->route('doctorprofile.create', Auth::user()->id)->with('Error', 'Profile Verification failed. Please double check entered information then resubmit.');
+                $accountStatus = DB::table('doctor_verification_logs')
+                    ->where('doctor_id', '=', $request->user()->doctor_profile->id)
+                    ->where('action', '=', 'Set to Disabled')
+                    ->orderBy('created_at', 'DESC')
+                    ->first();
+
+                return redirect()->route('doctorprofile.create', Auth::user()->id)->with('Error', 'Profile Verification failed due to '.$accountStatus->reason.'. Please double check entered information then resubmit.');
             }
             elseif(Auth::user()->doctor_profile->isVerified == 'Change')
             {

@@ -123,6 +123,15 @@
 
     <br>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div><br />
+    @endif
     <form method="post" action="{{ route('doctorlist.update', $doctorProfile->id) }}">
         @csrf
         @method('PATCH')
@@ -148,14 +157,14 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Account Status</span>
-                        <select name="isVerified" value="{{$doctorProfile->isVerified}}" class="form-control"}} required>
+                        <select name="isVerified" value="{{$doctorProfile->isVerified}}" class="form-control" onchange="if (this.value=='Disabled'){this.form['reason'].style.visibility='visible'}else {this.form['reason'].style.visibility='hidden'};" required>
                             <option selected disabled hidden>{{$doctorProfile->isVerified }}</option>
                             <option value="Enabled">Enabled</option>
                             <option value="Disabled">Disabled</option>
                             <option value="Change">Change Request</option>
                         </select>
                     </div>
-                    <br>
+                    <input type="text" class="form-control" name="reason" placeholder="Reason" style="visibility:hidden;"/>
                 </div>
                 <button class="btn btn-primary">Save</button>
             </center>
