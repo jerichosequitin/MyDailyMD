@@ -119,15 +119,13 @@
         <thead>
         <tr style="background-color:#18A0FB;">
             <th>Name</th>
-            <th>Gender</th>
             <th>Specialization</th>
             <th>Working Hours</th>
-            <th></th>
+            <th>Action</th>
         </tr>
         @foreach($doc as $doctor)
             <tr style="background-color:whitesmoke">
                 <td>{{ Crypt::decryptString($doctor->name) }}</td>
-                <td>{{ $doctor->sex }}</td>
                 <td>{{ $doctor->specialization }}</td>
                 <td>{{ date('h:i A', strtotime($doctor->workingHoursStart)) }} - {{ date('h:i A', strtotime($doctor->workingHoursEnd)) }}</td>
                 <td>

@@ -126,7 +126,6 @@
             <th>Doctor Name</th>
             <th>Email</th>
             <th>Contact Number</th>
-            <th>Gender</th>
             <th colspan="2" style="width: 10%">Action</th>
         </tr>
         @if(count($list) > 0)
@@ -135,7 +134,6 @@
                     <td>{{ Crypt::decryptString($app->name) }}</td>
                     <td>{{ $app->email }}</td>
                     <td>(+63) {{ Crypt::decryptString($app->contactNumber) }}</td>
-                    <td>{{ $app->sex }}</td>
                     <td>
                         <a href="{{ url('patientappointment/linked/profile/'.$app->doctor_id) }}">
                             <button class="btn btn-primary btn-sm">View</button>

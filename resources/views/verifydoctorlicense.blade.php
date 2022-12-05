@@ -120,8 +120,9 @@
 <div class="container-fluid">
     <h1>Verify Doctor Profile</h1>
     <h2><i>Ensure that <b>PRC Number</b> and <b>License Expiry Date</b> matches what is in <b>PRC Image</b>.</i></h2>
+    For additional verification,
+    kindly access this link: <b><a href>https://online.prc.gov.ph/verification</a></b>
 
-    <br>
 
     <form method="post" action="{{ route('doctorlist.update', $doctorProfile->id) }}">
         @csrf

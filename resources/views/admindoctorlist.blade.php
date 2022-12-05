@@ -102,11 +102,11 @@
 <img src="./img/logo.png" width="180" height="180" class="logo">
 
 <br><br>
-
 <div class="container-fluid">
     <h1>Doctors</h1>
-    <h2><i>Below is the list of Doctors registered to MyDailyMD</i></h2>
-
+    <h2><i>Below is the list of doctors registered to MyDailyMD.</i></h2>
+    For additional verification,
+    kindly access this link: <b><a href>https://online.prc.gov.ph/verification</a></b>
     <br>
     @if(session()->get('Completed'))
         <div class="alert alert-success">

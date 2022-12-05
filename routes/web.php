@@ -11,6 +11,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MedicalHistoryController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PrescriptionController;
+use App\Http\Controllers\MailController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,8 @@ use App\Http\Controllers\PrescriptionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('mail', [MailController::class, 'mailView'])->name('mailView');
+Route::post('send-mail', [MailController::class, 'mailSend'])->name('mailSend');
 
 Route::get('/contact-us', [ContactController::class, 'index']);
 Route::post('/contact-us', [ContactController::class, 'save'])->name('contact.store');
@@ -120,6 +124,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::group(['middleware' => ['doctorpendingmax']], function () {
                 //DOCTOR
                 Route::get('/prescription', 'App\Http\Controllers\PrescriptionController@index')->name('prescription.show');
+                Route::post('/prescription/save', 'App\Http\Controllers\PrescriptionController@save')->name('prescription.save');
+
 
                 Route::get('/doctorprofile/{user}', 'App\Http\Controllers\DoctorProfileController@index')->name('doctorprofile.show');
                 Route::get('/doctorprofile/{user}/edit', 'App\Http\Controllers\DoctorProfileController@edit')->name('doctorprofile.edit');
