@@ -230,13 +230,14 @@
                 <div class="container">
                     <center>
                         <div class="user-details">
-                            <div class="input-box">
-                                <span class="details">Vaccine</span>
-                                <input type="text" value="{{$immunization->vaccines }}" class="form-control" name="vaccines" required>
-                            </div>
+
                             <div class="input-box">
                                 <span class="details">Purpose</span>
                                 <input type="text" value="{{$immunization->purpose }}" class="form-control" name="purpose" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Vaccine</span>
+                                <input type="text" value="{{$immunization->vaccines }}" class="form-control" name="vaccines" required>
                             </div>
                             <div class="input-box">
                                 <span class="details">Date Taken</span>

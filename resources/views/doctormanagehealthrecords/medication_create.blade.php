@@ -219,7 +219,15 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Dosage</span>
-                                    <input type="text" class="form-control" name="dosage" required>
+                                    <select name="dosage" required>
+                                        <option selected disabled hidden></option>
+                                        <option value="1 tablet">1 tablet</option>
+                                        <option value="2 tablet">2 tablet</option>
+                                        <option value="1.25ml">1.25 ml</option>
+                                        <option value="1 ml">1 ml</option>
+                                        <option value="2 ml">2 ml</option>
+
+                                    </select>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Frequency</span>
