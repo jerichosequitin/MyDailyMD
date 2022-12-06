@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html>
+<head>
 <head>
     <title>MyDailyMD E-Prescription</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="navbar.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-</head>
 <style type="text/css">
     a{
         text-decoration: none;
@@ -221,21 +218,35 @@
             border: none !important;
             box-shadow: none !important;
             outline: none !important;
-            font-size: 18px;
+            font-size: 12px;
             text-align:center;
         }
         textarea{
             font-family: Arial;
             font-size: 10px;
         }
+        .topnav {
+            position: relative;
+            background-image: linear-gradient(to right, white, rgb(180, 230, 255));
+            overflow: hidden;
+            text-align: left;
+        }
     }
 </style>
+</head>
 <body>
+<div class="card-body">
+    @if(Session::has('success'))
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+    @endif
     <img src="./img/logo.png" width="130" height="130" class="logo">
         <h1>MyDailyMD E-Prescription</h1>
+        <form method="post" action="{{ route('prescription.save') }}">
         <div class="form-group">
             @csrf
-            @method('PATCH')
+            <input type="text" name="user_id" value="{{ Auth::user()->id}}" hidden>
             <b><span class="details">Clinic Name:</span></b>
             <input type="text" id="clinicName" value="{{ Auth::user()->doctor_profile->clinicName }}" name="clinicName" readonly required>
 
@@ -243,10 +254,10 @@
             <input type="text" id="clinicAddress" value="{{ Auth::user()->doctor_profile->clinicAddress }}"name="clinicAddress" readonly required>
 
             <b><span class="details" >Date:</span></b>
-            <input type="text" id="clinicDate" name="clinicDate" value="{{ date('F j, Y', strtotime(Carbon::now()->toDateString())) }}" readonly required>
+            <input type="text" name="date" value="{{ Carbon::now()->toDateString() }}" readonly required>
 
             <b><span class="details" >Patient Name:</span></b>
-            <input type="text" id="patientName" name="patientName" required>
+            <input type="text" name="name" required>
 
             <img src="./img/rx.png" width="50" height="50" class="rx"> <br>
             <textarea id="prescription" class="form-control" name="prescription" style="resize: none; height:100px";></textarea>
@@ -261,7 +272,11 @@
         </div>
     <br>
         <center>
-            <button id="printPageButton" type="button" class="btn btn-primary" onClick="window.print()">Print</button>
+            <button type="submit" id="printPageButton" class="btn btn-primary" onclick="window.print()">Save Record</button>
+
+            <a href="mail"><button id="printPageButton" type="button" class="btn btn-primary">Send to Email</button></a>
         </center>
+        </form>
+</div>
 </body>
 </html>
