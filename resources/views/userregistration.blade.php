@@ -133,7 +133,7 @@
         <div class="user-details">
             <div class="input-box">
                 <label for="role_id">Register as a: </label>
-                <select name="role_id" required>
+                <select name="role_id" id="role_id" required>
                     <option selected disabled hidden></option>
                     <option value="doctor">Medical Professional</option>
                     <option value="patient">Patient</option>
@@ -162,6 +162,16 @@
                        placeholder="Confirm Password"
                        name="password_confirmation" required />
             </div>
+            <div class="input-box">
+                <span class="details" style="display: none" id="prcLabel">PRC Number</span>
+                <input type="text"
+                       maxlength = "7"
+                       title="Format: XXXXXXX" class="form-control" placeholder="XXXXXXX" name="prcNumber" id="prcNumber" style="display: none">
+            </div>
+            <div class="input-box">
+                <span class="details" style="display: none" id="expiryDateLabel">License Expiry Date</span>
+                <input type="date" class="form-control" name="licenseExpiryDate" id="licenseExpiryDate" style="display: none">
+            </div>
         </div>
 
         <br>
@@ -179,6 +189,31 @@
     </form>
 </div>
 </div>
+<script>
+    document.getElementById('role_id').onchange = function() {
+
+        if(document.getElementById('role_id').value == 'doctor')
+        {
+            document.getElementById('prcLabel').style.display = 'block';
+            document.getElementById('prcNumber').style.display = 'inline';
+            document.getElementById('prcNumber').required = true;
+
+            document.getElementById('expiryDateLabel').style.display = 'block';
+            document.getElementById('licenseExpiryDate').style.display = 'inline';
+            document.getElementById('licenseExpiryDate').required = true;
+        }
+        else
+        {
+            document.getElementById('prcLabel').style.display = 'none';
+            document.getElementById('prcNumber').style.display = 'none';
+            document.getElementById('prcNumber').required = false;
+
+            document.getElementById('expiryDateLabel').style.display = 'none';
+            document.getElementById('licenseExpiryDate').style.display = 'none';
+            document.getElementById('licenseExpiryDate').required = false;
+        }
+    }
+</script>
 </body>
 </html>
 

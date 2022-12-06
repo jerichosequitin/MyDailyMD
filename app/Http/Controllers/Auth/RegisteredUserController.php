@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\DoctorProfile;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -52,6 +54,20 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        //For Doctors
+        if($request->role_id == 'doctor')
+        {
+            request()->validate([
+                'prcNumber'=>'required|unique:doctor_profiles|digits:7',
+                'licenseExpiryDate'=>'required|after:today',
+            ]);
+
+            $user->doctor_profile->prcNumber = $request->prcNumber;
+            $user->doctor_profile->licenseExpiryDate = $request->licenseExpiryDate;
+
+            $user->doctor_profile->save();
+        }
 
         return redirect(RouteServiceProvider::HOME);
     }
