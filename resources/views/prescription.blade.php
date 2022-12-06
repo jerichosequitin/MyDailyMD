@@ -214,6 +214,7 @@
             width: 50%;
         }
         input,
+        select,
         textarea {
             border: none !important;
             box-shadow: none !important;
@@ -246,7 +247,11 @@
         <form method="post" action="{{ route('prescription.save') }}">
         <div class="form-group">
             @csrf
-            <input type="text" name="user_id" value="{{ Auth::user()->id}}" hidden>
+            @foreach($patients as $pat)
+                <input type="text" name="doctor_user_id" value="{{ Auth::user()->id}}" required hidden>
+                <input type="text" name="patient_user_id" value="{{ $pat->patient_user_id }}" required hidden>
+                <input type="text" name="patient_id" value="{{ $pat->patient_id }}" required hidden>
+            @endforeach
             <b><span class="details">Clinic Name:</span></b>
             <input type="text" id="clinicName" value="{{ Auth::user()->doctor_profile->clinicName }}" name="clinicName" readonly required>
 
@@ -256,8 +261,14 @@
             <b><span class="details" >Date:</span></b>
             <input type="text" name="date" value="{{ Carbon::now()->toDateString() }}" readonly required>
 
+
             <b><span class="details" >Patient Name:</span></b>
-            <input type="text" name="name" required>
+            <select name="name" required>
+                <option selected disabled hidden></option>
+                @foreach($patients as $pat)
+                <option value="{{ Crypt::decryptString($pat->name) }}">{{ Crypt::decryptString($pat->name) }}</option>
+                @endforeach
+            </select>
 
             <img src="./img/rx.png" width="50" height="50" class="rx"> <br>
             <textarea id="prescription" class="form-control" name="prescription" style="resize: none; height:100px";></textarea>
