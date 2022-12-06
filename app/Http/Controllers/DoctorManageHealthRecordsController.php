@@ -62,6 +62,13 @@ class DoctorManageHealthRecordsController extends Controller
                         'updated_at' => \Carbon\Carbon::now()
                     ]);
 
+                DB::table('system_audit_trail')
+                    ->insert([
+                        'user_id' => Auth::user()->id,
+                        'action' => 'Set Link Status with Patient ID: '.$request->patient_id.' to Inactive',
+                        'created_at' => \Carbon\Carbon::now()
+                    ]);
+
                 return redirect('/doctormanagehealthrecords')->with('Completed', 'Link Status with Patient set to Inactive. You can no longer access their Health Records.');
             }
             else
@@ -77,6 +84,13 @@ class DoctorManageHealthRecordsController extends Controller
                 ->update([
                     'linkStatus' => 'Inactive',
                     'updated_at' => \Carbon\Carbon::now()
+                ]);
+
+            DB::table('system_audit_trail')
+                ->insert([
+                    'user_id' => Auth::user()->id,
+                    'action' => 'Set Link Status with Patient ID: '.$request->patient_id.' to Inactive',
+                    'created_at' => \Carbon\Carbon::now()
                 ]);
 
             return redirect('/doctormanagehealthrecords')->with('Completed', 'Link Status with Patient set to Inactive. You can no longer access their Health Records.');
@@ -219,18 +233,33 @@ class DoctorManageHealthRecordsController extends Controller
 
     public function medicationStore(Request $request)
     {
-        $storeData = $request->validate([
-            'user_id' => 'required',
-            'name'=>'required',
-            'dosage'=>'required',
-            'frequency' => 'required',
-            'physician'=>'required',
-            'startDate'=>'required',
-            'endDate'=>'required|after:startDate',
-            'purpose' => 'required',
-            'createdBy_user_id'=>'required',
-            'createdBy'=>'required',
-            'status'=>'required',
+         $request->validate([
+             'user_id' => 'required',
+             'name'=>'required',
+             'dosage'=>'required',
+             'measurement'=>'required',
+             'frequency' => 'required',
+             'physician'=>'required',
+             'startDate'=>'required',
+             'endDate'=>'required|after:startDate',
+             'purpose' => 'required',
+             'createdBy_user_id'=>'required',
+             'createdBy'=>'required',
+             'status'=>'required',
+        ]);
+
+        $storeData = ([
+            'user_id' => $request->user_id,
+            'name'=> $request->name,
+            'dosage'=> $request->dosage.''.$request->measurement,
+            'frequency' => $request->frequency,
+            'physician'=> $request->physician,
+            'startDate'=> $request->startDate,
+            'endDate'=> $request->endDate,
+            'purpose' => $request->purpose,
+            'createdBy_user_id'=> $request->createdBy_user_id,
+            'createdBy'=> $request->createdBy,
+            'status'=> $request->status,
         ]);
 
         $patientUserID = $request->user_id;
@@ -238,6 +267,14 @@ class DoctorManageHealthRecordsController extends Controller
             ->first();
 
         $medication = Medication::create($storeData);
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Create Medication for Patient ID: '.$request->patient_id,
+                'created_at' => \Carbon\Carbon::now()
+            ]);
+
         return redirect("/doctormanagehealthrecords/medication/".$patientProfile->id)->with('Completed', 'Medication successfully added');
     }
 
@@ -355,6 +392,13 @@ class DoctorManageHealthRecordsController extends Controller
         $patient = PatientProfile::where('user_id', $patientUserID)
             ->first();
 
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Update Medication ID: '.$id,
+                'created_at' => \Carbon\Carbon::now()
+            ]);
+
         return redirect("/doctormanagehealthrecords/medication/".$patient->id)->with('Completed', 'Medication successfully updated');
     }
 
@@ -375,6 +419,14 @@ class DoctorManageHealthRecordsController extends Controller
         $patientUserID = $medication->user_id;
         $patient = PatientProfile::where('user_id', $patientUserID)
             ->first();
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Archive Medication ID: '.$id,
+                'created_at' => \Carbon\Carbon::now()
+            ]);
+
         return redirect("/doctormanagehealthrecords/medication/".$patient->id)->with('Completed', 'Medication successfully deleted');
     }
 
@@ -463,6 +515,14 @@ class DoctorManageHealthRecordsController extends Controller
             ->first();
 
         $allergy = Allergy::create($storeData);
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Create Allergy for Patient ID: '.$request->patient_id,
+                'created_at' => \Carbon\Carbon::now()
+            ]);
+
         return redirect("/doctormanagehealthrecords/allergy/".$patientProfile->id)->with('Completed', 'Allergy successfully added');
     }
 
@@ -574,6 +634,13 @@ class DoctorManageHealthRecordsController extends Controller
         $patient = PatientProfile::where('user_id', $patientUserID)
             ->first();
 
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Update Allergy ID: '.$id,
+                'created_at' => \Carbon\Carbon::now()
+            ]);
+
         return redirect("/doctormanagehealthrecords/allergy/".$patient->id)->with('Completed', 'Allergy successfully updated');
     }
 
@@ -594,6 +661,14 @@ class DoctorManageHealthRecordsController extends Controller
         $patientUserID = $allergy->user_id;
         $patient = PatientProfile::where('user_id', $patientUserID)
             ->first();
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Archive Allergy ID: '.$id,
+                'created_at' => \Carbon\Carbon::now()
+            ]);
+
         return redirect("/doctormanagehealthrecords/allergy/".$patient->id)->with('Completed', 'Allergy successfully deleted');
     }
 
@@ -681,6 +756,14 @@ class DoctorManageHealthRecordsController extends Controller
             ->first();
 
         $progressNote = ProgressNote::create($storeData);
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Create Progress Note for Patient ID: '.$request->patient_id,
+                'created_at' => \Carbon\Carbon::now()
+            ]);
+
         return redirect("/doctormanagehealthrecords/progressnote/".$patientProfile->id)->with('Completed', 'Progress Note successfully added');
     }
 
@@ -790,6 +873,13 @@ class DoctorManageHealthRecordsController extends Controller
         $patient = PatientProfile::where('user_id', $patientUserID)
             ->first();
 
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Update Progress Note ID: '.$id,
+                'created_at' => \Carbon\Carbon::now()
+            ]);
+
         return redirect("/doctormanagehealthrecords/progressnote/".$patient->id)->with('Completed', 'Progress Note successfully updated');
     }
 
@@ -810,6 +900,13 @@ class DoctorManageHealthRecordsController extends Controller
         $patientUserID = $progressNote->user_id;
         $patient = PatientProfile::where('user_id', $patientUserID)
             ->first();
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Archive Progress Note ID: '.$id,
+                'created_at' => \Carbon\Carbon::now()
+            ]);
 
         return redirect("/doctormanagehealthrecords/progressnote/".$patient->id)->with('Completed', 'Progress Note successfully deleted');
     }

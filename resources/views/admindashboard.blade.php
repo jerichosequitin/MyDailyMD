@@ -103,6 +103,10 @@
     <a href="adminpatientlist">
         <button class="btn btn-primary">List of Patients</button>
     </a>
+    <br><br>
+    <a href="admin/audit">
+        <button class="btn btn-primary">Audit Trail</button>
+    </a>
 </center>
 </body>
 </html>

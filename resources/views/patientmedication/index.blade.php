@@ -270,6 +270,7 @@
                         <br>
                     </div>
                 </form>
+                <a href="{{ route('patientmedication.prescription') }}" class="btn btn-primary">Prescription History</a>
             </div>
         </div>
     </div>

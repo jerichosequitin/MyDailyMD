@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Omnipay\Omnipay;
 use App\Models\Payment;
 
@@ -96,6 +98,13 @@ class PaymentController extends Controller
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->payment_status = $arr_body['state'];
                 $payment->save();
+
+                DB::table('system_audit_trail')
+                    ->insert([
+                        'user_id' => Auth::user()->id,
+                        'action' => 'Pay Subscription',
+                        'created_at' => Carbon::now()
+                    ]);
 
                 return redirect('/dashboard')->with('success', "Payment is successful. Your transaction id is: ". $arr_body['id']);
             } else {

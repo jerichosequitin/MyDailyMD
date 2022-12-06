@@ -40,6 +40,13 @@ class AuthenticatedSessionController extends Controller
                 'last_login' => Carbon::now(),
         ]);
 
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Login',
+                'created_at' => Carbon::now()
+            ]);
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

@@ -145,6 +145,7 @@
                             @method('PATCH')
                             <input type="text" name="patient_user_id" value="{{Auth::user()->id}}" required readonly hidden>
                             <input type="text" name="doctor_user_id" value="{{$app->doctor_user_id}}" required readonly hidden>
+                            <input type="text" name="doctor_id" value="{{$app->doctor_id}}" required readonly hidden>
                             <input type="text" name="linkStatus" value="Inactive" required hidden>
                             <button class="btn btn-danger btn-sm" type="submit">Inactive</button>
                         </form>

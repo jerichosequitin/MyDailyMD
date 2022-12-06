@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DoctorProfile;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -68,6 +69,13 @@ class RegisteredUserController extends Controller
 
             $user->doctor_profile->save();
         }
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Register',
+                'created_at' => Carbon::now()
+            ]);
 
         return redirect(RouteServiceProvider::HOME);
     }

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MyDailyMD - Doctor Manage Health Records</title>
+    <title>MyDailyMD - System Audit Trail</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
@@ -24,12 +24,10 @@
             text-align:center;
         }
         body{
-            background-color:#EAFAFF;
-            background-size:contain;
-            background-position-y: top;
-            background-position-x: right;
-            background-repeat:round;
-            text-align: center;
+            background-image: linear-gradient(to right, white, rgb(180, 230, 255));
+            margin:0;
+            padding:0;
+            text-align:center;
             font-family: 'Poppins'
 
         }
@@ -99,15 +97,12 @@
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-    <a href="{{ url('dashboard') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
+    <a href="{{ url('admindoctorlist') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Return</a>
 </div>
-<img src="/img/logo.png" width="180" height="180" class="logo">
-
-<br><br>
-
 <div class="container-fluid">
-    <h1>Good day, <b>{{ Auth::user()->name }}</b>!</h1>
-    <h2><i>Below is the list of your Patients</i></h2>
+    <br>
+
+    <h1>System Audit Trail</h1>
 
     <br>
     @if(session()->get('Completed'))
@@ -115,57 +110,27 @@
             {{ session()->get('Completed') }}
         </div><br />
     @endif
-    @if(session()->get('Error'))
-        <div class="alert alert-danger">
-            {{ session()->get('Error') }}
-        </div><br />
-    @endif
     <table class="table">
         <thead>
         <tr style="background-color:#18A0FB;">
-            <th>Patient Name</th>
-            <th>Email</th>
-            <th>Mobile Number</th>
-            <th>Gender</th>
-            <th colspan="2" style="width: 10%">Action</th>
+            <th>Time</th>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Action</th>
         </tr>
-        @if(count($list) > 0)
-            @foreach($list as $app)
-                <tr style="background-color:whitesmoke">
-                    <td>{{ Crypt::decryptString($app->name) }}</td>
-                    <td>{{ $app->email }}</td>
-                    <td>(+63) {{ Crypt::decryptString($app->mobileNumber) }}</td>
-                    <td>{{ $app->sex }}</td>
-                    <td>
-                        {{--<form action="{{ route('managehealthrecords.profile', $app->patient_user_id)}}" style="display: inline-block">
-                            <button class="btn btn-warning btn-sm" type="submit">Edit</button>
-                        </form>--}}
-                        <a href="{{ url('doctormanagehealthrecords/profile/'.$app->patient_id) }}">
-                            <button class="btn btn-primary btn-sm">View</button>
-                        </a>
-                    </td>
-                    <td>
-                        <form action="{{ route('managehealthrecords.inactive', $app->patient_id)}}" method="post" style="display: inline-block">
-                            @csrf
-                            @method('PATCH')
-                            <input type="text" name="patient_user_id" value="{{$app->patient_user_id}}" required readonly hidden>
-                            <input type="text" name="patient_id" value="{{$app->patient_id}}" required readonly hidden>
-                            <input type="text" name="doctor_user_id" value="{{Auth::user()->id}}" required readonly hidden>
-                            <input type="text" name="linkStatus" value="Inactive" required hidden>
-                            <button class="btn btn-danger btn-sm" type="submit">Inactive</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        @else
+        @foreach($trail as $log)
             <tr style="background-color:whitesmoke">
-                <td colspan="6" class="text-center">You have no active patients at the moment.</td>
+                <td>{{ $log->created_at }}</td>
+                <td>{{ $log->user_id }}</td>
+                <td>{{ Crypt::decryptString($log->name) }}</td>
+                <td>{{ $log->type }}</td>
+                <td>{{ $log->action }}</td>
             </tr>
-        @endif
+        @endforeach
         </thead>
     </table>
-    {{$list->links()}}
-    <br>
+    {{$trail->links()}}
 </div>
 </body>
 </html>

@@ -156,6 +156,13 @@ class DoctorAppointmentController extends Controller
                             'updated_at' => \Carbon\Carbon::now()
                         ]);
 
+                    DB::table('system_audit_trail')
+                        ->insert([
+                            'user_id' => Auth::user()->id,
+                            'action' => 'Accept Appointment ID: '.$id.' Request from Patient ID: '.$request->patient_id.'. Link Set to Active',
+                            'created_at' => Carbon::now()
+                        ]);
+
                     return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted. You have regained access to the Patients Health Records.');
                 }
                 else
@@ -167,6 +174,13 @@ class DoctorAppointmentController extends Controller
                         'meetingLink' => ['required', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
                     ]);
                     $appointment->save();
+
+                    DB::table('system_audit_trail')
+                        ->insert([
+                            'user_id' => Auth::user()->id,
+                            'action' => 'Accept Appointment ID: '.$id.' Request from Patient ID: '.$request->patient_id,
+                            'created_at' => Carbon::now()
+                        ]);
 
                     return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted.');
                 }
@@ -191,6 +205,13 @@ class DoctorAppointmentController extends Controller
                         'created_at' => \Carbon\Carbon::now()
                     ]);
 
+                DB::table('system_audit_trail')
+                    ->insert([
+                        'user_id' => Auth::user()->id,
+                        'action' => 'Accept Appointment ID: '.$id.' Request from Patient ID: '.$request->patient_id.'. Link Created',
+                        'created_at' => Carbon::now()
+                    ]);
+
                 return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted. You now have access to the Patients Health Records.');
             }
         }
@@ -201,6 +222,14 @@ class DoctorAppointmentController extends Controller
         $appointment = Appointment::findOrFail($id);
         $appointment->status = $request->status;
         $appointment->save();
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Decline Appointment ID: '.$id.' Request from Patient ID: '.$appointment->patient_id,
+                'created_at' => Carbon::now()
+            ]);
+
         return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully declined.');
     }
 
@@ -209,6 +238,14 @@ class DoctorAppointmentController extends Controller
         $appointment = Appointment::findOrFail($id);
         $appointment->status = $request->status;
         $appointment->save();
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Set Appointment ID: '.$id.' Status to Ongoing',
+                'created_at' => Carbon::now()
+            ]);
+
         return redirect('/doctorappointment/list')->with('Completed', 'Appointment Status set to Ongoing successfully.');
     }
 
@@ -217,6 +254,14 @@ class DoctorAppointmentController extends Controller
         $appointment = Appointment::findOrFail($id);
         $appointment->status = $request->status;
         $appointment->save();
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Set Appointment ID: '.$id.' Status to Done',
+                'created_at' => Carbon::now()
+            ]);
+
         return redirect('/doctorappointment/list')->with('Completed', 'Appointment Status set to Done successfully.');
     }
 

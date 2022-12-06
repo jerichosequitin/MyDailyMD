@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Immunization;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ImmunizationController extends Controller
 {
@@ -31,6 +33,13 @@ class ImmunizationController extends Controller
             'dateTaken'=>'required|before:today',
         ]);
 
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Create Immunization',
+                'created_at' => Carbon::now()
+            ]);
+
         $immunization = Immunization::create($storeData);
         return redirect('/patientimmunization')->with('Completed', 'Immunization successfully added');
     }
@@ -56,6 +65,14 @@ class ImmunizationController extends Controller
         $immunization->purpose = $request->purpose;
         $immunization->dateTaken = $request->dateTaken;
         $immunization->save();
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Update Immunization ID: '.$id,
+                'created_at' => Carbon::now()
+            ]);
+
         return redirect("/patientimmunization")->with('Completed', 'Immunization successfully updated');
     }
 
@@ -72,6 +89,13 @@ class ImmunizationController extends Controller
         $archiveData = $request->validate([
             'status' => 'required',
         ]);
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Archive Immunization ID: '.$id,
+                'created_at' => Carbon::now()
+            ]);
 
         Immunization::whereId($id)->update($archiveData);
         return redirect("/patientimmunization")->with('Completed', 'Immunization successfully deleted');

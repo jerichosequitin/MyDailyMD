@@ -212,6 +212,7 @@
                         <div class="container">
                             <div class="user-details">
                                 <input type="text" class="form-control" name="user_id" value="{{$patientProfile->user_id}}" required readonly hidden>
+                                <input type="text" class="form-control" name="patient_id" value="{{$patientProfile->id}}" required readonly hidden>
                                 <input type="text" class="form-control" name="status" value="Active" required readonly hidden>
                                 <div class="input-box">
                                     <span class="details">Primary Diagnosis</span>

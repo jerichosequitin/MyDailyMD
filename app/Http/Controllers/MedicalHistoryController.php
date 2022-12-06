@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MedicalHistory;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -34,6 +35,13 @@ class MedicalHistoryController extends Controller
             'surgeryNotes'=>'required',
         ]);
 
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Create Medical History',
+                'created_at' => Carbon::now()
+            ]);
+
         $medicalHistory = MedicalHistory::create($storeData);
         return redirect('/patientmedicalhistory')->with('Completed', 'Medical History successfully added');
     }
@@ -61,6 +69,14 @@ class MedicalHistoryController extends Controller
         $medicalHistory->surgeryDate = $request->surgeryDate;
         $medicalHistory->surgeryNotes = $request->surgeryNotes;
         $medicalHistory->save();
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Update Medical History ID: '.$id,
+                'created_at' => Carbon::now()
+            ]);
+
         return redirect("/patientmedicalhistory")->with('Completed', 'Medical History successfully updated');
     }
 
@@ -77,6 +93,13 @@ class MedicalHistoryController extends Controller
         $archiveData = $request->validate([
             'status' => 'required',
         ]);
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Archive Medical History ID: '.$id,
+                'created_at' => Carbon::now()
+            ]);
 
         MedicalHistory::whereId($id)->update($archiveData);
         return redirect("/patientmedicalhistory")->with('Completed', 'Medical History successfully deleted');

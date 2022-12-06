@@ -123,7 +123,7 @@
 
 
         /* Style inputs with type="text", select elements and textareas */
-        input[type=text], select, textarea {
+        input[type=text], input[type=number], select, textarea {
             width: 100%; /* Full width */
             padding: 12px; /* Some padding */
             border: 1px solid #ccc; /* Gray border */
@@ -212,6 +212,7 @@
                         <div class="container">
                             <div class="user-details">
                                 <input type="text" class="form-control" name="user_id" value="{{$patientProfile->user_id}}" required readonly hidden>
+                                <input type="text" class="form-control" name="patient_id" value="{{$patientProfile->id}}" required readonly hidden>
                                 <input type="text" class="form-control" name="status" value="Active" required readonly hidden>
                                 <div class="input-box">
                                     <span class="details">Name</span>
@@ -219,14 +220,13 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Dosage</span>
-                                    <select name="dosage" required>
+                                    <input type="number" name="dosage" style="width: 60%; float: left" min="0" required>
+                                    <select name="measurement" style="width: 35%; float: right" required>
                                         <option selected disabled hidden></option>
-                                        <option value="1 tablet">1 tablet</option>
-                                        <option value="2 tablet">2 tablet</option>
-                                        <option value="1.25ml">1.25 ml</option>
-                                        <option value="1 ml">1 ml</option>
-                                        <option value="2 ml">2 ml</option>
-
+                                        <option value="g">gram (g)</option>
+                                        <option value="mg">milligram (mg)</option>
+                                        <option value="mcg">microgram (mcg)</option>
+                                        <option value="mL">milliliter (mL)</option>
                                     </select>
                                 </div>
                                 <div class="input-box">

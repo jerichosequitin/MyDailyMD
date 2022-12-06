@@ -86,13 +86,13 @@ class PatientAppointmentController extends Controller
         $doctorDateUnavailable = Appointment::where('doctor_id', $request->doctor_id)
             ->where('status', '=', 'Accepted')
             ->where('date', '=', $request->date)
-            ->where('start', '<=', $request->end)
+            ->where('start', '<=', Carbon::parse($request->start)->addHour()->toTimeString())
             ->where('end', '>=', $request->start)->exists();
 
         $patientDateUnavailable = Appointment::where('patient_id', $request->patient_id)
             ->where('status', '=', 'Accepted')
             ->where('date', '=', $request->date)
-            ->where('start', '<=', $request->end)
+            ->where('start', '<=', Carbon::parse($request->start)->addHour()->toTimeString())
             ->where('end', '>=', $request->start)->exists();
 
         if($appointment->status != 'Pending')
@@ -122,18 +122,30 @@ class PatientAppointmentController extends Controller
                 $doctorWorkingHoursStart = Carbon::parse($doctor->workingHoursStart);
                 $doctorWorkingHoursEnd = Carbon::parse($doctor->workingHoursEnd);
 
-                $updateData = request()->validate([
+                request()->validate([
                     'date' => 'required|after:7 days|before:'.$oneMonthFromNow,
                     'start' => 'required|after:'.$doctor->workingHoursStart,
-                    'end' => 'required|after:start|before:'.$doctor->workingHoursEnd,
+                    'end' => 'after:start|before:'.$doctor->workingHoursEnd,
                 ],
                 [
                     'date.after' => 'Date should be after 7 days.',
                     'date.before' => 'Date should be within a month from now.',
                     'start.after' => 'Appointment Start should be after '.$doctorWorkingHoursStart->format('h:i A'),
-                    'end.after' => 'Appointment End should be after Appointment Start.',
                     'end.before' => 'Appointment End should be before '.$doctorWorkingHoursEnd->format('h:i A'),
                 ]);
+
+                $updateData = ([
+                    'date' => $request->date,
+                    'start' => $request->start,
+                    'end' => Carbon::parse($request->start)->addHour()->toTimeString(),
+                ]);
+
+                DB::table('system_audit_trail')
+                    ->insert([
+                        'user_id' => Auth::user()->id,
+                        'action' => 'Update Appointment ID: '.$id,
+                        'created_at' => Carbon::now()
+                    ]);
 
                 Appointment::whereId($id)->update($updateData);
                 return redirect('/patientappointment/pending')->with('Completed', 'Appointment details successfully updated.');
@@ -146,6 +158,14 @@ class PatientAppointmentController extends Controller
         $appointment = Appointment::findOrFail($id);
         $appointment->status = $request->status;
         $appointment->save();
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Cancel Appointment ID: '.$id,
+                'created_at' => Carbon::now()
+            ]);
+
         return redirect('/patientappointment/pending')->with('Completed', 'Appointment successfully cancelled.');
     }
 
@@ -194,6 +214,13 @@ class PatientAppointmentController extends Controller
                         'updated_at' => \Carbon\Carbon::now()
                     ]);
 
+                DB::table('system_audit_trail')
+                    ->insert([
+                        'user_id' => Auth::user()->id,
+                        'action' => 'Set Link Status with Doctor ID: '.$request->doctor_id.' to Inactive',
+                        'created_at' => Carbon::now()
+                    ]);
+
                     return redirect('/patientappointment/linked')->with('Completed', 'Link Status with Doctor set to Inactive. Your Health Records are no longer accessible to them.');
             }
             else
@@ -209,6 +236,13 @@ class PatientAppointmentController extends Controller
                 ->update([
                     'linkStatus' => 'Inactive',
                     'updated_at' => \Carbon\Carbon::now()
+                ]);
+
+            DB::table('system_audit_trail')
+                ->insert([
+                    'user_id' => Auth::user()->id,
+                    'action' => 'Set Link Status with Doctor ID: '.$request->doctor_id.' to Inactive',
+                    'created_at' => Carbon::now()
                 ]);
 
             return redirect('/patientappointment/linked')->with('Completed', 'Link Status with Doctor set to Inactive. Your Health Records are no longer accessible to them.');
@@ -306,13 +340,13 @@ class PatientAppointmentController extends Controller
         $doctorDateUnavailable = Appointment::where('doctor_id', $request->doctor_id)
             ->where('status', '=', 'Accepted')
             ->where('date', '=', $request->date)
-            ->where('start', '<=', $request->end)
+            ->where('start', '<=', Carbon::parse($request->start)->addHour()->toTimeString())
             ->where('end', '>=', $request->start)->exists();
 
         $patientDateUnavailable = Appointment::where('patient_id', $request->patient_id)
             ->where('status', '=', 'Accepted')
             ->where('date', '=', $request->date)
-            ->where('start', '<=', $request->end)
+            ->where('start', '<=', Carbon::parse($request->start)->addHour()->toTimeString())
             ->where('end', '>=', $request->start)->exists();
 
         $patientOneRequest = Appointment::where([
@@ -358,7 +392,7 @@ class PatientAppointmentController extends Controller
             $doctorWorkingHoursStart = Carbon::parse($request->workingHoursStart);
             $doctorWorkingHoursEnd = Carbon::parse($request->workingHoursEnd);
 
-            $storeData = $request->validate([
+            $request->validate([
                 'patient_user_id' => 'required',
                 'patient_id' => 'required',
                 'patient_email' => 'required',
@@ -367,7 +401,7 @@ class PatientAppointmentController extends Controller
                 'doctor_email' => 'required',
                 'date' => 'required|after:7 days|before:'.$oneMonthFromNow,
                 'start' => 'required|after:'.$request->workingHoursStart,
-                'end' => 'required|after:start|before:'.$request->workingHoursEnd,
+                'end' => 'after:start|before:'.$request->workingHoursEnd,
                 'status' => 'required',
             ],
                 [
@@ -376,6 +410,26 @@ class PatientAppointmentController extends Controller
                     'start.after' => 'Appointment Start should be after '.$doctorWorkingHoursStart->format('h:i A'),
                     'end.after' => 'Appointment End should be after Appointment Start.',
                     'end.before' => 'Appointment End should be before '.$doctorWorkingHoursEnd->format('h:i A'),
+                ]);
+
+            $storeData = ([
+                'patient_user_id' => $request->patient_user_id,
+                'patient_id' => $request->patient_id,
+                'patient_email' => $request->patient_email,
+                'doctor_user_id' => $request->doctor_user_id,
+                'doctor_id' => $request->doctor_id,
+                'doctor_email' => $request->doctor_email,
+                'date' => $request->date,
+                'start' => $request->start,
+                'end' => Carbon::parse($request->start)->addHour()->toTimeString(),
+                'status' => $request->status,
+            ]);
+
+            DB::table('system_audit_trail')
+                ->insert([
+                    'user_id' => Auth::user()->id,
+                    'action' => 'Schedule Appointment with Doctor ID: '.$request->doctor_id,
+                    'created_at' => Carbon::now()
                 ]);
 
             $appointment = Appointment::create($storeData);

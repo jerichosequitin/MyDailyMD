@@ -99,6 +99,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::get('/patientmedicalhistory/{medicalHistory}/view', 'App\Http\Controllers\MedicalHistoryController@view')->name('patientmedicalhistory.view');
             Route::patch('/patientmedicalhistory/{medicalHistory}/archive', 'App\Http\Controllers\MedicalHistoryController@archive')->name('patientmedicalhistory.archive');
             Route::resource('patientmedication', MedicationController::class);
+            Route::get('/patientmedication/prescription/history', 'App\Http\Controllers\MedicationController@prescriptionHistory')->name('patientmedication.prescription');
             Route::resource('patientallergy', AllergyController::class);
             Route::resource('patientprogressnote', ProgressNoteController::class);
             Route::resource('patientimmunization', ImmunizationController::class);
@@ -192,6 +193,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/admindoctorlist/{doctorProfile}/verify', 'App\Http\Controllers\AdminDoctorListController@verify')->name('doctorlist.verify');
         Route::patch('/admindoctorlist/{doctorProfile}', 'App\Http\Controllers\AdminDoctorListController@update')->name('doctorlist.update');
         Route::get('/admindoctorlist/logs', 'App\Http\Controllers\DoctorVerificationLogController@index')->name('doctorverification.logs');
+        Route::get('/admin/audit', 'App\Http\Controllers\AdminAuditController@index')->name('admin.audit');
     });
 
     //Create Profile can only be visited once
