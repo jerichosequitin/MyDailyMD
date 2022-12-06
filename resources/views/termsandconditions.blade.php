@@ -77,6 +77,16 @@
 
             <br><br>
 
+            We practice the Data Minimization principle in the retention and disposal of your personal data. We only retain the Personal Data collected from you for as long as your account is active or otherwise for a limited period of time as long as we need it to fulfill the purposes for which we have initially collected it, unless otherwise required by law. We also retain and use information as necessary to comply with our legal obligations, resolve disputes, and enforce our agreements, in accordance with the statute of limitations as provided by law.
+
+
+
+            When disposing of your Personal Information, we take reasonable measures to ensure that it is done properly and is not accessible to the public.
+            <br><br>
+            <b>a.) Copies of electronic records are removed in the active database once THE USER IS NO LONGER ACTIVELY using MyDailyMD for five (5) years.</b>
+
+            <br><br>
+
             <b>PLEASE READ THIS AGREEMENT CAREFULLY. BY REGISTERING FOR, SUBSCRIBING, ACCESSING, BROWSING, AND/OR OTHERWISE USING THE MYDAILYMD SERVICES, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREED TO BE BOUND BY THIS AGREEMENT. IF YOU DO NOT AGREE TO BE BOUND BY THIS AGREEMENT, YOU ARE NOT AUTHORIZED TO ACCESS, BROWSE OR OTHERWISE USE THE PLATFORM OR THE SERIOUSMD SERVICES.</b>
         </p>
     </center>
