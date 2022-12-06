@@ -153,7 +153,7 @@
         input[type=number] {
             -moz-appearance: textfield;
         }
-        select[name="sex"], select[name="specialization"], select[name="licenseType"]{
+        select[name="sex"], select[name="specialization"], select[name="licenseType"], select[name="countryCode"]{
             width:100%;
             display: block;
             margin-bottom: 5px;
@@ -218,13 +218,18 @@
                             </select>
                         </div>
                         <div class="input-box">
-                            <span class="details">Contact Number
-                                <i class="fa fa-exclamation-circle" style="color: red" aria-hidden="true" title="MyDailyMD uses the Philippine Mobile Number format (+63) 9XXXXXXXX."></i>
-                            </span>
-                            <input type="text" value="{{$user->doctor_profile->contactNumber }}"
-                                   placeholder="9XXXXXXXXX"
-                                   maxlength = "10"
-                                   title="Format: 9XXXXXXXXX" class="form-control" name="contactNumber" required>
+                                        <span class="details">Mobile Number
+                                            <i class="fa fa-exclamation-circle" style="color: red" aria-hidden="true" title="MyDailyMD uses the Philippine Mobile Number format (+63) 9XXXXXXXX."></i>
+                                        </span>
+                            <select name="countryCode" id="countryCode" style="width: 35%; float: left" required>
+                                <option selected disabled hidden>{{$user->doctor_profile->countryCode }}</option>
+                                <option value="+63">Philippines +63</option>
+                                <option value="+1">United States +1</option>
+                                <option value="+61">Australia +61</option>
+                                <option value="+92">Pakistan +92</option>
+                                <option value="+91">Iraq +964</option>
+                            </select>
+                            <input type="text" class="form-control" value="{{$user->doctor_profile->mobileNumber }}" style="width: 60%; float: right" name="contactNumber" id="contactNumber" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Specialization</span>
@@ -314,5 +319,30 @@
             <button class="btn btn-primary">Create Profile</button>
         </form>
     </div>
+    <script>
+        document.getElementById('countryCode').onchange = function() {
+
+            if(document.getElementById('countryCode').value == '+63')
+            {
+                document.getElementById("mobileNumber").maxLength = 10;
+            }
+            else if(document.getElementById('countryCode').value == '+1')
+            {
+                document.getElementById("mobileNumber").maxLength = 10;
+            }
+            else if(document.getElementById('countryCode').value == '+61')
+            {
+                document.getElementById("mobileNumber").maxLength = 10;
+            }
+            else if(document.getElementById('countryCode').value == '+92')
+            {
+                document.getElementById("mobileNumber").maxLength = 10;
+            }
+            else if(document.getElementById('countryCode').value == '+91')
+            {
+                document.getElementById("mobileNumber").maxLength = 10;
+            }
+        }
+    </script>
 </body>
 </html>

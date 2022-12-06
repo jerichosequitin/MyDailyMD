@@ -137,7 +137,7 @@
                 <tr style="background-color:whitesmoke">
                     <td>{{ Crypt::decryptString($app->name) }}</td>
                     <td>{{ $app->email }}</td>
-                    <td>(+63) {{ Crypt::decryptString($app->mobileNumber) }}</td>
+                    <td>{{ Crypt::decryptString($app->countryCode) }}{{ Crypt::decryptString($app->mobileNumber) }}</td>
                     <td>{{ $app->sex }}</td>
                     <td>{{ date('h:i A', strtotime($app->start)) }} to {{ date('h:i A', strtotime($app->end)) }}</td>
                     <td>{{ $app->status }}</td>

@@ -22,6 +22,7 @@ class CreatePatientProfilesTable extends Migration
             $table->text('address')->nullable();
             $table->text('city')->nullable();
             $table->text('postalCode')->nullable();
+            $table->text('countryCode')->nullable();
             $table->text('mobileNumber')->nullable();
             $table->text('landlineNumber')->nullable();
             $table->text('emergencyContact')->nullable();

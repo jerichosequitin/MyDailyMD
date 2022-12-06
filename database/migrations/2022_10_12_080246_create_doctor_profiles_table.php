@@ -18,6 +18,7 @@ class CreateDoctorProfilesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->date('birthdate')->nullable();
             $table->string('sex')->nullable();
+            $table->text('countryCode')->nullable();
             $table->text('contactNumber')->nullable();
             $table->string('specialization')->nullable();
             $table->time('workingHoursStart')->nullable();

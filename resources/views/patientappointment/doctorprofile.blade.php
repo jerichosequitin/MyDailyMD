@@ -223,7 +223,7 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Contact Number</span>
-                                    <input type="text" value="(+63) {{$doctorProfile->contactNumber }}" class="form-control" name="contactNumber" disabled>
+                                    <input type="text" value="{{$doctorProfile->countryCode }}{{$doctorProfile->contactNumber }}" class="form-control" name="contactNumber" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Clinic Name</span>
@@ -235,7 +235,7 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Clinic Mobile Number</span>
-                                    <input type="text" value="(+63) {{$doctorProfile->clinicMobileNumber }}" class="form-control" name="clinicMobileNumber" disabled>
+                                    <input type="text" value="{{$doctorProfile->countryCode }}{{$doctorProfile->clinicMobileNumber }}" class="form-control" name="clinicMobileNumber" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Clinic Telephone Number</span>

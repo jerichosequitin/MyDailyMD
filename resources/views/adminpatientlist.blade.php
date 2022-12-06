@@ -91,7 +91,7 @@
             <tr style="background-color:whitesmoke">
                 <td>{{ Crypt::decryptString($data->name) }}</td>
                 <td>{{ $data->email }}</td>
-                <td>(+63) {{ Crypt::decryptString($data->mobileNumber) }}</td>
+                <td>{{ Crypt::decryptString($data->countryCode) }}{{ Crypt::decryptString($data->mobileNumber) }}</td>
                 <td>{{ date('F j, Y', strtotime($data->created_at)) }}</td>
         </tr>
         @endforeach

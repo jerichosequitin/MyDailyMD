@@ -133,7 +133,7 @@
                 <tr style="background-color:whitesmoke">
                     <td>{{ Crypt::decryptString($app->name) }}</td>
                     <td>{{ $app->email }}</td>
-                    <td>(+63) {{ Crypt::decryptString($app->contactNumber) }}</td>
+                    <td>{{ Crypt::decryptString($app->countryCode) }}{{ Crypt::decryptString($app->contactNumber) }}</td>
                     <td>
                         <a href="{{ url('patientappointment/linked/profile/'.$app->doctor_id) }}">
                             <button class="btn btn-primary btn-sm">View</button>

@@ -134,7 +134,7 @@
                 <tr style="background-color:whitesmoke">
                     <td>{{ Crypt::decryptString($app->name) }}</td>
                     <td>{{ $app->email }}</td>
-                    <td>(+63) {{ Crypt::decryptString($app->mobileNumber) }}</td>
+                    <td>{{ Crypt::decryptString($app->countryCode) }}{{ Crypt::decryptString($app->mobileNumber) }}</td>
                     <td>{{ $app->sex }}</td>
                     <td>
                         {{--<form action="{{ route('managehealthrecords.profile', $app->patient_user_id)}}" style="display: inline-block">

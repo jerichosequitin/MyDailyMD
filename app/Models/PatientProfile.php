@@ -13,6 +13,7 @@ class PatientProfile extends Model
         'address' => 'encrypted',
         'city' => 'encrypted',
         'postalCode' => 'encrypted',
+        'countryCode' => 'encrypted',
         'mobileNumber' => 'encrypted',
         'landlineNumber' => 'encrypted',
         'emergencyContact' => 'encrypted',

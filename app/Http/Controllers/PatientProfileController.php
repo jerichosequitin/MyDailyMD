@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Rules\UniqueContactNumber;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class PatientProfileController extends Controller
 {
@@ -37,15 +41,19 @@ class PatientProfileController extends Controller
             'city'=>'',
             'postalCode'=>'digits:4',
             'maritalStatus' =>'',
-            'mobileNumber'=>'digits:10|starts_with:9',
+            'countryCode'=>'',
+            'mobileNumber'=>'digits:10',
             'landlineNumber'=>'nullable|digits:8',
             'emergencyContact'=>'',
-            'emergencyContactNumber'=>'digits:10|starts_with:9',
-        ],
-        [
-            'mobileNumber.starts_with' => 'Mobile Number must be the last 10 digits when following the format (+63) 9XXXXXXXXX.',
-            'emergencyContactNumber.starts_with' => 'Mobile Number must be the last 10 digits when following the format (+63) 9XXXXXXXXX.'
+            'emergencyContactNumber'=>'digits:10',
         ]);
+
+        DB::table('system_audit_trail')
+            ->insert([
+                'user_id' => Auth::user()->id,
+                'action' => 'Update Profile',
+                'created_at' => Carbon::now()
+            ]);
 
         $user->patient_profile->update($data);
         return redirect("/patientprofile/{$user->id}");

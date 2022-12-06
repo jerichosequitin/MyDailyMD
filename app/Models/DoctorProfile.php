@@ -9,6 +9,7 @@ class DoctorProfile extends Model
     protected $guarded = [];
 
     protected $casts = [
+        'countryCode' => 'encrypted',
         'contactNumber' => 'encrypted',
         'digitalSignature' => 'encrypted',
         'prcNumber' => 'encrypted',

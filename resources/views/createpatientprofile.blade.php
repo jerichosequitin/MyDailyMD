@@ -281,20 +281,30 @@
                                         <span class="details">Mobile Number
                                             <i class="fa fa-exclamation-circle" style="color: red" aria-hidden="true" title="MyDailyMD uses the Philippine Mobile Number format (+63) 9XXXXXXXX."></i>
                                         </span>
-                                        <input type="text"
-                                               placeholder="9XXXXXXXXX"
-                                               maxlength = "10"
-                                               title="Format: 9XXXXXXXXX" class="form-control" name="mobileNumber" required>
+                                        <select name="countryCode" id="countryCode" style="width: 35%; float: left" required>
+                                            <option selected disabled hidden></option>
+                                            <option value="+63">Philippines +63</option>
+                                            <option value="+1">United States +1</option>
+                                            <option value="+61">Australia +61</option>
+                                            <option value="+92">Pakistan +92</option>
+                                            <option value="+91">Iraq +964</option>
+                                        </select>
+                                        <input type="text" class="form-control" style="width: 60%; float: right" name="mobileNumber" id="mobileNumber" required>
                                     </div>
                                 @else
                                     <div class="input-box">
                                         <span class="details">Mobile Number
                                             <i class="fa fa-exclamation-circle" style="color: red" aria-hidden="true" title="MyDailyMD uses the Philippine Mobile Number format (+63) 9XXXXXXXX."></i>
                                         </span>
-                                        <input type="text" value="{{$user->patient_profile->mobileNumber }}"
-                                               placeholder="9XXXXXXXXX"
-                                               maxlength = "10"
-                                               title="Format: 9XXXXXXXXX" class="form-control" name="mobileNumber" required>
+                                        <select name="countryCode" id="countryCode" style="width: 35%; float: left" required>
+                                            <option selected disabled hidden>{{$user->patient_profile->countryCode }}</option>
+                                            <option value="+63">Philippines +63</option>
+                                            <option value="+1">United States +1</option>
+                                            <option value="+86">China +86</option>
+                                            <option value="+44">United Kingdom +44</option>
+                                            <option value="+62">Indonesia +62</option>
+                                        </select>
+                                        <input type="text" class="form-control" value="{{$user->patient_profile->mobileNumber }}" style="width: 60%; float: right" name="mobileNumber" id="mobileNumber" required>
                                     </div>
                                 @endif
                                 <div class="input-box">
@@ -339,5 +349,30 @@
         <br>
     </div>
 </div>
+<script>
+    document.getElementById('countryCode').onchange = function() {
+
+        if(document.getElementById('countryCode').value == '+63')
+        {
+            document.getElementById("mobileNumber").maxLength = 10;
+        }
+        else if(document.getElementById('countryCode').value == '+1')
+        {
+            document.getElementById("mobileNumber").maxLength = 10;
+        }
+        else if(document.getElementById('countryCode').value == '+61')
+        {
+            document.getElementById("mobileNumber").maxLength = 10;
+        }
+        else if(document.getElementById('countryCode').value == '+92')
+        {
+            document.getElementById("mobileNumber").maxLength = 10;
+        }
+        else if(document.getElementById('countryCode').value == '+91')
+        {
+            document.getElementById("mobileNumber").maxLength = 10;
+        }
+    }
+</script>
 </body>
 </html>

@@ -6,6 +6,8 @@ use App\Models\DoctorProfile;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DoctorProfileController extends Controller
 {
@@ -36,7 +38,8 @@ class DoctorProfileController extends Controller
             request()->validate([
                 'birthdate'=>'required|before:-18 years',
                 'sex'=>'required',
-                'contactNumber'=>'required|unique:doctor_profiles|digits:10|starts_with:9',
+                'countryCode'=>'',
+                'contactNumber'=>'required|unique:doctor_profiles|digits:10',
                 'specialization'=>'required',
                 'workingHoursStart'=>'required|',
                 'workingHoursEnd'=>'required|after:workingHoursStart',
@@ -47,7 +50,7 @@ class DoctorProfileController extends Controller
                 'prcImage' =>'required|image|mimes:jpeg,png,jpg,gif,svg',
                 'clinicName'=>'required',
                 'clinicAddress'=>'required',
-                'clinicMobileNumber'=>'required|unique:doctor_profiles|digits:10|starts_with:9',
+                'clinicMobileNumber'=>'required|unique:doctor_profiles|digits:10',
                 'clinicTelephoneNumber'=>'nullable|unique:doctor_profiles|digits:8',
             ],
                 [
@@ -66,6 +69,7 @@ class DoctorProfileController extends Controller
 
             $user->doctor_profile->birthdate = request()->birthdate;
             $user->doctor_profile->sex = request()->sex;
+            $user->doctor_profile->countryCode = request()->countryCode;
             $user->doctor_profile->contactNumber = request()->contactNumber;
             $user->doctor_profile->specialization = request()->specialization;
             $user->doctor_profile->workingHoursStart = request()->workingHoursStart;
@@ -83,6 +87,13 @@ class DoctorProfileController extends Controller
             $user->doctor_profile->isVerified = '';
 
             $user->doctor_profile->save();
+
+            DB::table('system_audit_trail')
+                ->insert([
+                    'user_id' => Auth::user()->id,
+                    'action' => 'Create Profile',
+                    'created_at' => Carbon::now()
+                ]);
         }
         elseif($user->doctor_profile->licenseExpiryDate < Carbon::now()->toDateString())
         {
@@ -107,7 +118,8 @@ class DoctorProfileController extends Controller
             $data = request()->validate([
                 'birthdate'=>'',
                 'sex'=>'',
-                'contactNumber'=>'unique:doctor_profiles|required|digits:10|starts_with:9',
+                'countryCode'=>'',
+                'contactNumber'=>'unique:doctor_profiles|required|digits:10',
                 'specialization'=>'',
                 'workingHoursStart'=>'required',
                 'workingHoursEnd'=>'required|after:workingHoursStart',
@@ -118,7 +130,7 @@ class DoctorProfileController extends Controller
                 'prcImage' =>'',
                 'clinicName'=>'',
                 'clinicAddress'=>'',
-                'clinicMobileNumber'=>'required|unique:doctor_profiles|digits:10|starts_with:9',
+                'clinicMobileNumber'=>'required|unique:doctor_profiles|digits:10',
                 'clinicTelephoneNumber'=>'nullable|unique:doctor_profiles|digits:8',
             ],
                 [
@@ -127,6 +139,7 @@ class DoctorProfileController extends Controller
                     'clinicMobileNumber.starts_with' => 'Contact Number must be the last 10 digits when following the format (+63) 9XXXXXXXXX.'
                 ]);
 
+            $user->doctor_profile->countryCode = request()->countryCode;
             $user->doctor_profile->contactNumber = request()->contactNumber;
             $user->doctor_profile->workingHoursStart = request()->workingHoursStart;
             $user->doctor_profile->workingHoursEnd = request()->workingHoursEnd;
@@ -134,6 +147,13 @@ class DoctorProfileController extends Controller
             $user->doctor_profile->clinicTelephoneNumber = request()->clinicTelephoneNumber;
             //$user->doctor_profile()->update($data);
             $user->doctor_profile->save();
+
+            DB::table('system_audit_trail')
+                ->insert([
+                    'user_id' => Auth::user()->id,
+                    'action' => 'Update Profile',
+                    'created_at' => Carbon::now()
+                ]);
         }
 
         return redirect("/doctorprofile/{$user->id}");
