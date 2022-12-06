@@ -71,5 +71,7 @@ class Kernel extends HttpKernel
         'doctorpendingmax' => \App\Http\Middleware\DoctorPendingMax::class,
         'subscribed' => \App\Http\Middleware\EnsureUserIsSubscribed::class,
         'subscribeonce' => \App\Http\Middleware\VisitSubscriptionOnce::class,
+        'validlicense' => \App\Http\Middleware\UpdateExpiredLicense::class,
+        'updatelicenseonce' => \App\Http\Middleware\VisitUpdateExpiredLicenseOnce::class,
     ];
 }

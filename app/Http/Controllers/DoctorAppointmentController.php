@@ -112,37 +112,64 @@ class DoctorAppointmentController extends Controller
 
     public function accepted(Request $request, $id)
     {
+        $dateUnavailable = Appointment::where('doctor_user_id', Auth::user()->id)
+            ->where('status', '=', 'Accepted')
+            ->where('date', '=', $request->date)
+            ->where('start', '<=', $request->end)
+            ->where('end', '>=', $request->start)
+            ->exists();
+
         $linkExists = DB::table('doctor_patient')
             ->where('doctor_user_id', $request->doctor_user_id)
-            ->where('patient_user_id', '=', $request->patient_user_id)->exists();
+            ->where('patient_user_id', '=', $request->patient_user_id)
+            ->exists();
 
-        $linkExistsInactive = DB::table('doctor_patient')
+        $linkInactive = DB::table('doctor_patient')
             ->where('doctor_user_id', $request->doctor_user_id)
             ->where('patient_user_id', '=', $request->patient_user_id)
-            ->where('linkStatus', '=', 'Inactive')->exists();
+            ->where('linkStatus', '=', 'Inactive')
+            ->exists();
 
-
-        if($linkExists)
+        if($dateUnavailable)
         {
-            if($linkExistsInactive)
+            return redirect('/doctorappointment/pending')->with('Error', 'You already have an appointment set for the chosen date.');
+        }
+        else
+        {
+            if($linkExists)
             {
-                $appointment = Appointment::findOrFail($id);
-                $appointment->status = $request->status;
-                $appointment->meetingLink = $request->meetingLink;
-                $request->validate([
-                    'meetingLink' => ['required', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
-                ]);
-                $appointment->save();
-
-                DB::table('doctor_patient')
-                    ->where('doctor_user_id', $request->doctor_user_id)
-                    ->where('patient_user_id', '=', $request->patient_user_id)
-                    ->update([
-                        'linkStatus' => 'Active',
-                        'updated_at' => \Carbon\Carbon::now()
+                if($linkInactive)
+                {
+                    $appointment = Appointment::findOrFail($id);
+                    $appointment->status = $request->status;
+                    $appointment->meetingLink = $request->meetingLink;
+                    $request->validate([
+                        'meetingLink' => ['required', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
                     ]);
+                    $appointment->save();
 
-                return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted. You have regained access to the Patients Health Records.');
+                    DB::table('doctor_patient')
+                        ->where('doctor_user_id', $request->doctor_user_id)
+                        ->where('patient_user_id', '=', $request->patient_user_id)
+                        ->update([
+                            'linkStatus' => 'Active',
+                            'updated_at' => \Carbon\Carbon::now()
+                        ]);
+
+                    return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted. You have regained access to the Patients Health Records.');
+                }
+                else
+                {
+                    $appointment = Appointment::findOrFail($id);
+                    $appointment->status = $request->status;
+                    $appointment->meetingLink = $request->meetingLink;
+                    $request->validate([
+                        'meetingLink' => ['required', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+                    ]);
+                    $appointment->save();
+
+                    return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted.');
+                }
             }
             else
             {
@@ -154,32 +181,19 @@ class DoctorAppointmentController extends Controller
                 ]);
                 $appointment->save();
 
-                return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted.');
+                DB::table('doctor_patient')
+                    ->insert([
+                        'doctor_user_id' => $request->doctor_user_id,
+                        'doctor_id' => $request->doctor_id,
+                        'patient_user_id' => $request->patient_user_id,
+                        'patient_id' => $request->patient_id,
+                        'linkStatus' => 'Active',
+                        'created_at' => \Carbon\Carbon::now()
+                    ]);
+
+                return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted. You now have access to the Patients Health Records.');
             }
         }
-        else
-        {
-            $appointment = Appointment::findOrFail($id);
-            $appointment->status = $request->status;
-            $appointment->meetingLink = $request->meetingLink;
-            $request->validate([
-                'meetingLink' => ['required', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
-            ]);
-            $appointment->save();
-
-            DB::table('doctor_patient')
-                ->insert([
-                    'doctor_user_id' => $request->doctor_user_id,
-                    'doctor_id' => $request->doctor_id,
-                    'patient_user_id' => $request->patient_user_id,
-                    'patient_id' => $request->patient_id,
-                    'linkStatus' => 'Active',
-                    'created_at' => \Carbon\Carbon::now()
-                ]);
-
-            return redirect('/doctorappointment/pending')->with('Completed', 'Appointment successfully accepted. You now have access to the Patients Health Records.');
-        }
-
     }
 
     public function declined(Request $request, $id)

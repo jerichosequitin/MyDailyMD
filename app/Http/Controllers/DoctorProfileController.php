@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DoctorProfile;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DoctorProfileController extends Controller
@@ -83,6 +84,24 @@ class DoctorProfileController extends Controller
 
             $user->doctor_profile->save();
         }
+        elseif($user->doctor_profile->licenseExpiryDate < Carbon::now()->toDateString())
+        {
+            request()->validate([
+                'licenseExpiryDate'=>'required|after:today',
+                'prcImage' =>'required|image|mimes:jpeg,png,jpg,gif,svg',
+            ]);
+
+            $prcImage_name = time().'.'. request()->prcImage->extension();
+            request()->prcImage->move(public_path('prc_image'), $prcImage_name);
+            $prcImage_path = "/prc_image/".$prcImage_name;
+
+            $user->doctor_profile->licenseExpiryDate = request()->licenseExpiryDate;
+            $user->doctor_profile->prcImage = $prcImage_path;
+
+            $user->doctor_profile->isVerified = '';
+
+            $user->doctor_profile->save();
+        }
         else
         {
             $data = request()->validate([
@@ -118,5 +137,11 @@ class DoctorProfileController extends Controller
         }
 
         return redirect("/doctorprofile/{$user->id}");
+    }
+
+    public function expiredLicense(User $user)
+    {
+        $this->authorize('update', $user->doctor_profile);
+        return view('doctorupdatelicense', compact('user'));
     }
 }

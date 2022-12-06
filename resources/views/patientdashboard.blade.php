@@ -131,6 +131,18 @@
             background-image: linear-gradient(to right, white, rgb(180, 230, 255));
             text-align: right;
         }
+        .notification {
+            display: inline-block;
+        }
+        .notification .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 5px 10px;
+            border-radius: 50%;
+            background-color: red;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -173,6 +185,9 @@
                 <a href="patientappointment/list">
                     <input type="image" src="./img/appointment.png" height="180" width="180"/>
                 </a>
+                <h3 class="notification" style="margin-bottom: 100px">
+                    <span class="badge">{{$patientPendingCount}}</span>
+                </h3>
                 <p><b>My Appointment</b></p>
             </div>
 
