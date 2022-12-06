@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class MailController extends Controller
 {
+    /**
+     * email send view.
+     *
+     * @return $this
+     */
     public function mailView()
     {
         return view('mailView');
@@ -45,6 +50,6 @@ class MailController extends Controller
             return redirect()->back()->with('success', $e->getMessage());
         }
 
-        return redirect()->back()->with('success', 'E-Prescription sent successfully.');
+        return redirect()->back()->with('success', 'Mail sent successfully.');
     }
 }
