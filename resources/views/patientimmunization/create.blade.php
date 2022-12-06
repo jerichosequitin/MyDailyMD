@@ -233,12 +233,12 @@
                             <input type="text" class="form-control" name="status" value="Active" required readonly hidden>
 
                             <div class="input-box">
-                                <span class="details">Vaccines</span>
-                                <input type="text" class="form-control" name="vaccines" required>
-                            </div>
-                            <div class="input-box">
                                 <span class="details">Purpose</span>
                                 <input type="text" class="form-control" name="purpose" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Vaccines</span>
+                                <input type="text" class="form-control" name="vaccines" required>
                             </div>
                             <div class="input-box">
                                 <span class="details">Date Taken</span>

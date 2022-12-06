@@ -235,14 +235,14 @@
                             <table class="table">
                                 <thead>
                                 <tr style="background-color:#18A0FB;">
-                                    <th>Vaccines</th>
                                     <th>Purpose</th>
+                                    <th>Vaccines</th>
                                     <th>Date Taken</th>
                                 </tr>
                                 @foreach($immunization as $im)
                                 <tr style="background-color:whitesmoke">
-                                    <td>{{ $im->vaccines }}</td>
                                     <td>{{ $im->purpose }}</td>
+                                    <td>{{ $im->vaccines }}</td>
                                     <td>{{ date('F j, Y', strtotime($im->dateTaken)) }}</td>
                                 </tr>
                                 @endforeach
